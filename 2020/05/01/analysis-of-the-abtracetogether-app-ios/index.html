@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+		<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
+	
+	<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
+	<!-- This site is optimized with the Yoast SEO plugin v19.4 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>Analysis of the ABTraceTogether app (iOS) - forensicmike1</title>
+	<meta name="description" content="A review of the newly launched ABTraceTogether app, an assessment of the forensic value of any artifacts and overall app privacy.">
+	<link rel="canonical" href="https://forensicmike1.com/2020/05/01/analysis-of-the-abtracetogether-app-ios/">
+	<meta property="og:locale" content="en_US">
+	<meta property="og:type" content="article">
+	<meta property="og:title" content="Analysis of the ABTraceTogether app (iOS) - forensicmike1">
+	<meta property="og:description" content="A review of the newly launched ABTraceTogether app, an assessment of the forensic value of any artifacts and overall app privacy.">
+	<meta property="og:url" content="https://forensicmike1.com/2020/05/01/analysis-of-the-abtracetogether-app-ios/">
+	<meta property="og:site_name" content="forensicmike1">
+	<meta property="article:published_time" content="2020-05-02T03:58:53+00:00">
+	<meta property="article:modified_time" content="2020-05-04T19:43:39+00:00">
+	<meta property="og:image" content="https://forensicmike1.com/wp-content/uploads/2020/05/banner.png">
+	<meta property="og:image:width" content="944">
+	<meta property="og:image:height" content="254">
+	<meta property="og:image:type" content="image/png">
+	<meta name="author" content="Mike Williamson">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:creator" content="@forensicmike1">
+	<meta name="twitter:label1" content="Written by">
+	<meta name="twitter:data1" content="Mike Williamson">
+	<meta name="twitter:label2" content="Est. reading time">
+	<meta name="twitter:data2" content="6 minutes">
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"httpswww.forensicmike1.com/#website","url":"httpswww.forensicmike1.com/","name":"forensicmike1","description":"#DFIR | #RE | #OtherGeekThings => Views expressed are my own.","potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"httpswww.forensicmike1.com/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"ImageObject","inLanguage":"en-US","@id":"https://forensicmike1.com/2020/05/01/analysis-of-the-abtracetogether-app-ios/#primaryimage","url":"httpswww.forensicmike1.com/wp-content/uploads/2020/05/banner.png","contentUrl":"httpswww.forensicmike1.com/wp-content/uploads/2020/05/banner.png","width":944,"height":254},{"@type":"WebPage","@id":"https://forensicmike1.com/2020/05/01/analysis-of-the-abtracetogether-app-ios/","url":"https://forensicmike1.com/2020/05/01/analysis-of-the-abtracetogether-app-ios/","name":"Analysis of the ABTraceTogether app (iOS) - forensicmike1","isPartOf":{"@id":"httpswww.forensicmike1.com/#website"},"primaryImageOfPage":{"@id":"https://forensicmike1.com/2020/05/01/analysis-of-the-abtracetogether-app-ios/#primaryimage"},"image":{"@id":"https://forensicmike1.com/2020/05/01/analysis-of-the-abtracetogether-app-ios/#primaryimage"},"thumbnailUrl":"httpswww.forensicmike1.com/wp-content/uploads/2020/05/banner.png","datePublished":"2020-05-02T03:58:53+00:00","dateModified":"2020-05-04T19:43:39+00:00","author":{"@id":"httpswww.forensicmike1.com/#/schema/person/9452bbb839546322f3705877143ce492"},"description":"A review of the newly launched ABTraceTogether app, an assessment of the forensic value of any artifacts and overall app privacy.","breadcrumb":{"@id":"https://forensicmike1.com/2020/05/01/analysis-of-the-abtracetogether-app-ios/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://forensicmike1.com/2020/05/01/analysis-of-the-abtracetogether-app-ios/"]}]},{"@type":"BreadcrumbList","@id":"https://forensicmike1.com/2020/05/01/analysis-of-the-abtracetogether-app-ios/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"httpswww.forensicmike1.com/"},{"@type":"ListItem","position":2,"name":"Analysis of the ABTraceTogether app (iOS)"}]},{"@type":"Person","@id":"httpswww.forensicmike1.com/#/schema/person/9452bbb839546322f3705877143ce492","name":"Mike Williamson","image":{"@type":"ImageObject","inLanguage":"en-US","@id":"httpswww.forensicmike1.com/#/schema/person/image/","url":"http://2.gravatar.com/avatar/540f47dd0fb41a572604e4bf8594c723?s=96&d=mm&r=g","contentUrl":"http://2.gravatar.com/avatar/540f47dd0fb41a572604e4bf8594c723?s=96&d=mm&r=g","caption":"Mike Williamson"},"sameAs":["https://3.88.229.156","https://twitter.com/forensicmike1"],"url":"httpswww.forensicmike1.com/author/forensicmike/"}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="dns-prefetch" href="//s.w.org">
+<link rel="alternate" type="application/rss+xml" title="forensicmike1 &raquo; Feed" href="/feed/">
+<link rel="alternate" type="application/rss+xml" title="forensicmike1 &raquo; Comments Feed" href="/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="forensicmike1 &raquo; Analysis of the ABTraceTogether app (iOS) Comments Feed" href="/2020/05/01/analysis-of-the-abtracetogether-app-ios/feed/">
+		<!-- This site uses the Google Analytics by MonsterInsights plugin v8.9.1 - Using Analytics tracking - https://www.monsterinsights.com/ -->
+							<script src="//www.googletagmanager.com/gtag/js?id=UA-139204696-1" data-cfasync="false" data-wpfc-render="false" type="text/javascript" async></script>
+			<script data-cfasync="false" data-wpfc-render="false" type="text/javascript">
+				var mi_version = '8.9.1';
+				var mi_track_user = true;
+				var mi_no_track_reason = '';
+				
+								var disableStrs = [
+															'ga-disable-UA-139204696-1',
+									];
+
+				/* Function to detect opted out users */
+				function __gtagTrackerIsOptedOut() {
+					for (var index = 0; index < disableStrs.length; index++) {
+						if (document.cookie.indexOf(disableStrs[index] + '=true') > -1) {
+							return true;
+						}
+					}
+
+					return false;
+				}
+
+				/* Disable tracking if the opt-out cookie exists. */
+				if (__gtagTrackerIsOptedOut()) {
+					for (var index = 0; index < disableStrs.length; index++) {
+						window[disableStrs[index]] = true;
+					}
+				}
+
+				/* Opt-out function */
+				function __gtagTrackerOptout() {
+					for (var index = 0; index < disableStrs.length; index++) {
+						document.cookie = disableStrs[index] + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
+						window[disableStrs[index]] = true;
+					}
+				}
+
+				if ('undefined' === typeof gaOptout) {
+					function gaOptout() {
+						__gtagTrackerOptout();
+					}
+				}
+								window.dataLayer = window.dataLayer || [];
+
+				window.MonsterInsightsDualTracker = {
+					helpers: {},
+					trackers: {},
+				};
+				if (mi_track_user) {
+					function __gtagDataLayer() {
+						dataLayer.push(arguments);
+					}
+
+					function __gtagTracker(type, name, parameters) {
+						if (!parameters) {
+							parameters = {};
+						}
+
+						if (parameters.send_to) {
+							__gtagDataLayer.apply(null, arguments);
+							return;
+						}
+
+						if (type === 'event') {
+							
+														parameters.send_to = monsterinsights_frontend.ua;
+							__gtagDataLayer(type, name, parameters);
+													} else {
+							__gtagDataLayer.apply(null, arguments);
+						}
+					}
+
+					__gtagTracker('js', new Date());
+					__gtagTracker('set', {
+						'developer_id.dZGIzZG': true,
+											});
+															__gtagTracker('config', 'UA-139204696-1', {"forceSSL":"true","link_attribution":"true"} );
+										window.gtag = __gtagTracker;										(function () {
+						/* https://developers.google.com/analytics/devguides/collection/analyticsjs/ */
+						/* ga and __gaTracker compatibility shim. */
+						var noopfn = function () {
+							return null;
+						};
+						var newtracker = function () {
+							return new Tracker();
+						};
+						var Tracker = function () {
+							return null;
+						};
+						var p = Tracker.prototype;
+						p.get = noopfn;
+						p.set = noopfn;
+						p.send = function () {
+							var args = Array.prototype.slice.call(arguments);
+							args.unshift('send');
+							__gaTracker.apply(null, args);
+						};
+						var __gaTracker = function () {
+							var len = arguments.length;
+							if (len === 0) {
+								return;
+							}
+							var f = arguments[len - 1];
+							if (typeof f !== 'object' || f === null || typeof f.hitCallback !== 'function') {
+								if ('send' === arguments[0]) {
+									var hitConverted, hitObject = false, action;
+									if ('event' === arguments[1]) {
+										if ('undefined' !== typeof arguments[3]) {
+											hitObject = {
+												'eventAction': arguments[3],
+												'eventCategory': arguments[2],
+												'eventLabel': arguments[4],
+												'value': arguments[5] ? arguments[5] : 1,
+											}
+										}
+									}
+									if ('pageview' === arguments[1]) {
+										if ('undefined' !== typeof arguments[2]) {
+											hitObject = {
+												'eventAction': 'page_view',
+												'page_path': arguments[2],
+											}
+										}
+									}
+									if (typeof arguments[2] === 'object') {
+										hitObject = arguments[2];
+									}
+									if (typeof arguments[5] === 'object') {
+										Object.assign(hitObject, arguments[5]);
+									}
+									if ('undefined' !== typeof arguments[1].hitType) {
+										hitObject = arguments[1];
+										if ('pageview' === hitObject.hitType) {
+											hitObject.eventAction = 'page_view';
+										}
+									}
+									if (hitObject) {
+										action = 'timing' === arguments[1].hitType ? 'timing_complete' : hitObject.eventAction;
+										hitConverted = mapArgs(hitObject);
+										__gtagTracker('event', action, hitConverted);
+									}
+								}
+								return;
+							}
+
+							function mapArgs(args) {
+								var arg, hit = {};
+								var gaMap = {
+									'eventCategory': 'event_category',
+									'eventAction': 'event_action',
+									'eventLabel': 'event_label',
+									'eventValue': 'event_value',
+									'nonInteraction': 'non_interaction',
+									'timingCategory': 'event_category',
+									'timingVar': 'name',
+									'timingValue': 'value',
+									'timingLabel': 'event_label',
+									'page': 'page_path',
+									'location': 'page_location',
+									'title': 'page_title',
+								};
+								for (arg in args) {
+																		if (!(!args.hasOwnProperty(arg) || !gaMap.hasOwnProperty(arg))) {
+										hit[gaMap[arg]] = args[arg];
+									} else {
+										hit[arg] = args[arg];
+									}
+								}
+								return hit;
+							}
+
+							try {
+								f.hitCallback();
+							} catch (ex) {
+							}
+						};
+						__gaTracker.create = newtracker;
+						__gaTracker.getByName = newtracker;
+						__gaTracker.getAll = function () {
+							return [];
+						};
+						__gaTracker.remove = noopfn;
+						__gaTracker.loaded = true;
+						window['__gaTracker'] = __gaTracker;
+					})();
+									} else {
+										console.log("");
+					(function () {
+						function __gtagTracker() {
+							return null;
+						}
+
+						window['__gtagTracker'] = __gtagTracker;
+						window['gtag'] = __gtagTracker;
+					})();
+									}
+			</script>
+				<!-- / Google Analytics by MonsterInsights -->
+				<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.1.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.1.0\/svg\/","svgExt":".svg","source":{"concatemoji":"httpswww.forensicmike1.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.8.6"}};
+			!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode;p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0);e=i.toDataURL();return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(!p||!p.fillText)return!1;switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([10084,65039,8205,55357,56613],[10084,65039,8203,55357,56613])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(n=t.source||{}).concatemoji?c(n.concatemoji):n.wpemoji&&n.twemoji&&(c(n.twemoji),c(n.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}</style>
+	<link rel="stylesheet" id="sgr-css" href="/wp-content/plugins/simple-google-recaptcha/sgr.css?ver=1664546415" type="text/css" media="all">
+<link rel="stylesheet" id="wp-block-library-css" href="/wp-includes/css/dist/block-library/style.min.css?ver=5.8.6" type="text/css" media="all">
+<link rel="stylesheet" id="power_magazine-google-fonts-css" href="https://fonts.googleapis.com/css?family=Montserrat%3A100%2C100i%2C200%2C200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i&#038;subset=latin%2Clatin-ext" type="text/css" media="all">
+<link rel="stylesheet" id="fontawesome-css" href="/wp-content/themes/power-magazine/assets/css/font-awesome.min.css?ver=5.8.6" type="text/css" media="all">
+<link rel="stylesheet" id="meanmenu-css" href="/wp-content/themes/power-magazine/assets/css/meanmenu.css?ver=5.8.6" type="text/css" media="all">
+<link rel="stylesheet" id="magnific-popup-css-css" href="/wp-content/themes/power-magazine/assets/css/magnific-popup.css?ver=5.8.6" type="text/css" media="all">
+<link rel="stylesheet" id="slick-css" href="/wp-content/themes/power-magazine/assets/css/slick.css?ver=5.8.6" type="text/css" media="all">
+<link rel="stylesheet" id="slick-theme-css" href="/wp-content/themes/power-magazine/assets/css/slick-theme.css?ver=5.8.6" type="text/css" media="all">
+<link rel="stylesheet" id="power-magazine-style-css" href="/wp-content/themes/power-magazine/style.css?ver=5.8.6" type="text/css" media="all">
+<style id="power-magazine-style-inline-css" type="text/css">.site-title a, .site-description {
+			color: #000000;			
+		}img.custom-logo{
+		max-width: 100px;
+
+	}.site-header .search-toggle, 
+					.site-header .search-section form input[type=submit],
+					button, 
+					input[type="button"], 
+					input[type="reset"], input[type="submit"], 
+					a.button{
+						background-color: #ee3232;
+	}button, 
+	input[type="button"], 
+	input[type="reset"],
+	input[type="submit"], 
+	a.button{
+		border-color: #ee3232;
+	} button:hover, 
+	input[type="button"]:hover, 
+	input[type="reset"]:hover, 
+	input[type="submit"]:hover, 
+	a.button:hover,
+	.entry-meta > div, 
+	.entry-meta > div a,
+	.author-info-wrap .author-info a{
+		color: #ee3232;
+	}</style>
+<link rel="stylesheet" id="power-magazine-responsive-css" href="/wp-content/themes/power-magazine/assets/css/responsive.css?ver=5.8.6" type="text/css" media="all">
+<link rel="stylesheet" id="enlighterjs-css" href="/wp-content/plugins/enlighter/cache/enlighterjs.min.css?ver=tebjVoJSSILa+Co" type="text/css" media="all">
+<script type="text/javascript" id="sgr-js-extra">
+/* <![CDATA[ */
+var sgr = {"sgr_site_key":"6Lfmn8cUAAAAAEFkKYR0a70gA7BMfcVqABBSYyDX"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/plugins/simple-google-recaptcha/sgr.js?ver=1664546415" id="sgr-js"></script>
+<script type="text/javascript" src="/wp-content/plugins/google-analytics-for-wordpress/assets/js/frontend-gtag.js?ver=8.9.1" id="monsterinsights-frontend-script-js"></script>
+<script data-cfasync="false" data-wpfc-render="false" type="text/javascript" id="monsterinsights-frontend-script-js-extra">/* <![CDATA[ */
+var monsterinsights_frontend = {"js_events_tracking":"true","download_extensions":"doc,pdf,ppt,zip,xls,docx,pptx,xlsx","inbound_paths":"[{\"path\":\"\\\/go\\\/\",\"label\":\"affiliate\"},{\"path\":\"\\\/recommend\\\/\",\"label\":\"affiliate\"}]","home_url":"httpswww.forensicmike1.com","hash_tracking":"false","ua":"UA-139204696-1","v4_id":""};/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js?ver=3.6.0" id="jquery-core-js"></script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2" id="jquery-migrate-js"></script>
+<link rel="https://api.w.org/" href="/wp-json/">
+<link rel="alternate" type="application/json" href="/wp-json/wp/v2/posts/495">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 5.8.6">
+<link rel="shortlink" href="/?p=495">
+<link rel="alternate" type="application/json+oembed" href="/wp-json/oembed/1.0/embed?url=http%3A%2F%2F%2F2020%2F05%2F01%2Fanalysis-of-the-abtracetogether-app-ios%2F">
+<link rel="alternate" type="text/xml+oembed" href="/wp-json/oembed/1.0/embed?url=http%3A%2F%2F%2F2020%2F05%2F01%2Fanalysis-of-the-abtracetogether-app-ios%2F&#038;format=xml">
+<link rel="pingback" href="/xmlrpc.php">
+</head>
+
+<body class="post-template-default single single-post postid-495 single-format-standard right-sidebar full-layout boxed-layout">
+		    <div id="page" class="site">
+    	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+    	<header id="masthead" class="site-header"><!-- header starting from here --><div class="hgroup-wrap">
+<!-- hrgroup wrapper -->        <div class="site-header-middle">
+            <div class="container ">
+                <div class="row ">
+                    <div class="custom-col-5">
+								<section class="site-branding">
+	    	
+													<p class="site-title"><a href="/" rel="home">forensicmike1</a></p>
+											<p class="site-description">#DFIR | #RE | #OtherGeekThings =&gt; Views expressed are my own.</p>
+										</section><!-- .site-branding -->	
+		                    </div>
+                    <div class="custom-col-7">
+						                    </div>
+                </div>
+            </div>
+        </div>
+
+	
+        <div id="navbar" class="navbar">        	
+            <div class="container">
+                <nav id="site-navigation" class="navigation main-navigation">
+                                            <div class="home-icon">
+                            <a href="/" rel="home"> <i class="fa fa-home"> </i> </a>
+                        </div>
+                    					<div class="menu-main-container"><ul id="primary-menu" class="menu">
+<li id="menu-item-557" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-557"><a href="https://www.forensicmike1.com/">Home</a></li>
+<li id="menu-item-555" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-555"><a href="https://twitter.com/forensicmike1">Twitter</a></li>
+<li id="menu-item-556" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-556"><a href="https://github.com/forensicmike">Github</a></li>
+</ul></div>                </nav><!-- main-navigation ends here -->
+            </div>            
+            	            <div class="search-section">
+	                <a href="javascript:void(0)" class="search-toggle"><i class="fa fa-search" aria-hidden="true"></i></a>
+	                <form role="search" method="get" class="search-form" action="http://172.31.17.250/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s">
+				</label>
+				<input type="submit" class="search-submit" value="Search">
+			</form>	            </div>
+<!-- .search-section -->
+                    </div>
+<!-- navbar ends here -->
+	</div>
+<!-- hrgroup wrapper ends here --></header><!-- header ends here --><div id="content" class="site-content">
+<div class="container">
+	<div class="row">
+		<div id="primary" class="content-area">
+			<main id="main" class="site-main">
+
+				<article id="post-495" class="featured-post post-495 post type-post status-publish format-standard has-post-thumbnail hentry category-dfir category-mobile-forensics category-reverse-engineering">
+    
+			<figure class="post-thumbnail">
+				<img width="944" height="254" src="/wp-content/uploads/2020/05/banner.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" loading="lazy" srcset="/wp-content/uploads/2020/05/banner.png 944w, /wp-content/uploads/2020/05/banner-300x81.png 300w, /wp-content/uploads/2020/05/banner-768x207.png 768w" sizes="(max-width: 944px) 100vw, 944px">			</figure><!-- .post-thumbnail -->
+
+		    <div class="post-content">
+        <header class="entry-header">
+            <h4 class="entry-title">
+                Analysis of the ABTraceTogether app (iOS)            </h4>
+        </header>
+        <div class="entry-meta">
+            <div class="posted-on"><a href="/2020/05/01/analysis-of-the-abtracetogether-app-ios/" rel="bookmark"><time class="entry-date published" datetime="2020-05-01T20:58:53-07:00">May 1, 2020</time><time class="updated" datetime="2020-05-04T12:43:39-07:00">May 4, 2020</time></a></div>
+<div class="post-author"> by <span class="author vcard"><a class="url fn n" href="/author/forensicmike/">Mike Williamson</a></span>
+</div>           
+        </div>        
+        <div class="entry-content">
+            
+<p>I decided to have a look at the ABTraceTogether contract tracing app released by the Alberta Government today (May 1 2020) and blog about my findings. </p>
+
+
+
+<p>There&#8217;s potential for conspiracy theories and disinformation to run rampant for an app like this, so I wanted to have a look for myself and see how it actually works.</p>
+
+
+
+<p>I was also curious to see if there might be any forensically valuable information found in the app&#8217;s databases and files.</p>
+
+
+
+<p>I&#8217;ll start with my general observations and provide a more detailed explanation afterwards.</p>
+
+
+
+<p class="has-text-color has-vivid-green-cyan-color">As I&#8217;ve added a couple of updates today (May 2) &#8211; any new info is marked in green.</p>
+
+
+
+<h3>Observations</h3>
+
+
+
+<p>The registration process does not prompt you for your name, email, or any other PII (personally identifiable information) except for one: you must register using valid phone number, which will be used to contact you in the event you come into contact with someone who contracted the virus.</p>
+
+
+
+<p>The app is built on <a rel="noreferrer noopener" aria-label="BlueTrace (opens in a new tab)" href="https://bluetrace.io/" target="_blank">BlueTrace</a>/<a rel="noreferrer noopener" aria-label="OpenTrace (opens in a new tab)" href="https://github.com/opentrace-community/opentrace-ios" target="_blank">OpenTrace</a>, which is open source and has published <a rel="noreferrer noopener" aria-label="a whitepaper (opens in a new tab)" href="https://bluetrace.io/static/bluetrace_whitepaper-938063656596c104632def383eb33b3c.pdf" target="_blank">a whitepaper</a> that explains its methodology in great detail. It was first used in the <a rel="noreferrer noopener" aria-label="TraceTogether (opens in a new tab)" href="https://www.tracetogether.gov.sg/" target="_blank">TraceTogether</a> app in Singapore beginning in March 2020. <br><br>Encounters between devices are only tracked locally and must be uploaded to AHS manually (and <em>voluntarily</em>) if they contact you and request you to do so. In my tests the app did not communicate with the server any more than necessary (such as to retrieve encrypted forward-dated Temp IDs).<br><br>Analysis of the tracing database did not net any information of significant forensic value. Encounters between devices are logged however the only information available is: 1) the other device&#8217;s make and model, 2) the host device&#8217;s make and model, 3) the time of the interaction, 4) indicators of how close the device came such as received signal strength indicator (RSSI). The remaining data is encrypted and not accessible without keys that AHS maintains.</p>
+
+
+
+<p>In the BlueTrace design, the server (and its security) is of utmost importance. While out of scope for this article, I think it is worth noting that given all encryption keys, IDs, tempIDs, and registered phone numbers are stored on the server, any sort of poorly configured or insecure endpoints could pose the largest risk (such as in the event of a data breach).</p>
+
+
+
+<p>Overall, the app appears to deliver on its privacy promises. I did not find much of potential forensic value in artifacts from the app&#8217;s sandbox.  The app&#8217;s biggest failing, I think, is the requirement (iOS only) to keep the phone <strong>unlocked with the screen active </strong>at all times. I just can&#8217;t see people doing  this &#8211; they will be on their phones, which will mean this app isn&#8217;t in  the foreground and thus not working. I do acknowledge this limitation is not the fault of the developer, but rather the restrictiveness of iOS. Hopefully future development, such as with the recently released Apple/Google <a rel="noreferrer noopener" aria-label="contact tracing API (opens in a new tab)" href="https://www.apple.com/covid19/contacttracing" target="_blank">contact tracing API</a>, the need for leaving the device unlocked can be eliminated.</p>
+
+
+
+<p class="has-text-color has-vivid-green-cyan-color"><strong>UPDATE 2020-05-02</strong>: As pointed out by user Chris Thompson (@yegct), another curiosity is that the OpenTrace project seems to be using a GPL license, which would be potentially problematic as this license dictates anything it ships with be licensed under GPL as well. I found <a rel="noreferrer noopener" aria-label="this github issue (opens in a new tab)" href="https://github.com/opentrace-community/opentrace-ios/issues/2" target="_blank">this github issue</a> on the repo also questioning the same.</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/05/image-4.png"><img loading="lazy" width="988" height="246" src="http://3.88.229.156/wp-content/uploads/2020/05/image-4.png" alt="" class="wp-image-538" srcset="/wp-content/uploads/2020/05/image-4.png 988w, /wp-content/uploads/2020/05/image-4-300x75.png 300w, /wp-content/uploads/2020/05/image-4-768x191.png 768w" sizes="(max-width: 988px) 100vw, 988px"></a></figure>
+
+
+
+<h3>Static analysis</h3>
+
+
+
+<p>I obtained a copy of the app (version 1.0.0) on my test iPhone 6S running iOS 13.2.2. I used <a rel="noreferrer noopener" aria-label="frida  (opens in a new tab)" href="https://www.frida.re/" target="_blank">frida </a>to obtain a copy of the IPA with a decrypted app binary and then used Hopper (macOS) to examine it. </p>
+
+
+
+<p>It appears to be a small, straightforward app with not a lot of code to examine. It&#8217;s written in Swift which makes the static analysis a bit less intuitive.</p>
+
+
+
+<p>The app uses a library called <a rel="noreferrer noopener" aria-label="OpenTrace (opens in a new tab)" href="https://github.com/opentrace-community/opentrace-ios" target="_blank">OpenTrace</a> (which is an implementation of <a rel="noreferrer noopener" aria-label="BlueTrace (opens in a new tab)" href="https://bluetrace.io/" target="_blank">BlueTrace</a>). BlueTrace has published <a rel="noreferrer noopener" aria-label="a whitepaper (opens in a new tab)" href="https://bluetrace.io/static/bluetrace_whitepaper-938063656596c104632def383eb33b3c.pdf" target="_blank">a whitepaper</a> explaining the technical methodology and, I feel gives very solid explanations for why things are the way they are. </p>
+
+
+
+<p class="has-text-color has-vivid-green-cyan-color"><strong>UPDATE 2020-05-02</strong>: Just a minor clarification on the above paragraph &#8211; rather than consuming any pre-compiled library or framework, it appears that the OpenTrace code has been integrated directly with the ABTraceTogether codebase under the ABTraceTogether class. This does not mean there aren&#8217;t variations. However, I did test several strings from debug messages found in the OpenTrace code and located all of them unmodified in the ABTraceTogetherApp binary.</p>
+
+
+
+<p><strong><span style="text-decoration: underline;">Info.plist</span></strong></p>
+
+
+
+<p>The app&#8217;s Info.plist contains some interesting info, such as developer specified descriptions for permissions potentially requested.</p>
+
+
+
+<p><strong>NSBluetoothAlwaysUsageDescription &#8211; </strong>ABTraceTogether exchanges Bluetooth signals with nearby phones running the same app. These signals contain an anonymised ID, which is encrypted and changes continually to ensure your privacy. </p>
+
+
+
+<p><strong>NSCameraUsageDescription</strong> &#8211; Grant ABTraceTogether permissions to access your camera if you would like to upload a photo as part of a support request</p>
+
+
+
+<p><strong>NSPhotoLibraryUsageDescription</strong> &#8211; Grant ABTraceTogether permissions to access your photo library if you would like to upload a photo as part of a support request</p>
+
+
+
+<p>The plist also specifies that at a minimum, iOS 13 is required. This requirement was interesting to me because the app does not use the new Apple/Google API. It could limit the ability for people using older hardware that can&#8217;t run iOS 13 to access it. </p>
+
+
+
+<p>Overall, nothing super surprising here. The camera/photo gallery permissions didn&#8217;t come up in any of my tests.</p>
+
+
+
+<hr class="wp-block-separator">
+
+
+
+<p>Nothing else of note resulting from static analysis. Future research -&gt; to obtain a copy of the Android version and review it as well.</p>
+
+
+
+<h3>Forensic value of filesystem artifacts</h3>
+
+
+
+<p>The database tracer.sqlite, located in Library/Application Support/, and specifically the table ZENCOUNTER is where interactions between nearby devices are logged. </p>
+
+
+
+<p>To generate a test encounter, I installed the app on my own iPhone (in addition to my research phone), and with the app open, brought the devices fairly close together.</p>
+
+
+
+<p>This test showed up in table ZENCOUNTER as follows:</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/05/image-1.png"><img loading="lazy" width="1024" height="174" src="http://3.88.229.156/wp-content/uploads/2020/05/image-1-1024x174.png" alt="" class="wp-image-498" srcset="/wp-content/uploads/2020/05/image-1-1024x174.png 1024w, /wp-content/uploads/2020/05/image-1-300x51.png 300w, /wp-content/uploads/2020/05/image-1-768x130.png 768w, /wp-content/uploads/2020/05/image-1.png 1095w" sizes="(max-width: 1024px) 100vw, 1024px"></a></figure>
+
+
+
+<figure class="wp-block-table"><table>
+<thead><tr>
+<th class="has-text-align-center" data-align="center">Column</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="has-text-align-center" data-align="center">ZV</td>
+<td>The version of BlueTrace protocol the other device is using (currently 2)</td>
+</tr>
+<tr>
+<td class="has-text-align-center" data-align="center">ZRSSI</td>
+<td>The received signal strength indicator (RSSI) &#8211; can be used to assess how close the devices actually got. </td>
+</tr>
+<tr>
+<td class="has-text-align-center" data-align="center">ZTIMESTAMP</td>
+<td>When the encounter took place.</td>
+</tr>
+<tr>
+<td class="has-text-align-center" data-align="center">ZTXPOWER</td>
+<td>Transmission power? Always 0.0, 7.0 or NULL in my database so far. </td>
+</tr>
+<tr>
+<td class="has-text-align-center" data-align="center">ZMODELC</td>
+<td>A device make and model. Can be the other device or our device. C is believed to refer to &#8220;Central&#8221;. See <a rel="noreferrer noopener" aria-label="this link (opens in a new tab)" href="https://github.com/opentrace-community/opentrace-ios/blob/473b436a7287fffb9884f81ed00cbd738dbcbbcd/OpenTrace/Bluetrace/Structs/EncounterRecord.swift#L25" target="_blank">this link</a> for more on the OpenTrace github for Encounter Record.</td>
+</tr>
+<tr>
+<td class="has-text-align-center" data-align="center">ZMODELP</td>
+<td> A device make and model. Can be the other device or our device. C is believed to refer to &#8220;Peripheral&#8221;.  See <a rel="noreferrer noopener" aria-label="this link (opens in a new tab)" href="https://github.com/opentrace-community/opentrace-ios/blob/473b436a7287fffb9884f81ed00cbd738dbcbbcd/OpenTrace/Bluetrace/Structs/EncounterRecord.swift#L25" target="_blank">this link</a>  for more on the OpenTrace github for Encounter Record .</td>
+</tr>
+<tr>
+<td class="has-text-align-center" data-align="center">ZMSG</td>
+<td>An encrypted payload, base 64 encoded including IV/Auth Tag. (84 bytes)</td>
+</tr>
+<tr>
+<td class="has-text-align-center" data-align="center">ZORG</td>
+<td>The organization code indicating the country / health authority with which the peripheral is enrolled.</td>
+</tr>
+</tbody>
+</table></figure>
+
+
+
+<p>The ZMSG structure is described in the whitepaper as follows:</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/05/image-2.png"><img loading="lazy" width="645" height="247" src="http://3.88.229.156/wp-content/uploads/2020/05/image-2.png" alt="" class="wp-image-499" srcset="/wp-content/uploads/2020/05/image-2.png 645w, /wp-content/uploads/2020/05/image-2-300x115.png 300w" sizes="(max-width: 645px) 100vw, 645px"></a></figure>
+
+
+
+<p>(Note the typo of AED which should read AES).</p>
+
+
+
+<p>The forward-dated tempIDs were found in a file under Library\Caches\ca.ab.gov.ahs.contacttracing\fsCachedData\{GUID} . The contents of the file is shown here but redacted slightly to not show the full tokens:</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/05/image-3.png"><img loading="lazy" width="1024" height="640" src="http://3.88.229.156/wp-content/uploads/2020/05/image-3-1024x640.png" alt="" class="wp-image-500" srcset="/wp-content/uploads/2020/05/image-3-1024x640.png 1024w, /wp-content/uploads/2020/05/image-3-300x188.png 300w, /wp-content/uploads/2020/05/image-3-768x480.png 768w, /wp-content/uploads/2020/05/image-3.png 1140w" sizes="(max-width: 1024px) 100vw, 1024px"></a></figure>
+
+
+
+<h3>Future work</h3>
+
+
+
+<p>One remaining bit of work on iOS is to examine the iOS keychain &#8211; there&#8217;s a bunch of entries in there and I&#8217;m curious what they could be used for given temp ID token generation takes place serverside.</p>
+                    </div>
+    </div>
+</article><!-- #post-495 -->
+
+
+	<nav class="navigation post-navigation" role="navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links">
+<div class="nav-previous"><a href="/2020/02/29/examiner-coder-types-learningit-can-make-you-a-better-developer/" rel="prev">Examiner-coder-types: Learnin&#8217;git can make you a better developer</a></div>
+<div class="nav-next"><a href="/2021/05/25/taking-a-look-at-ios-apps-on-an-m1-mac/" rel="next">Taking a gander at iOS apps on an M1 Mac</a></div>
+</div>
+	</nav>
+        <aside class="widget widget-post-author">
+            <figure class="avatar"><img alt="" src="http://2.gravatar.com/avatar/540f47dd0fb41a572604e4bf8594c723?s=96&#038;d=mm&#038;r=g" class="avatar avatar-96 photo" height="96" width="96" loading="lazy"></figure>
+            <div class="author-details">
+                <h3>Mike Williamson</h3>
+                <p></p>
+                <div class="author-info-wrap">
+                    <div class="author-info">
+                        VIEW ALL POSTS BY <span class="author vcard"><a class="url fn n" href="/author/forensicmike/">Mike Williamson</a></span>                    </div>
+                </div>
+            </div>
+        </aside> 
+    
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			6 thoughts on &ldquo;<span>Analysis of the ABTraceTogether app (iOS)</span>&rdquo;		</h2>
+<!-- .comments-title -->
+
+		
+		<ol class="comment-list">
+					<li id="comment-349" class="comment even thread-even depth-1">
+			<article id="div-comment-349" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="http://0.gravatar.com/avatar/3e780de0aebb76c2afffe1f8f416beb5?s=32&#038;d=mm&#038;r=g" srcset="http://0.gravatar.com/avatar/3e780de0aebb76c2afffe1f8f416beb5?s=64&#038;d=mm&#038;r=g 2x" class="avatar avatar-32 photo" height="32" width="32" loading="lazy">						<b class="fn">Jeremy</b> <span class="says">says:</span>					</div>
+<!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="/2020/05/01/analysis-of-the-abtracetogether-app-ios/#comment-349"><time datetime="2020-05-03T12:47:08-07:00">May 3, 2020 at 12:47 PM</time></a>					</div>
+<!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>As always super thorough and detailed. Thanks Mike 🙂<br>
+Plus I trust your assessments of these things so that is always helpful for when other third party or media folks have their own perspectives.</p>
+				</div>
+<!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="#comment-349" data-commentid="349" data-postid="495" data-belowelement="div-comment-349" data-respondelement="respond" data-replyto="Reply to Jeremy" aria-label="Reply to Jeremy">Reply</a></div>			</article><!-- .comment-body -->
+		</li>
+<!-- #comment-## -->
+		<li id="comment-350" class="comment odd alt thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-350" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="http://1.gravatar.com/avatar/10cc4f57ee58ef733b901c1f168300e7?s=32&#038;d=mm&#038;r=g" srcset="http://1.gravatar.com/avatar/10cc4f57ee58ef733b901c1f168300e7?s=64&#038;d=mm&#038;r=g 2x" class="avatar avatar-32 photo" height="32" width="32" loading="lazy">						<b class="fn">Nobody You Know</b> <span class="says">says:</span>					</div>
+<!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="/2020/05/01/analysis-of-the-abtracetogether-app-ios/#comment-350"><time datetime="2020-05-03T15:26:56-07:00">May 3, 2020 at 3:26 PM</time></a>					</div>
+<!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>&gt; The remaining data is encrypted and not accessible without keys that AHS maintains.</p>
+<p>Correction: the remaining data is encrypted and is accessible with keys that both AHS and the app user have access to. The whitepaper explains that the data is encrypted symmetrically. This means that both parties possess the same key, and it is used for both encryption and decryption. It would be interesting to investigate how the app stores the key (probably not hard, since it is derived from an open source app) to make sure that it&#8217;s not exposed to other apps on the device.  Also, finding that key would obviously allow you to further investigate exactly what the app is storing.</p>
+<p>I suspect the conclusion will be the same, that it&#8217;s only doing what it advertises, I&#8217;m just pointing out there is more you can do to actually validate this and provide more meaningful reassurance.  If all you did was run the binaries and the stored data through strings or something that&#8217;s a pretty shallow forensics dive tbh.</p>
+				</div>
+<!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="#comment-350" data-commentid="350" data-postid="495" data-belowelement="div-comment-350" data-respondelement="respond" data-replyto="Reply to Nobody You Know" aria-label="Reply to Nobody You Know">Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-351" class="comment byuser comment-author-forensicmike bypostauthor even depth-2">
+			<article id="div-comment-351" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="http://2.gravatar.com/avatar/540f47dd0fb41a572604e4bf8594c723?s=32&#038;d=mm&#038;r=g" srcset="http://2.gravatar.com/avatar/540f47dd0fb41a572604e4bf8594c723?s=64&#038;d=mm&#038;r=g 2x" class="avatar avatar-32 photo" height="32" width="32" loading="lazy">						<b class="fn"><a href="https://3.88.229.156/" rel="external nofollow ugc" class="url">Mike Williamson</a></b> <span class="says">says:</span>					</div>
+<!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="/2020/05/01/analysis-of-the-abtracetogether-app-ios/#comment-351"><time datetime="2020-05-04T07:24:55-07:00">May 4, 2020 at 7:24 AM</time></a>					</div>
+<!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thanks for the comments. I do have to reiterate my position here that the encryption keys for BlueTrace aren&#8217;t stored on the device. They are serverside only. This is based both on my own observations, as well as in numerous places throughout the BlueTrace spec. If you have evidence to the contrary I&#8217;d love to take a look! Consider:</p>
+<p>On <b>page 2 of the BlueTrace whitepaper</b>, under &#8220;Generation of TempIDs&#8221; &#8211; &#8220;<em>Only the health authority holds the secret key to encrypt and decrypt TempIDs</em>&#8220;.</p>
+<p>On <b>page 6 of the BlueTrace whitepaper</b>, the author speaks to a number of points:</p>
+<ul>
+<li>That the server is responsible for generating the tempIDs (and is why the post-dated tempIDs must be sent in advance, in case of connection issues).</li>
+<li>The author also discusses the alternative &#8211; using a public key to generate the tempIDs on-device, and why it was ultimately decided against.</li>
+<li>I admit, I am a little skeptical as to the reasons cited here (that it uses too much CPU in the background) but I don&#8217;t have any direct experience in developing apps intended to run in the background, so I&#8217;m merely speculating.</li>
+</ul>
+<p>As with many of my posts, and indeed forensics in general&#8230; there are many other angles that could (and perhaps should) still be explored. What I&#8217;ve learned is if you wait until you&#8217;ve explored every avenue, the topic may have already past its period of relevance, or the app will have a new version and you&#8217;ll have to start all over again :). For example, one thing that *is* resident on the device &#8211; and definitely deserves a deeper dive &#8211; is telemetry (IBM WLAnalytics). It is my present belief that WLAnalytics is responsible for most if not all of the keychain values in this app. But this might even be a separate post as it is unlikely to have any bearing on the core bluetooth tracing functionality.</p>
+				</div>
+<!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="#comment-351" data-commentid="351" data-postid="495" data-belowelement="div-comment-351" data-respondelement="respond" data-replyto="Reply to Mike Williamson" aria-label="Reply to Mike Williamson">Reply</a></div>			</article><!-- .comment-body -->
+		</li>
+<!-- #comment-## -->
+</ol>
+<!-- .children -->
+</li>
+<!-- #comment-## -->
+		<li id="comment-352" class="comment odd alt thread-even depth-1">
+			<article id="div-comment-352" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="http://0.gravatar.com/avatar/06b18f24f5b4b207388d63f4a89562db?s=32&#038;d=mm&#038;r=g" srcset="http://0.gravatar.com/avatar/06b18f24f5b4b207388d63f4a89562db?s=64&#038;d=mm&#038;r=g 2x" class="avatar avatar-32 photo" height="32" width="32" loading="lazy">						<b class="fn">Garmick</b> <span class="says">says:</span>					</div>
+<!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="/2020/05/01/analysis-of-the-abtracetogether-app-ios/#comment-352"><time datetime="2020-05-08T13:39:36-07:00">May 8, 2020 at 1:39 PM</time></a>					</div>
+<!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Great job mike!</p>
+<p>Have you been able to perform any traffic analysis?<br>
+I see that the app only interacts with one server but i haven&#8217;t been able to look at  the traffic since they are implementing SSL pining.</p>
+				</div>
+<!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="#comment-352" data-commentid="352" data-postid="495" data-belowelement="div-comment-352" data-respondelement="respond" data-replyto="Reply to Garmick" aria-label="Reply to Garmick">Reply</a></div>			</article><!-- .comment-body -->
+		</li>
+<!-- #comment-## -->
+		<li id="comment-361" class="comment even thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-361" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="http://0.gravatar.com/avatar/09cedb9890dfd7fd433643aec5aea972?s=32&#038;d=mm&#038;r=g" srcset="http://0.gravatar.com/avatar/09cedb9890dfd7fd433643aec5aea972?s=64&#038;d=mm&#038;r=g 2x" class="avatar avatar-32 photo" height="32" width="32" loading="lazy">						<b class="fn">Duncan MacFarlane</b> <span class="says">says:</span>					</div>
+<!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="/2020/05/01/analysis-of-the-abtracetogether-app-ios/#comment-361"><time datetime="2020-10-18T05:50:21-07:00">October 18, 2020 at 5:50 AM</time></a>					</div>
+<!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>This app is useless for iPhone users. Very few will leave their screen unlocked and the app running in the foreground all day long!<br>
+Why not use the Federal APP ??</p>
+				</div>
+<!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="#comment-361" data-commentid="361" data-postid="495" data-belowelement="div-comment-361" data-respondelement="respond" data-replyto="Reply to Duncan MacFarlane" aria-label="Reply to Duncan MacFarlane">Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-404" class="comment byuser comment-author-forensicmike bypostauthor odd alt depth-2">
+			<article id="div-comment-404" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="http://2.gravatar.com/avatar/540f47dd0fb41a572604e4bf8594c723?s=32&#038;d=mm&#038;r=g" srcset="http://2.gravatar.com/avatar/540f47dd0fb41a572604e4bf8594c723?s=64&#038;d=mm&#038;r=g 2x" class="avatar avatar-32 photo" height="32" width="32" loading="lazy">						<b class="fn"><a href="https://3.88.229.156/" rel="external nofollow ugc" class="url">Mike Williamson</a></b> <span class="says">says:</span>					</div>
+<!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="/2020/05/01/analysis-of-the-abtracetogether-app-ios/#comment-404"><time datetime="2021-02-06T08:38:04-07:00">February 6, 2021 at 8:38 AM</time></a>					</div>
+<!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I&#8217;m guessing the provincial govt just wants to avoid admitting they spent a lot of money on this for nothing 🙂</p>
+				</div>
+<!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="#comment-404" data-commentid="404" data-postid="495" data-belowelement="div-comment-404" data-respondelement="respond" data-replyto="Reply to Mike Williamson" aria-label="Reply to Mike Williamson">Reply</a></div>			</article><!-- .comment-body -->
+		</li>
+<!-- #comment-## -->
+</ol>
+<!-- .children -->
+</li>
+<!-- #comment-## -->
+		</ol>
+<!-- .comment-list -->
+
+			<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2020/05/01/analysis-of-the-abtracetogether-app-ios/#respond" style="display:none;">Cancel reply</a></small>
+</h3>
+<form action="http://172.31.17.250/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate>
+<p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span></p>
+<p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required="required"></textarea></p>
+<p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" required="required"></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" required="required"></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200"></p>
+<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"> <label for="wp-comment-cookies-consent">Save my name, email, and website in this browser for the next time I comment.</label></p>
+<div class="sgr-main"></div>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment"> <input type="hidden" name="comment_post_ID" value="495" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p>
+</form>	</div>
+<!-- #respond -->
+	
+</div>
+<!-- #comments -->
+<section class="related-post-section">
+      
+                    <div class="heading">
+                <header class="entry-header">
+                    <h3 class="entry-title">Releated</h3>
+                </header>
+            </div>
+                      
+        <div class="related-post-wrap">
+                            <article class="featured-post post hentry">
+                    
+			<figure class="post-thumbnail">
+				<img width="1312" height="738" src="/wp-content/uploads/2021/05/m1.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="Apple M1 Pic" loading="lazy" srcset="/wp-content/uploads/2021/05/m1.jpg 1312w, /wp-content/uploads/2021/05/m1-300x169.jpg 300w, /wp-content/uploads/2021/05/m1-1024x576.jpg 1024w, /wp-content/uploads/2021/05/m1-768x432.jpg 768w" sizes="(max-width: 1312px) 100vw, 1312px">			</figure><!-- .post-thumbnail -->
+
+		                    <div class="post-content">
+                        <header class="entry-header">
+                            <h4 class="entry-title">
+                                <a href="/2021/05/25/taking-a-look-at-ios-apps-on-an-m1-mac/">Taking a gander at iOS apps on an M1 Mac</a>
+                            </h4>
+                        </header>
+                        <div class="entry-content">
+                            <p>I wanted to share some initial research I did over the rainy long weekend. I recently got access to a MacBook Pro with the M1 chip and so naturally I wanted to take a look at how running iOS apps natively on macOS works, where the app data ends up on the HDD, and of [&hellip;]</p>
+                        </div>
+                        <div class="entry-meta">
+                            <div class="posted-on"><a href="/2021/05/25/taking-a-look-at-ios-apps-on-an-m1-mac/" rel="bookmark"><time class="entry-date published" datetime="2021-05-25T13:47:39-07:00">May 25, 2021</time><time class="updated" datetime="2021-05-25T14:56:55-07:00">May 25, 2021</time></a></div>
+<div class="post-author"> by <span class="author vcard"><a class="url fn n" href="/author/forensicmike/">Mike Williamson</a></span>
+</div>                                                    </div>
+                    </div>
+                </article>
+                            <article class="featured-post post hentry">
+                    
+			<figure class="post-thumbnail">
+				<img width="1266" height="715" src="/wp-content/uploads/2020/02/github_dfir.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" loading="lazy" srcset="/wp-content/uploads/2020/02/github_dfir.png 1266w, /wp-content/uploads/2020/02/github_dfir-300x169.png 300w, /wp-content/uploads/2020/02/github_dfir-1024x578.png 1024w, /wp-content/uploads/2020/02/github_dfir-768x434.png 768w" sizes="(max-width: 1266px) 100vw, 1266px">			</figure><!-- .post-thumbnail -->
+
+		                    <div class="post-content">
+                        <header class="entry-header">
+                            <h4 class="entry-title">
+                                <a href="/2020/02/29/examiner-coder-types-learningit-can-make-you-a-better-developer/">Examiner-coder-types: Learnin&#8217;git can make you a better developer</a>
+                            </h4>
+                        </header>
+                        <div class="entry-content">
+                            <p>I decided to write an article about Git and Github. Why? I&#8217;ve been exposed to Git a lot since I started working for a software company. Now, I&#8217;m wishing I could go back in time and have used it a lot more&#8230; even for projects I had no intention of ever releasing to the public [&hellip;]</p>
+                        </div>
+                        <div class="entry-meta">
+                            <div class="posted-on"><a href="/2020/02/29/examiner-coder-types-learningit-can-make-you-a-better-developer/" rel="bookmark"><time class="entry-date published" datetime="2020-02-29T11:37:46-07:00">February 29, 2020</time><time class="updated" datetime="2020-02-29T15:10:45-07:00">February 29, 2020</time></a></div>
+<div class="post-author"> by <span class="author vcard"><a class="url fn n" href="/author/forensicmike/">Mike Williamson</a></span>
+</div>                                                    </div>
+                    </div>
+                </article>
+                    </div>
+        
+      
+</section>
+			</main><!-- #main -->
+		</div>
+<!-- #primary -->
+		
+<aside id="secondary" class="widget-area">
+    <section id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="http://172.31.17.250/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s">
+				</label>
+				<input type="submit" class="search-submit" value="Search">
+			</form></section>
+		<section id="recent-posts-2" class="widget widget_recent_entries">
+		<h3 class="widget-title"><span>Recent Posts</span></h3>
+		<ul>
+											<li>
+					<a href="/2021/05/25/taking-a-look-at-ios-apps-on-an-m1-mac/">Taking a gander at iOS apps on an M1 Mac</a>
+									</li>
+											<li>
+					<a href="/2020/05/01/analysis-of-the-abtracetogether-app-ios/" aria-current="page">Analysis of the ABTraceTogether app (iOS)</a>
+									</li>
+											<li>
+					<a href="/2020/02/29/examiner-coder-types-learningit-can-make-you-a-better-developer/">Examiner-coder-types: Learnin&#8217;git can make you a better developer</a>
+									</li>
+											<li>
+					<a href="/2020/01/03/spice-up-your-forensic-web-reports-with-ui-frameworks/">Spice up your forensic web reports with UI Frameworks</a>
+									</li>
+											<li>
+					<a href="/2019/10/07/knowledgec-now-playing-entries/">KnowledgeC: Now Playing entries</a>
+									</li>
+					</ul>
+
+		</section><section id="categories-3" class="widget widget_categories"><h3 class="widget-title"><span>Categories</span></h3>
+			<ul>
+					<li class="cat-item cat-item-33">
+<a href="/category/dfir/">DFIR</a>
+</li>
+	<li class="cat-item cat-item-27">
+<a href="/category/forensic-coding/">Forensic Coding</a>
+</li>
+	<li class="cat-item cat-item-35">
+<a href="/category/git-good/">Git Good</a>
+</li>
+	<li class="cat-item cat-item-28">
+<a href="/category/guest-blog/">Guest Blog</a>
+</li>
+	<li class="cat-item cat-item-25">
+<a href="/category/infosec/">InfoSec</a>
+</li>
+	<li class="cat-item cat-item-37">
+<a href="/category/mac/">Mac</a>
+</li>
+	<li class="cat-item cat-item-26">
+<a href="/category/mobile-forensics/">Mobile Forensics</a>
+</li>
+	<li class="cat-item cat-item-30">
+<a href="/category/reverse-engineering/">Reverse Engineering</a>
+</li>
+	<li class="cat-item cat-item-1">
+<a href="/category/uncategorized/">Uncategorized</a>
+</li>
+			</ul>
+
+			</section><section id="archives-2" class="widget widget_archive"><h3 class="widget-title"><span>Archives</span></h3>
+			<ul>
+					<li><a href="/2021/05/">May 2021</a></li>
+	<li><a href="/2020/05/">May 2020</a></li>
+	<li><a href="/2020/02/">February 2020</a></li>
+	<li><a href="/2020/01/">January 2020</a></li>
+	<li><a href="/2019/10/">October 2019</a></li>
+	<li><a href="/2019/06/">June 2019</a></li>
+	<li><a href="/2019/05/">May 2019</a></li>
+	<li><a href="/2019/04/">April 2019</a></li>
+			</ul>
+
+			</section><section id="custom_html-3" class="widget_text widget widget_custom_html"><h3 class="widget-title"><span>Contact</span></h3>
+<div class="textwidget custom-html-widget">Twitter: <a href="http://twitter.com/forensicmike1/">@forensicmike1</a><br>
+Discord: forensicmike#6426</div></section></aside><!-- #secondary -->	</div>
+</div>
+</div>
+<!-- #content --><footer id="colophon" class="site-footer"> <!-- footer starting from here --> 
+	        <div class="site-generator">
+            <div class="container">
+                <div class="row">
+                    <div class="custom-col-6">
+                        <div class="copy-right">
+											
+							Theme of <a target="_blank" rel="designer" href="https://theme404.com/">Theme404</a>&nbsp;
+							                        </div>
+                    </div>
+                    <div class="custom-col-6">
+                        <div class="footer-menu">
+							                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</footer><!-- #colophon -->            <!-- footer ends here -->
+            <div class="back-to-top">
+                <a href="#masthead" title="Go to Top" class="fa-angle-up"></a>
+            </div>
+            </div>
+<!-- #page -->
+<script type="text/javascript" src="/wp-content/themes/power-magazine/assets/js/isotope.min.js?ver=v3.0.6" id="isotope-js"></script>
+<script type="text/javascript" src="/wp-includes/js/imagesloaded.min.js?ver=4.1.4" id="imagesloaded-js"></script>
+<script type="text/javascript" src="/wp-content/themes/power-magazine/assets/js/slick.min.js?ver=1.9.0" id="slick-js"></script>
+<script type="text/javascript" src="/wp-content/themes/power-magazine/assets/js/jquery.meanmenu.js?ver=v2.0.8" id="jquery-meanenu-js-js"></script>
+<script type="text/javascript" src="/wp-content/themes/power-magazine/assets/js/ResizeSensor.js?ver=v2.0.8" id="ResizeSensor-js-js"></script>
+<script type="text/javascript" src="/wp-content/themes/power-magazine/assets/js/theia-sticky-sidebar.js?ver=v1.7.0" id="theia-sticky-sidebar-js-js"></script>
+<script type="text/javascript" src="/wp-content/themes/power-magazine/assets/js/jquery.magnific-popup.js?ver=v1.1.0" id="jquery.magnific-popup.js-js"></script>
+<script type="text/javascript" src="/wp-content/themes/power-magazine/assets/js/navigation.js?ver=20151215" id="power-magazine-navigation-js"></script>
+<script type="text/javascript" src="/wp-content/themes/power-magazine/assets/js/skip-link-focus-fix.js?ver=20151215" id="power-magazine-skip-link-focus-fix-js"></script>
+<script type="text/javascript" src="/wp-includes/js/comment-reply.min.js?ver=5.8.6" id="comment-reply-js"></script>
+<script type="text/javascript" src="/wp-content/themes/power-magazine/assets/js/custom.js?ver=1.0.0" id="power_magazine-custom-js"></script>
+<script type="text/javascript" src="/wp-content/plugins/enlighter/cache/enlighterjs.min.js?ver=tebjVoJSSILa+Co" id="enlighterjs-js"></script>
+<script type="text/javascript" id="enlighterjs-js-after">!function(e,n){if("undefined"!=typeof EnlighterJS){var o={"selectors":{"block":"pre.EnlighterJSRAW","inline":"code.EnlighterJSRAW"},"options":{"indent":2,"ampersandCleanup":true,"linehover":true,"rawcodeDbclick":false,"textOverflow":"break","linenumbers":false,"theme":"droide","language":"csharp","retainCssClasses":false,"collapse":false,"toolbarOuter":"","toolbarTop":"{BTN_RAW}{BTN_COPY}{BTN_WINDOW}{BTN_WEBSITE}","toolbarBottom":""}};(e.EnlighterJSINIT=function(){EnlighterJS.init(o.selectors.block,o.selectors.inline,o.options)})()}else{(n&&(n.error||n.log)||function(){})("Error: EnlighterJS resources not loaded yet!")}}(window,console);</script>
+<script type="text/javascript" src="/wp-includes/js/wp-embed.min.js?ver=5.8.6" id="wp-embed-js"></script>
+<script type="text/javascript" src="https://www.recaptcha.net/recaptcha/api.js?hl=en_US&#038;onload=sgr_2&#038;render=explicit&#038;ver=1666185618" id="sgr_recaptcha-js"></script>
+
+</body>
+</html>

@@ -1,0 +1,1260 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Uncategorized Archives - forensicmike1</title>
+	<atom:link href="/category/uncategorized/feed/" rel="self" type="application/rss+xml" />
+	<link>https://34.196.241.14/category/uncategorized/</link>
+	<description>#DFIR &#124; #RE &#124; #OtherGeekThings =&#62; Views expressed are my own.</description>
+	<lastBuildDate>Fri, 03 Jan 2020 19:07:21 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.8.6</generator>
+	<item>
+		<title>Spice up your forensic web reports with UI Frameworks</title>
+		<link>/2020/01/03/spice-up-your-forensic-web-reports-with-ui-frameworks/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=spice-up-your-forensic-web-reports-with-ui-frameworks</link>
+					<comments>/2020/01/03/spice-up-your-forensic-web-reports-with-ui-frameworks/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Fri, 03 Jan 2020 19:07:21 +0000</pubDate>
+				<category><![CDATA[Uncategorized]]></category>
+		<guid isPermaLink="false">https://3.88.229.156/?p=413</guid>
+
+					<description><![CDATA[<p>I wanted to blog about a subject that&#8217;s come up in a number of converations recently- that is the idea of spicing up web reports spit out by scripts by making use of UI frameworks (which are generally free but may also have paid options if things get serious!). Like many examiners, I had some [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/2020/01/03/spice-up-your-forensic-web-reports-with-ui-frameworks/">Spice up your forensic web reports with UI Frameworks</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>I wanted to blog about a subject that&#8217;s come up in a number of converations recently- that is the idea of spicing up web reports spit out by scripts by making use of UI frameworks (which are generally free but may also have paid options if things get serious!). Like many examiners, I had some familiarity with web development but hadn&#8217;t necessarily kept up with the trends over the years. It wasn&#8217;t until fairly recently that I finally invested the time in learning to build using Bootstrap, and I haven&#8217;t looked back.</p>
+
+
+
+<p>While I still do prefer to write most of my HTML by hand in Notepad++, I discovered a profoundly easy to learn thing &#8211; UI frameworks. By simply adding in a couple of these resources into your project &#8211; we&#8217;re going to look at Bootstrap and FontAwesome today &#8211; you can really make your reports stand out with very little effort. Users genuinely appreciate the time you take to include things like icons, and thanks to FontAwesome this can be a very easy thing to do.</p>
+
+
+
+<h3>Import Bootstrap + Dependencies</h3>
+
+
+
+<p>First things first, you need to bring in Bootstrap. If you&#8217;re okay with having an internet requirement for your report, you can use a CDN (Content Delivery Network). For simplicity, we&#8217;ll use this approach today. If you want it to work offline, you&#8217;ll need to <a rel="noreferrer noopener" aria-label="download the frameworks (opens in a new tab)" href="https://getbootstrap.com/docs/4.3/getting-started/download/" target="_blank">download the frameworks</a> including dependencies.</p>
+
+
+
+<p>In the &lt;head&gt; section of your webpage, add the following:</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="html" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">&lt;!-- Bootstrap core CSS -->
+    &lt;link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    &lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous" /></pre>
+
+
+
+<p>Then, before the closing &lt;/body&gt; tag, add your scripts- notice we are adding jQuery and Popper (dependencies) as well.</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="html" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="true" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">&lt;/script>
+    &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">&lt;/script>
+    &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha256-WqU1JavFxSAMcLP2WIOI+GB2zWmShMI82mTpLDcqFUg=" crossorigin="anonymous">&lt;/script></pre>
+
+
+
+<p>And that&#8217;s it! Now you&#8217;re ready to Bootstrap/FontAwesome.</p>
+
+
+
+<h3>What is FontAwesome and how do I use it?</h3>
+
+
+
+<p>FontAwesome is a library that provides some 1500 icons free of charge for web developers out there to use in their projects. </p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/01/image.png"><img loading="lazy" width="1024" height="555" src="http://3.88.229.156/wp-content/uploads/2020/01/image-1024x555.png" alt="" class="wp-image-417" srcset="/wp-content/uploads/2020/01/image-1024x555.png 1024w, /wp-content/uploads/2020/01/image-300x163.png 300w, /wp-content/uploads/2020/01/image-768x416.png 768w, /wp-content/uploads/2020/01/image-1536x832.png 1536w, /wp-content/uploads/2020/01/image.png 1920w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<p>The easiest way to get started with FontAwesome is by using their website. You can search the icon library here and any of the icons that aren&#8217;t faded out are free to use. In the example, let&#8217;s say I decide I want to use the &#8220;tags&#8221; icon. To use it in my web app, I simply write this code:</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="html" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">&lt;i class="fa fa-tags" aria-hidden="true">&lt;/i></pre>
+
+
+
+<p>So our project now looks like this:</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/01/image-2.png"><img loading="lazy" width="1024" height="643" src="http://3.88.229.156/wp-content/uploads/2020/01/image-2-1024x643.png" alt="" class="wp-image-421" srcset="/wp-content/uploads/2020/01/image-2-1024x643.png 1024w, /wp-content/uploads/2020/01/image-2-300x188.png 300w, /wp-content/uploads/2020/01/image-2-768x482.png 768w, /wp-content/uploads/2020/01/image-2-1536x964.png 1536w, /wp-content/uploads/2020/01/image-2-2048x1286.png 2048w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/01/image-3.png"><img loading="lazy" width="323" height="180" src="http://3.88.229.156/wp-content/uploads/2020/01/image-3.png" alt="" class="wp-image-422" srcset="/wp-content/uploads/2020/01/image-3.png 323w, /wp-content/uploads/2020/01/image-3-300x167.png 300w" sizes="(max-width: 323px) 100vw, 323px" /></a></figure>
+
+
+
+<p>While we&#8217;re here. Let&#8217;s talk Bootstrap for a moment. In my code, you can see that I wrote in a custom style of &#8220;margin: 12px;&#8221; for my enclosing &lt;div&gt; element to avoid having it look like this:</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/01/image-4.png"><img loading="lazy" width="354" height="140" src="http://3.88.229.156/wp-content/uploads/2020/01/image-4.png" alt="" class="wp-image-424" srcset="/wp-content/uploads/2020/01/image-4.png 354w, /wp-content/uploads/2020/01/image-4-300x119.png 300w" sizes="(max-width: 354px) 100vw, 354px" /></a></figure>
+
+
+
+<p>But what if there was a better way? With Bootstrap, instead of defining a manual style &#8211; which may not look the same on all devices, we can use a set of predefined classes to describe to the Bootstrap framework how we want our layout to work. I can do this using the following HTML:</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="html" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">&lt;div class="mx-2 my-2">
+    Well hello, FontAwesome! &lt;i class="fa fa-tags" aria-hidden="true">&lt;/i>
+    &lt;/div></pre>
+
+
+
+<p>So what&#8217;s happening here? We&#8217;re leveraging Bootstrap&#8217;s <a rel="noreferrer noopener" aria-label="spacing (opens in a new tab)" href="https://getbootstrap.com/docs/4.4/utilities/spacing/" target="_blank">spacing</a> tools, which are abbreviated for us. In this case, there are two: &#8220;mx-2&#8221;, which means Margins on the X axis (left/right sides) and Y axis (top/bottom sides) both set to 2. I could manipulate this from 0 to 5 to increase or decrease the margin as required. You can also select specific margins like &#8220;ml-3&#8221; (for Margin Left, 3) and so on. To manipulate padding, swap the M with a P &#8211; as in &#8220;px-2&#8221;.</p>
+
+
+
+<p>To go back to FontAwesome for a moment &#8212; one thing that&#8217;s really neat about these icons is that they respond to changes via CSS. So you can easily change your icon to be whatever color (or size) you need. This is where the &#8220;font&#8221; part of FontAwesome comes in. If I change my tag icon as follows:</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">&lt;i class="fa fa-tags" style='color: orange;font-size: 32px;' aria-hidden="true">&lt;/i></pre>
+
+
+
+<p>You can see that the result is a much larger, orange icon that still looks great!</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/01/image-5.png"><img loading="lazy" width="266" height="129" src="http://3.88.229.156/wp-content/uploads/2020/01/image-5.png" alt="" class="wp-image-426"/></a></figure>
+
+
+
+<h3>More on BootStrap</h3>
+
+
+
+<p>Alright, so let&#8217;s dive a little bit deeper into BootStrap. Let&#8217;s try out the <a rel="noreferrer noopener" aria-label="NavBar control (opens in a new tab)" href="https://getbootstrap.com/docs/4.4/components/navbar/" target="_blank">NavBar control</a> for our page. I&#8217;m using the example directly from Bootstrap&#8217;s site here and plopping it into the HTML. Here&#8217;s my code:</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="html" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">&lt;nav class="navbar navbar-expand-lg navbar-light bg-light">
+        &lt;a class="navbar-brand" href="#">Fancy Report&lt;/a>
+        &lt;button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          &lt;span class="navbar-toggler-icon">&lt;/span>
+        &lt;/button>
+      
+        &lt;div class="collapse navbar-collapse" id="navbarSupportedContent">
+          &lt;ul class="navbar-nav mr-auto">
+            &lt;li class="nav-item active">
+              &lt;a class="nav-link" href="#">&lt;i class="fa fa-home" aria-hidden="true">&lt;/i> Home &lt;span class="sr-only">(current)&lt;/span>&lt;/a>
+            &lt;/li>
+            &lt;li class="nav-item dropdown">
+              &lt;a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown
+              &lt;/a>
+              &lt;div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                &lt;a class="dropdown-item" href="#">Action&lt;/a>
+                &lt;a class="dropdown-item" href="#">Another action&lt;/a>
+                &lt;div class="dropdown-divider">&lt;/div>
+                &lt;a class="dropdown-item" href="#">Something else here&lt;/a>
+              &lt;/div>
+            &lt;/li>
+          &lt;/ul>
+          &lt;form class="form-inline my-2 my-lg-0">
+            &lt;input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            &lt;button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search&lt;/button>
+          &lt;/form>
+        &lt;/div>
+      &lt;/nav>
+    &lt;div class="mx-2 my-2">
+    Well hello, FontAwesome! &lt;i class="fa fa-tags" style='color: orange;font-size: 32px;' aria-hidden="true">&lt;/i>
+    &lt;/div></pre>
+
+
+
+<p>And result:</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/01/image-6.png"><img src="http://3.88.229.156/wp-content/uploads/2020/01/image-6-1024x579.png" alt="" class="wp-image-427"/></a></figure>
+
+
+
+<p>Looking pretty good right? I wanted to also point out this NavBar is 100% responsive out of the box, so it&#8217;ll look good on Desktop and Mobile with little to no effort from you.</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/01/J2MegcwVl5.gif"><img loading="lazy" width="512" height="590" src="http://3.88.229.156/wp-content/uploads/2020/01/J2MegcwVl5.gif" alt="" class="wp-image-428"/></a></figure>
+
+
+
+<p>One of my favourite things to do when drafting an idea for a report is to look at some UI examples made with your framework of choice. Bootstrap has <a rel="noreferrer noopener" aria-label="these examples (opens in a new tab)" href="https://getbootstrap.com/docs/4.4/examples/" target="_blank">these examples</a> or alternatively you can just peruse their excellent <a rel="noreferrer noopener" aria-label="component library docs (opens in a new tab)" href="https://getbootstrap.com/docs/4.3/components/" target="_blank">component library docs</a>.</p>
+
+
+
+<p>This final example I&#8217;m going to show includes a few different components: cards with headers, buttons, and more from FontAwesome.</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="html" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">&lt;div class="container">
+          &lt;div class="row">
+              &lt;div class="col-md-5">
+                &lt;div class="card mt-3">
+                &lt;div class="card-header h4">
+                    &lt;i class="fa fa-tags" aria-hidden="true">&lt;/i> Report Contents
+                &lt;/div>
+                &lt;div class="card-body">
+                &lt;p class="card-text">Well hello, FontAwesome and Bootstrap! &lt;/p>
+                &lt;a href="#" class="btn btn-primary">&lt;i class="fa fa-search" aria-hidden="true">&lt;/i> View Details&lt;/a>
+                &lt;/div>
+              &lt;/div>
+            &lt;/div>
+        &lt;/div>
+    &lt;/div></pre>
+
+
+
+<p>And result:</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/01/image-8.png"><img loading="lazy" width="558" height="274" src="http://3.88.229.156/wp-content/uploads/2020/01/image-8.png" alt="" class="wp-image-435" srcset="/wp-content/uploads/2020/01/image-8.png 558w, /wp-content/uploads/2020/01/image-8-300x147.png 300w" sizes="(max-width: 558px) 100vw, 558px" /></a></figure>
+
+
+
+<p>For more reading, I highly recommend looking through the <a rel="noreferrer noopener" aria-label="online Bootstrap docs (opens in a new tab)" href="https://getbootstrap.com/docs/4.1/getting-started/introduction/" target="_blank">online Bootstrap docs</a> further to see many awesome examples of whats possible.</p>
+<p>The post <a rel="nofollow" href="/2020/01/03/spice-up-your-forensic-web-reports-with-ui-frameworks/">Spice up your forensic web reports with UI Frameworks</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/2020/01/03/spice-up-your-forensic-web-reports-with-ui-frameworks/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>KnowledgeC: Now Playing entries</title>
+		<link>/2019/10/07/knowledgec-now-playing-entries/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=knowledgec-now-playing-entries</link>
+					<comments>/2019/10/07/knowledgec-now-playing-entries/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Mon, 07 Oct 2019 18:57:12 +0000</pubDate>
+				<category><![CDATA[DFIR]]></category>
+		<category><![CDATA[Mobile Forensics]]></category>
+		<category><![CDATA[Uncategorized]]></category>
+		<category><![CDATA[apollo]]></category>
+		<category><![CDATA[iOS]]></category>
+		<category><![CDATA[KnowledgeC]]></category>
+		<guid isPermaLink="false">https://3.88.229.156/?p=375</guid>
+
+					<description><![CDATA[<p>I know it&#8217;s been ages since I&#8217;ve posted! I have been settling in with Magnet Forensics and have to say &#8211; it&#8217;s been an incredible experience so far. I continue to be amazed and inspired by the dedication and skill of the folks who work tirelessly to make Magnet AXIOM and countless other products the [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/2019/10/07/knowledgec-now-playing-entries/">KnowledgeC: Now Playing entries</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>I know it&#8217;s been ages since I&#8217;ve posted! I have been settling in with Magnet Forensics and have to say &#8211; it&#8217;s been an incredible experience so far. I continue to be amazed and inspired by the dedication and skill of the folks who work tirelessly to make <a rel="noreferrer noopener" aria-label="Magnet AXIOM (opens in a new tab)" href="https://www.magnetforensics.com/products/magnet-axiom/" target="_blank">Magnet AXIOM</a> and countless other products the absolute best they can be.</p>
+
+
+
+<p>I was recently helping out a customer with a question about an iPhone he was examining. He wanted to corroborate the device owner&#8217;s story &#8212; allegedly he had watched some videos on the device at a certain date and time.</p>
+
+
+
+<p>I suggested KnowledgeC &#8220;Now Playing&#8221; as a reference point and this led down a rabbit hole, namely:</p>
+
+
+
+<ul><li>Does clearing Safari history impact KnowledgeC.db?</li><li>Does private browsing affect input into KnowledgeC.db?</li></ul>
+
+
+
+<p>Answering these questions should be easy enough with the help of a jailbroken device (which I always keep near these days). I wanted to share my findings with the #DFIR community as there are some interesting things I observed along the way. Sarah Edwards herself noted in her blog series about KnowledgeC that there is more work to be done in terms of validating that the data is as it appears to be. I would say this work today follows down that path.</p>
+
+
+
+<p>One other thing to note. My jailbroken device is running iOS 11.4.1 and at the time of writing we are at iOS 13.1.2, so there could be a difference  between this and the latest/greatest iOS version. First things first, I went into Safari and visited the first video that popped up on YouTube (do not have the YouTube app installed so it played in browser).</p>
+
+
+
+<figure class="wp-block-image is-resized"><a href="https://cdn.shopify.com/s/files/1/2794/3840/articles/Screen_Shot_2018-05-11_at_10.48.03_AM_800x.png?v=1526061025"><img loading="lazy" src="https://cdn.shopify.com/s/files/1/2794/3840/articles/Screen_Shot_2018-05-11_at_10.48.03_AM_800x.png?v=1526061025" alt="Image result for blippi" width="278" height="278"/></a><figcaption>I had no idea what &#8216;Blippi&#8217; was until clicking the first random video that came up on YouTube.com as trending. Lesson learned.</figcaption></figure>
+
+
+
+<p>Next, using SFTP I collected KnowledgeC.db from /private/var/mobile/Library/CoreDuet/Knowledge, including shm and wal, and opened DB Browser for SQLite. Next I ran <a rel="noreferrer noopener" aria-label="Sarah Edward's Now Playing script (opens in a new tab)" href="https://github.com/mac4n6/APOLLO/blob/master/modules/knowledge_audio_media_nowplaying.txt" target="_blank">Sarah Edwards&#8217; Now Playing script</a> (APOLLO) and here is what I observed:</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/10/image.png"><img loading="lazy" width="1024" height="97" src="http://3.88.229.156/wp-content/uploads/2019/10/image-1024x97.png" alt="" class="wp-image-377" srcset="/wp-content/uploads/2019/10/image-1024x97.png 1024w, /wp-content/uploads/2019/10/image-300x28.png 300w, /wp-content/uploads/2019/10/image-768x72.png 768w, /wp-content/uploads/2019/10/image.png 2003w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<p>So far so good. I&#8217;d concur with the data here that I made it through an ad and about 3 seconds of the Blippi video before feeling immense regret end hitting the home button to stop that madness.. By the way, <em>Oct Edge Pre Roll</em> is an Ad, which at some point I skipped&#8230; but I&#8217;d say 15 seconds is conceivable for how long that all took.</p>
+
+
+
+<p>Next, I went back to my JB device and cleared all history through Settings &gt; Safari. I then pulled KnowledgeC and ran the query again. Nothing changed- it was exactly the same as before.</p>
+
+
+
+<p>Now things start to take a turn for the weird- I went to another video on Youtube within Safari and once again pulled my KnowledgeC db out:</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/10/image-1.png"><img loading="lazy" width="1024" height="116" src="http://3.88.229.156/wp-content/uploads/2019/10/image-1-1024x116.png" alt="" class="wp-image-378" srcset="/wp-content/uploads/2019/10/image-1-1024x116.png 1024w, /wp-content/uploads/2019/10/image-1-300x34.png 300w, /wp-content/uploads/2019/10/image-1-768x87.png 768w, /wp-content/uploads/2019/10/image-1.png 2019w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<figure class="wp-block-image is-resized"><img loading="lazy" src="https://cdn.drawception.com/images/panels/2018/1-5/Z5hGZATTmp-14.png" alt="Image result for hmmm emote" width="135" height="113"/></figure>
+
+
+
+<p>So&#8230;..the new video is missing altogether, but even more strangely there is an <strong>additional </strong>entry of Blippi (note the entry creation is about 5 minutes after the fact) stating a &#8216;Usage in Seconds&#8217; of <span style="text-decoration: underline;">319</span>.  (Note that the Usage in Seconds column is actually a computation of ZENDDATE &#8211; ZSTARTDATE that Sarah has provided for us.)</p>
+
+
+
+<p>A few things we might surmise from this:</p>
+
+
+
+<ul><li>Even with Safari suspended and history cleared, if I were to lock my screen I suspect it would show my &#8220;Now Playing&#8221; of the Blippi video. It wasn&#8217;t until I went to a different video that it got changed.<br></li><li>KnowledgeC writes are not guaranteed to be immediate and definitely do not on their own reflect active viewing time.</li></ul>
+
+
+
+<p>I then watched the same video again and once again pulled my KnowledgeC. This time, I got the new entry as expected:</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/10/image-2.png"><img loading="lazy" width="1024" height="156" src="http://3.88.229.156/wp-content/uploads/2019/10/image-2-1024x156.png" alt="" class="wp-image-379" srcset="/wp-content/uploads/2019/10/image-2-1024x156.png 1024w, /wp-content/uploads/2019/10/image-2-300x46.png 300w, /wp-content/uploads/2019/10/image-2-768x117.png 768w, /wp-content/uploads/2019/10/image-2.png 2016w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<p>To answer the other question, as to whether or not private browsing makes a difference with respect to KnowledgeC Now Playing records. I then visited more YouTube videos in &#8216;Private Mode&#8217; on Safari:</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/10/image-3.png"><img loading="lazy" width="1024" height="200" src="http://3.88.229.156/wp-content/uploads/2019/10/image-3-1024x200.png" alt="" class="wp-image-380" srcset="/wp-content/uploads/2019/10/image-3-1024x200.png 1024w, /wp-content/uploads/2019/10/image-3-300x59.png 300w, /wp-content/uploads/2019/10/image-3-768x150.png 768w, /wp-content/uploads/2019/10/image-3.png 2027w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<p>They showed up just the same.</p>
+
+
+
+<p>One last note. After all of this I did a KnowledgeC-wide query to see what kind of imprint I left beyond the Now Playing results:</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/10/image-4.png"><img loading="lazy" width="815" height="912" src="http://3.88.229.156/wp-content/uploads/2019/10/image-4.png" alt="" class="wp-image-381" srcset="/wp-content/uploads/2019/10/image-4.png 815w, /wp-content/uploads/2019/10/image-4-268x300.png 268w, /wp-content/uploads/2019/10/image-4-768x859.png 768w" sizes="(max-width: 815px) 100vw, 815px" /></a></figure>
+
+
+
+<p>And there you have it. I think with /app/inFocus rows it is a much clearer picture of the fact that I did not in fact spend a lot of time watching any one video. The moral of the story here is that KnowledgeC data is indeed amazing, but not without its nuances. You must build your story based on the totality of ALL relevant KnowledgeC records, and avoid dwelling solely on the information derived from a single log type or row.</p>
+<p>The post <a rel="nofollow" href="/2019/10/07/knowledgec-now-playing-entries/">KnowledgeC: Now Playing entries</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/2019/10/07/knowledgec-now-playing-entries/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>A lesson in home network security</title>
+		<link>/2019/05/19/a-lesson-in-home-network-security/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=a-lesson-in-home-network-security</link>
+					<comments>/2019/05/19/a-lesson-in-home-network-security/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Sun, 19 May 2019 21:04:09 +0000</pubDate>
+				<category><![CDATA[InfoSec]]></category>
+		<category><![CDATA[Uncategorized]]></category>
+		<category><![CDATA[infosec]]></category>
+		<category><![CDATA[network]]></category>
+		<category><![CDATA[rdp]]></category>
+		<guid isPermaLink="false">https://3.88.229.156/?p=199</guid>
+
+					<description><![CDATA[<p>There&#8217;s been a lot of buzz about RDP vulnerabilities of late, and one tweet in particular publicly shamed companies who in 2019 were still using port forwarding to remotely access machines on their corporate LANs. I thought, they&#8217;re talking about companies, not regular joes. But the tweet stuck with me and eventually motivated me to [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/2019/05/19/a-lesson-in-home-network-security/">A lesson in home network security</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>There&#8217;s been a lot of buzz about <a rel="noreferrer noopener" aria-label="RDP vulnerabilities (opens in a new tab)" href="https://blogs.technet.microsoft.com/msrc/2019/05/14/prevent-a-worm-by-updating-remote-desktop-services-cve-2019-0708/" target="_blank">RDP vulnerabilities</a> of late, and one tweet in particular publicly shamed companies who in 2019 were still using port forwarding to remotely access machines on their corporate LANs. I thought, they&#8217;re talking about <em>companies, </em>not regular joes. But the tweet stuck with me and eventually motivated me to take a small step towards improved security. I&#8217;ll admit it! I&#8217;ve had a random (non-3389) port forwarded to a machine on my LAN to facilitate RDP connections for some time, really just for the sheer convenience and cost effectiveness of it. I selected a port that isn&#8217;t commonly used for anything, to help prevent it from showing up on Shodan or any common-only type port scans. It gave me a &#8216;security through obscurity&#8217; level of confidence that others probably share about their home LANs. I googled easy ways to improve RDP security and came across <a rel="noreferrer noopener" aria-label="this guide (opens in a new tab)" href="https://www.tenforums.com/tutorials/87609-change-account-lockout-threshold-local-accounts-windows-10-a.html" target="_blank">this guide</a> which walks you through how to set local policy that automatically locks accounts out after so many failed login attempts. I went ahead and set this up on the box I RDP to. On that box, I had only 1 <strong>local</strong> account which was part of the Administrator group. Today, I went to login to the machine and got this (image from Google images):</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/05/AD_Account_Keeps_Locking_Out.jpg"><img loading="lazy" width="474" height="205" src="http://3.88.229.156/wp-content/uploads/2019/05/AD_Account_Keeps_Locking_Out.jpg" alt="" class="wp-image-200" srcset="/wp-content/uploads/2019/05/AD_Account_Keeps_Locking_Out.jpg 474w, /wp-content/uploads/2019/05/AD_Account_Keeps_Locking_Out-300x130.jpg 300w" sizes="(max-width: 474px) 100vw, 474px" /></a></figure>
+
+
+
+<p>OK, I thought, there could be a non-scary explanation for this &#8212; maybe a scheduled task I created with stored credentials and completely forgot about or something? </p>
+
+
+
+<p class="has-small-font-size"><em>Side note &#8212; when you are literally the only user that can login on a machine and get locked out, it&#8217;s a pain in the ass to fix! The login screen won&#8217;t let you login as any other user and even password resets do not unlock it. I booted to recovery and launched a command prompt, but wasn&#8217;t able to see my locked out account from there using net user &#8212; it listed other accounts but not the problem one.</em> <em>The fix I finally used was to replace utilman.exe with cmd.exe in the recovery command prompt and boot normally</em>, <em>then clicked the &#8216;ease of access&#8217; to have an administrator command prompt on a normal boot</em>, <em>which was able to set the user account to active again.</em></p>
+
+
+
+<p>Alright so, we&#8217;re unlocked now and all is back to normal, right? As a forensics guy I really wanted to discover what caused the lockout. I opened up Event viewer and checked out the Security logs. What I observed next stunned me. In the 12 days before all this happened, I had over 14,000 failed attempts to logon via RDP. Further inspection showed that the failed attempts were often coupled with random account names that could only be part of a dictionary attack. I exported the list and wrote a C# script to itemize the names used, and put them in a pastebin <a rel="noreferrer noopener" aria-label="here (opens in a new tab)" href="https://pastebin.com/S64qNi7V" target="_blank">here</a> if anyone is interested. ADMINISTRATOR is the clear winner with over 9611 failed logins.</p>
+
+
+
+<p>This led me on a &#8216;security improvement&#8217; rabbit hole that included:</p>
+
+
+
+<ul><li>Disabling port forwarding altogether on my router</li><li>Running nmap on my machine and finding ports open somehow.</li><li>Discovering that UPnP was enabled on my router and disabling it &#8211; really?</li><li>Going through the ASUS Security Checklist and turning everything green, such as changing my &#8216;admin&#8217; username to something else, disabling WPS, enabling HTTPS-only access to the router, updating router firmware to the latest version, etc.</li></ul>
+
+
+
+<p>While there&#8217;s no evidence at this point of successful access to my machine, I felt like this was an excellent wakeup call. As for remoting, I am going to disable RDP and instead use a third party remoting service &#8212; one which allows me to use 2FA and has &#8216;login attempt from X.X.X.X&#8217; notification emails, etc.</p>
+<p>The post <a rel="nofollow" href="/2019/05/19/a-lesson-in-home-network-security/">A lesson in home network security</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/2019/05/19/a-lesson-in-home-network-security/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Obtain a logical dump of Signal data on Android with signal-back</title>
+		<link>/2019/05/15/obtain-logical-signal-android/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=obtain-logical-signal-android</link>
+					<comments>/2019/05/15/obtain-logical-signal-android/#comments</comments>
+		
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Wed, 15 May 2019 20:11:38 +0000</pubDate>
+				<category><![CDATA[Mobile Forensics]]></category>
+		<category><![CDATA[Uncategorized]]></category>
+		<category><![CDATA[android]]></category>
+		<category><![CDATA[signal]]></category>
+		<guid isPermaLink="false">https://3.88.229.156/?p=173</guid>
+
+					<description><![CDATA[<p>I&#8217;ve had a number of people asking for a walkthrough on this process so thought I&#8217;d make it into this week&#8217;s blog entry. It&#8217;s not a particularly technical process and I&#8217;m the first to admit doesn&#8217;t adhere to strict forensic fundamentals either. I recognize this and agree! This approach is certainly one of the last [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/2019/05/15/obtain-logical-signal-android/">Obtain a logical dump of Signal data on Android with signal-back</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>I&#8217;ve had a number of people asking for a walkthrough on this process so thought I&#8217;d make it into this week&#8217;s blog entry. It&#8217;s not a particularly technical process and I&#8217;m the first to admit doesn&#8217;t adhere to strict forensic fundamentals either. I recognize this and agree! This approach is certainly one of the last things to do on an Android device &#8211; once you&#8217;ve completed all other acquisition techniques &#8211; including potentially taking photos of the screen. You should also consider any potential repercussions of manipulating the device directly and be willing to speak to this down the road otherwise don&#8217;t do it! </p>
+
+
+
+<p>We&#8217;ve slowly been forced to make concessions as forensic examiners as the technology evolves and with it, an increased difficulty in obtaining that pristine unaltered dataset we get with a write-blocked mechanical hard drive. As long as you&#8217;ve followed sound forensic processes and obtained as much data as possible without making any changes, I think it&#8217;s a great ability to possess &#8212; being able to export Signal data this way &#8212; given time is not always abundant and message data can be unpredictably supermassive. We&#8217;ve all had the experience of having to capture screen photos one by one, and let&#8217;s face it &#8211; it sucks. Worse, the data you get from screen photos is often less precise&#8230; perhaps times are rounded to the nearest minute, relative to the time of the moment it is being viewed, or not visible at all.</p>
+
+
+
+<h3>Enough with the disclaimer, where do we start?</h3>
+
+
+
+<p>First, remove any SD card in the device, place it in a bag or tape it to something with a label, and set it aside. Locate a blank SD card. We&#8217;ll use this temporary SD card to transfer off our backup data once it is prepared. I generally wait to insert the SD card until after the backup has been created.</p>
+
+
+
+<p>Open the Signal application on the device. Go to settings via the &#8216;&#8230;&#8217; button at the top right of the home screen. From here look for &#8216;Chats and Media&#8217; and tap on that.</p>
+
+
+
+<figure class="wp-block-image is-resized"><a href="http://3.88.229.156/wp-content/uploads/2019/05/1-2.png"><img loading="lazy" src="http://3.88.229.156/wp-content/uploads/2019/05/1-2.png" alt="" class="wp-image-174" width="180" height="263" srcset="/wp-content/uploads/2019/05/1-2.png 652w, /wp-content/uploads/2019/05/1-2-205x300.png 205w" sizes="(max-width: 180px) 100vw, 180px" /></a></figure>
+
+
+
+<p>On the next screen, click the slider switch to enable Chat Backups. If it is already enabled, switch it off and back on. A new password is generated each time. <em>NOTE: You may wish to turn this OFF after completing an extraction.</em></p>
+
+
+
+<figure class="wp-block-image is-resized"><a href="http://3.88.229.156/wp-content/uploads/2019/05/2-1.png"><img loading="lazy" src="http://3.88.229.156/wp-content/uploads/2019/05/2-1.png" alt="" class="wp-image-175" width="239" height="230" srcset="/wp-content/uploads/2019/05/2-1.png 936w, /wp-content/uploads/2019/05/2-1-300x290.png 300w, /wp-content/uploads/2019/05/2-1-768x743.png 768w" sizes="(max-width: 239px) 100vw, 239px" /></a></figure>
+
+
+
+<p>Enabling the slider switch will trigger a dialog with a numeric password on it. The passphrase is read from left to right, row by row, as if there were no spaces in it. Check the box. <strong>HIGHLY RECOMMEND TAKING A PHOTO</strong> vs. writing it down.</p>
+
+
+
+<figure class="wp-block-image is-resized"><a href="http://3.88.229.156/wp-content/uploads/2019/05/3-1.png"><img loading="lazy" src="http://3.88.229.156/wp-content/uploads/2019/05/3-1.png" alt="" class="wp-image-176" width="261" height="261" srcset="/wp-content/uploads/2019/05/3-1.png 970w, /wp-content/uploads/2019/05/3-1-150x150.png 150w, /wp-content/uploads/2019/05/3-1-768x772.png 768w" sizes="(max-width: 261px) 100vw, 261px" /></a></figure>
+
+
+
+<p>After the program has run, the original screen will update with a new last backup date. Go back to the Home screen and locate File Manager app. On the device root (not the SD card), locate the folder called Signal. It will be empty aside from your newly generated backup. Now put in your blank SD card. Assuming all goes well and it gets mounted, long hold on the Signal folder and then chose &#8216;Move To&#8217; from the context menu. </p>
+
+
+
+<figure class="wp-block-image is-resized"><a href="http://3.88.229.156/wp-content/uploads/2019/05/4-1.png"><img loading="lazy" src="http://3.88.229.156/wp-content/uploads/2019/05/4-1.png" alt="" class="wp-image-178" width="216" height="242" srcset="/wp-content/uploads/2019/05/4-1.png 797w, /wp-content/uploads/2019/05/4-1-267x300.png 267w, /wp-content/uploads/2019/05/4-1-768x861.png 768w" sizes="(max-width: 216px) 100vw, 216px" /></a></figure>
+
+
+
+<figure class="wp-block-image is-resized"><a href="http://3.88.229.156/wp-content/uploads/2019/05/6-1.png"><img loading="lazy" src="http://3.88.229.156/wp-content/uploads/2019/05/6-1-874x1024.png" alt="" class="wp-image-179" width="205" height="239" srcset="/wp-content/uploads/2019/05/6-1-874x1024.png 874w, /wp-content/uploads/2019/05/6-1-256x300.png 256w, /wp-content/uploads/2019/05/6-1-768x900.png 768w, /wp-content/uploads/2019/05/6-1.png 908w" sizes="(max-width: 205px) 100vw, 205px" /></a></figure>
+
+
+
+<p>I usually choose to <em>move</em> it to the blank SD card, so it isn&#8217;t left behind on the device. Transfer this to your examination machine and copy it out. If you were to look at this in hex, you&#8217;ll see what you expected to see &#8211; an encrypted container file.</p>
+
+
+
+<figure class="wp-block-image is-resized"><a href="http://3.88.229.156/wp-content/uploads/2019/05/hxd.png"><img loading="lazy" src="http://3.88.229.156/wp-content/uploads/2019/05/hxd.png" alt="" class="wp-image-180" width="342" height="495" srcset="/wp-content/uploads/2019/05/hxd.png 634w, /wp-content/uploads/2019/05/hxd-207x300.png 207w" sizes="(max-width: 342px) 100vw, 342px" /></a></figure>
+
+
+
+<p>Now we need to use signal-back. This app is written in Go, and open source,  but has been conveniently bundled into an executable that you can download off it&#8217;s Github page at <a rel="noreferrer noopener" aria-label=" (opens in a new tab)" href="https://github.com/xeals/signal-back" target="_blank">xeals/signal-back</a>. I&#8217;ve got this executable in a folder that&#8217;s in my PATH environment variable but you could copy it into the casefolder if you like. The command syntax is:</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="msdos" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">signal-back.exe format signal-2019-01-01-01-30-22.backup > signalMessages.xml</pre>
+
+
+
+<p>After this you will be prompted for the password which is not echoed to the screen. If you get a long error or anything to do with a parsing error you may have a password issue &#8211; try again. Alternatively if everything was successful you now have an XML file that is compatible with SMS Backup and Restore.</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/05/notepad.png"><img loading="lazy" width="1024" height="600" src="http://3.88.229.156/wp-content/uploads/2019/05/notepad-1024x600.png" alt="" class="wp-image-181" srcset="/wp-content/uploads/2019/05/notepad-1024x600.png 1024w, /wp-content/uploads/2019/05/notepad-300x176.png 300w, /wp-content/uploads/2019/05/notepad-768x450.png 768w, /wp-content/uploads/2019/05/notepad.png 1455w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<p>Throw this data into a compatible tool and presto! Signal data! One last note, contact names aren&#8217;t present in the XML. I don&#8217;t know if the Signal backup database includes it or not, but the way I deal with this is by exporting all Native contacts using a forensic tool and apply it to the XML based on phone numbers. You could also do this manually. </p>
+
+
+
+<figure class="wp-block-image is-resized"><a href="http://3.88.229.156/wp-content/uploads/2019/05/7-1.png"><img loading="lazy" src="http://3.88.229.156/wp-content/uploads/2019/05/7-1.png" alt="" class="wp-image-182" width="206" height="344" srcset="/wp-content/uploads/2019/05/7-1.png 544w, /wp-content/uploads/2019/05/7-1-180x300.png 180w" sizes="(max-width: 206px) 100vw, 206px" /></a></figure>
+<p>The post <a rel="nofollow" href="/2019/05/15/obtain-logical-signal-android/">Obtain a logical dump of Signal data on Android with signal-back</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/2019/05/15/obtain-logical-signal-android/feed/</wfw:commentRss>
+			<slash:comments>3</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>forensicBlend: Designing a scalable community plugin API</title>
+		<link>/2019/05/11/forensicblend-designing-a-scalable-community-plugin-api/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=forensicblend-designing-a-scalable-community-plugin-api</link>
+					<comments>/2019/05/11/forensicblend-designing-a-scalable-community-plugin-api/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Sat, 11 May 2019 14:09:10 +0000</pubDate>
+				<category><![CDATA[Forensic Coding]]></category>
+		<category><![CDATA[Mobile Forensics]]></category>
+		<category><![CDATA[Uncategorized]]></category>
+		<category><![CDATA[.NET]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[c#]]></category>
+		<category><![CDATA[forensicBlend]]></category>
+		<guid isPermaLink="false">https://3.88.229.156/?p=149</guid>
+
+					<description><![CDATA[<p>I decided to start writing this series to document my work on forensicBlend, a project I previewed on Twitter yesterday that takes device logs and translates them into a modern report format that can be searched, filtered, and exported. One of my fundamental design goals is to provide a high level of extensibility and allow [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/2019/05/11/forensicblend-designing-a-scalable-community-plugin-api/">forensicBlend: Designing a scalable community plugin API</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>I decided to start writing this series to document my work on forensicBlend, a project I <a rel="noreferrer noopener" aria-label=" (opens in a new tab)" href="https://twitter.com/forensicmike1/status/1126989265420730368?s=20" target="_blank">previewed on Twitter yesterday</a> that takes device logs and translates them into a modern report format that can be searched, filtered, and exported. One of my fundamental design goals is to provide a high level of extensibility and allow community developers to contribute. That is, I want for people who know how to script to be able to contribute their own custom logic and see it work in my apps (and ultimately, result in a better timeline tool). This is something <a rel="noreferrer noopener" aria-label="Eric Zimmerman (opens in a new tab)" href="https://ericzimmerman.github.io/#!index.md" target="_blank">Eric Zimmerman</a> touched on <a rel="noreferrer noopener" aria-label=" (opens in a new tab)" href="https://3.88.229.156/2019/05/06/chatting-net-with-eric-zimmerman/" target="_blank">in our interview</a> last week.</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/05/1-1.png"><img loading="lazy" width="1000" height="650" src="http://3.88.229.156/wp-content/uploads/2019/05/1-1.png" alt="" class="wp-image-150" srcset="/wp-content/uploads/2019/05/1-1.png 1000w, /wp-content/uploads/2019/05/1-1-300x195.png 300w, /wp-content/uploads/2019/05/1-1-768x499.png 768w" sizes="(max-width: 1000px) 100vw, 1000px" /></a></figure>
+
+
+
+<p>I scaffolded some of the UX (above) based roughly on how I want this to work. Essentially- list the currently installed plugins, prompt for updates where available, and provide a way to browse the online repository to download additional plugins.</p>
+
+
+
+<p><em>Side note</em>:<em> I&#8217;ve had some questions regarding what UI framework I am using. The above is a WPF app which uses the excellent <a rel="noreferrer noopener" aria-label=" (opens in a new tab)" href="https://github.com/MahApps/MahApps.Metro" target="_blank">MahApps.Metro</a> and <a href="https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit" target="_blank" rel="noreferrer noopener" aria-label=" (opens in a new tab)">Material Design in XAML</a> libraries. These are </em><u><em>free</em></u><em> offerings that you can use in your own WPF project to elevate your UI to the next level.</em></p>
+
+
+
+<h3><u>Requirements</u></h3>
+
+
+
+<p>There are really two areas of work here to think about: the plugin API itself (what to do with the packages once they are installed), and package hosting/redistribution. Here are a few overall design considerations and requirements I came up with:</p>
+
+
+
+<ul><li>As a lone developer, time and cost savings are a priority. If there are any wheels that have already been invented, don&#8217;t invent new ones unless the need be great.</li><li>It&#8217;s 2019 and it&#8217;s therefore important we take time to consider things like security. Packages containing plugins may have DLLs (more on this later) with code that will ultimately be executed by our app. This could (and should) be considered a potential attack surface.  We can mitigate this with some of the following:<ul><li>Packages should be signed and verified at every step of the way.</li><li>Community created plugins and updates will undergo a thorough, manual code review and testing before they are posted to the package library (think Apple&#8217;s App Store).</li></ul></li><li>Plugin packages should have versioning capabilities and upgrading to the latest version should be as seamless as possible, being cognizant that not all users will have internet access.</li><li>Community created plugins will be managed centrally and approved prior to being posted to the online package library (think Apple App Store).</li></ul>
+
+
+
+<h3><u>Hosting and Package Distribution</u></h3>
+
+
+
+<p>I knew going into a project like this that I wanted to use Amazon AWS. The cost effectiveness, sheer scalability, and all-around cool factor of using AWS made this an easy design decision. Off the top of my head, I expect to be using the following AWS components:</p>
+
+
+
+<ul><li>API Gateway <ul><li>Create and administer web endpoints for the app.</li></ul></li><li>Certificate Manager<ul><li>Free SSL certificate!</li></ul></li><li>CloudFront<ul><li>Content Delivery Network (CDN) to ensure low latency, high speed access to data from anywhere in the world</li></ul></li><li>Cognito<ul><li>Complete User Account Management and Authentication</li></ul></li><li>EC2 (Elastic Compute Cloud)<ul><li>Host microinstance of some sort of RDBMS. Or perhaps we will try out a NoSQL solution DynamoDB for science / learning &#8212; and because DynamoDB has a permanent free tier option.</li></ul></li><li>Elastic Load Balancing<ul><li>Distribute incoming application traffic across multiple targets across several Availability zones.</li></ul></li><li>Lambda<ul><li>Provide the business logic for serving our REST API to answer questions like &#8220;What are all the plugins currently available and what is the latest version?&#8221;</li><li>Provide the business logic for facilitating and monitoring package downloads (users like to see download counts), potentially provide a &#8216;thumbs up / thumbs down&#8217; interaction or possibly even comment</li></ul></li><li>Route 53<ul><li>DNS Registration</li></ul></li><li>S3<ul><li>Secure, encrypted, redundant hosting of the compiled packages themselves</li><li>Web front-end for users who choose to browse it this way.</li></ul></li></ul>
+
+
+
+<p>Let&#8217;s keep in mind I&#8217;ve touched on less than 10 of the things AWS can do for you, whereas the actual list of things it can do is much, much longer. For most of us, the usage involved will be in or around the Free Tier, so basically what I&#8217;m saying is you can get all of the things above for NO COST. If you are reading this and going, &#8220;Why am I still renting web space like I did in 2005?&#8221; this is an excellent question. You may wanna migrate! There is also an irreplaceable feeling you get when you realize you are using the same exact same serverless environment as some of the largest of corporate juggernauts out there. </p>
+
+
+
+<h3><u>Packaging Technologies</u></h3>
+
+
+
+<p>Earlier I mentioned leveraging as many existing technologies as possible. Most every .NET programmer out there is familiar with the idea of <a href="https://www.nuget.org/" target="_blank" rel="noreferrer noopener" aria-label=" (opens in a new tab)">NuGet</a>. From NuGet themselves:  </p>
+
+
+
+<p style="text-align:right"><em>NuGet is the package manager for .NET. The NuGet client tools provide the ability to produce and consume packages. The NuGet Gallery is the central package repository used by all package authors and consumers.  </em></p>
+
+
+
+<p></p>
+
+
+
+<p>So if I&#8217;m writing an app, and I want to bring in code from a library to perform a specific function, I can open the NuGet Package Manager in my development environment (Visual Studio shown below) and perform a search for the function I need. Then it&#8217;s one click to install and be off.</p>
+
+
+
+<figure class="wp-block-image"><img loading="lazy" width="1024" height="562" src="http://3.88.229.156/wp-content/uploads/2019/05/nuget-1024x562.png" alt="" class="wp-image-152" srcset="/wp-content/uploads/2019/05/nuget-1024x562.png 1024w, /wp-content/uploads/2019/05/nuget-300x165.png 300w, /wp-content/uploads/2019/05/nuget-768x421.png 768w, /wp-content/uploads/2019/05/nuget.png 1320w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<p>It goes even further by providing strong versioning, licensing, dependency tracking, and more. Behind the scenes, NuGet uses .NUPKG files which are containers that bake alot of this functionality in for us, and provide desirable things like package signing.</p>
+
+
+
+<p>Since NuGet already does everything we need and then some, for free, why would we design our own solution from scratch? Seeing the recurring theme here?</p>
+
+
+
+<h3><u>Next steps</u></h3>
+
+
+
+<p>So we know we&#8217;re going to use NuGet as a package management solution, and we know we&#8217;re going to use AWS for community hosting and package distribution, but what about the actual code to load said plugins? This could be the most entertaining part, but also the most time intensive. For the purposes of development, I will need to look at how to extract and use content from a NuGet package <u>at runtime</u>.</p>
+
+
+
+<p>I&#8217;m going to have to weigh the advantages of dynamic code compilation (source code compilation at runtime) vs. distributing pre-compiled binaries (DLLs) and simply loading them.</p>
+
+
+
+<p>Stay tuned for the next article in the series where we will get coding!</p>
+<p>The post <a rel="nofollow" href="/2019/05/11/forensicblend-designing-a-scalable-community-plugin-api/">forensicBlend: Designing a scalable community plugin API</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/2019/05/11/forensicblend-designing-a-scalable-community-plugin-api/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Chatting .NET with Eric Zimmerman</title>
+		<link>/2019/05/06/chatting-net-with-eric-zimmerman/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=chatting-net-with-eric-zimmerman</link>
+					<comments>/2019/05/06/chatting-net-with-eric-zimmerman/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Mon, 06 May 2019 12:58:18 +0000</pubDate>
+				<category><![CDATA[Forensic Coding]]></category>
+		<category><![CDATA[Guest Blog]]></category>
+		<category><![CDATA[Uncategorized]]></category>
+		<guid isPermaLink="false">https://3.88.229.156/?p=140</guid>
+
+					<description><![CDATA[<p>I don&#8217;t think anyone in the Digital Forensics world would dispute that Python is the most used language in forensic programming today. In fact, many of its more fanatical followers frequently remind us of its ostensibly long list of superior characteristics. To the extent I think sometimes people might forget that there exists other programming [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/2019/05/06/chatting-net-with-eric-zimmerman/">Chatting .NET with Eric Zimmerman</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>I don&#8217;t think anyone in the Digital Forensics world would dispute that Python is the most used language in forensic programming today. In fact, many of its more fanatical followers frequently remind us of its ostensibly long list of superior characteristics. To the extent I think sometimes people might forget that there exists other programming languages at all. Recognizing this, I knew I wanted to write a post discussing one of my favorite technologies &#8212; C# and .NET as a whole &#8212; but I could think of no better guest contributor to bring into that conversation than Eric Zimmerman, one of if not <strong>the </strong>most household name in forensic coding, and and a staunch supporter of the tech.</p>
+
+
+
+<p>Eric is the mastermind behind KAPE, Registry Explorer, JumpList Explorer, AmCacheParser, and so many more. Like many readers, I was introduced to Eric&#8217;s work early on in my forensics career &#8211; right at the beginning, in fact, as part of the curriculum of my &#8220;forensics 101&#8221; course at the Canadian Police College. I am honored to chat with him about one of my favorite subjects!</p>
+
+
+
+<p><strong>forensicmike1: Thanks so much for taking part in this conversation Eric! I am curious to hear what brought you into the .NET world initially, and what is it that’s kept you there for all these years?</strong></p>
+
+
+
+<p><strong>Eric Zimmerman</strong>: I initially started my development career in Access. When I outgrew that, I moved on to VB6 (way back in the pre-.NET days). Once .NET came out, I slowly switched to VB.NET because I already knew VB. I always wanted to do C#, but did not want to have to re-learn thing so I held onto it for a long time. In fact, osTriage v1 and 2 were both written in VB! Soon after osTriage v2 came out, I decided to force myself into C# for a few projects and I have never looked back from that point.</p>
+
+
+
+<p>So for me, it is a matter of wanting to use a first class language on the platform I deal with the most, which is Windows. I am a big believer in the concept of doing Windows forensics on Windows, Mac forensics on a Mac, and so on. You are just asking for issues when you do not do things this way. For example, a very popular method for accessing volume shadow copies for Windows does not, at least in some cases, present the data for access the same way as native methods in Windows does. This leads to corrupt files being exported and obviously, that&#8217;s a problem when it comes time to process them. Does this happen all the time? No, but even once is enough that I would be hesitant to trust that method in any case that matters, unless I also verified getting the data in exactly the same way from Windows natively. At this point however, you are now doubling your work, so why bother with the non-Windows method at all?</p>
+
+
+
+<p>I stay with .NET because it&#8217;s what I know and what works for a wide range of needs. I know it&#8217;s not going anywhere, and it has great IDEs and other resources for efficient development, debugging, logging, and so on.</p>
+
+
+
+<p>The other huge advantage is it&#8217;s range of 3rd party controls that just do not exist anywhere else for creating amazing graphical user interfaces (GUIs). Things like grids, tree views, and a ton of other controls I use in my GUIs aren&#8217;t available so I wouldn&#8217;t be able to write something like RegistryExplorer in Python &#8212; and if I did it wouldn&#8217;t do what it can do on the Windows side.</p>
+
+
+
+<hr class="wp-block-separator"/>
+
+
+
+<p><strong>forensicmike1: I couldn&#8217;t agree more! And I&#8217;ve seen this happen over and over to people as they make their way to C#. Forensically speaking, can you think of any other advantages to writing code in .NET?</strong></p>
+
+
+
+<p><strong>Eric Zimmerman</strong>:   With .NET, I know the runtime I need is going to be in place by default &#8212; or will be in the vast majority of cases. I do not have to worry about making a self-contained executable, or not handling Unicode correctly, or not being able to install something where I need it.</p>
+
+
+
+<p>Going back to what I said earlier, I feel you should do Windows forensics on a Windows box, so this makes things a lot easier for end users of my software. With my stuff you can download and unzip my programs on any machine and it will most likely work the first time without issues. This can be on a forensics box doing dead box work, or live response stuff against a running system in the field.</p>
+
+
+
+<p>Speed is also a big thing for me. I tend to do a lot of work to tune my code so that it is, first and foremost, as accurate as it can be. Once this is done, I tune for performance. As the old saying goes, speed is fine, but accuracy is final. When you look at forensics programs written in other languages (Rust being an exception that comes to mind), the performance is often terrible and it takes a lot of work to get the environment ready to even run an application. Sure, the developer can do some work to package a Perl or Python program into a self contained Windows executable, but that process can be painful and it still does not address the performance issues. Can performant code be written in Python? Maybe, but it involves redoing parts in Cython, or writing critical sections in C++ and so on. So while it is possible, to me it&#8217;s just not worth it, especially in light of the issues I mentioned above. Getting accurate data is of course paramount, so even one time where you might not get that accurate data is one too many to take the chance.</p>
+
+
+
+<p>When writing forensic tools that target Windows artifacts, what Windows does and says should be the target we aim for. If you can exceed what Windows lets you see and do, all the better. Shedding light on data in a different way is always a good thing, but not at the expense of excluding or missing things (or the risk of doing so).</p>
+
+
+
+<p>At the end of the day, I would rather my code run amazingly well on one platform, than poorly on five platforms.</p>
+
+
+
+<hr class="wp-block-separator"/>
+
+
+
+<p><strong>forensicmike1: Aside from not many people in forensics being familiar, can you speak to any disadvantages?</strong></p>
+
+
+
+<p><strong>Eric Zimmerman</strong>:  The funny thing about that is, most people are using .NET all over the place every day if they use a Windows box. Just because they may not be aware of it, does not mean it isn&#8217;t there.</p>
+
+
+
+<p>I don&#8217;t really see any disadvantages for it in the tool chains <em>I</em> <em>design and use</em>, but obviously it has been an issue in the past of being able to run .NET code on non-Windows platforms. This is becoming less and less of an issue with Microsoft becoming more involved in the open source world &#8212; remember that .NET Core is open source now &#8212; and this is furthered by being able to run PowerShell on Linux too.</p>
+
+
+
+<p>So at some point in the not so distant future, the code I write would be cross platform (atleast the CLI ones). In some cases, the code can already run on .NET core and Standard. The big hold up for me personally in this regard is that .NET Core and Standard do not have a seamless way to make a single executable for each platform. I hate distributing 38 DLLs and the executable for programs, so until I can do this on Linux or a Mac the same way I can on Windows (i.e. giving you a single executable to run) I won&#8217;t be doing cross platform stuff full time.</p>
+
+
+
+<p>For a lot of people, the biggest hurdle people have when it comes to using .NET is not a technical one, but rather bias towards Microsoft or Windows for some reason. Given how easy it is to stand up a VM these days, excuses like &#8220;I can&#8217;t run X because it is Windows only&#8221; just shouldn&#8217;t be a valid excuse anymore.</p>
+
+
+
+<hr class="wp-block-separator"/>
+
+
+
+<p><strong>forensicmike1: Do you think programming is a legitimate specialization within the field of Digital Forensics &#8212; or is it something every examiner should atleast dabble in at this point?</strong></p>
+
+
+
+<p><strong>Eric Zimmerman</strong>: Well, I don&#8217;t know if it&#8217;s forensic programming that is a specialty, or the ability to program in a way that is necessary for use in the kinds of work we do in forensics that is more important. In other words, you do not have to be IN forensics to be able to look at programming in the way I am speaking of. What does this look like in practical terms? For me, it means failing early and often (i.e. NEVER, EVER eat error messages or other &#8220;unknown&#8221; conditions), programming defensively (i.e. protecting the end user from themselves to a degree), sanitizing input, providing the ability to see diagnostic and trace messages for debugging purposes, robust output options, and so on. (<em>Forensicmike1: This is great advice and I hope some vendors are reading!</em>)</p>
+
+
+
+<p>Not everyone is wired to be able to program at higher levels and I am certainly no expert in the field. In fact, not even 10 years ago I started looking for a way to process LNK files natively in one of my live response programs. Looking at a LNK file in a hex editor, I said to myself &#8220;I would never be able to program something to read these things&#8221;, but now I have native parsers for just about every key Windows artifact out there &#8212; all of which I did in C#. I learned how to code and parse things partly out of necessity (they didn&#8217;t exist prior to my work) or because the existing tools did not do the job (incomplete, inaccurate, slow, etc) and I thought I could do better. Of course, curiosity and wanting to solve a problem comes into it too (I do not want to even think about how many hours I have spent looking at shellbags).</p>
+
+
+
+<p>With that said, no one is expected to walk into DFIR and be able to write a forensic parser for an artifact on day one. In fact, most people just don&#8217;t have a reason to do so. It is certainly beneficial to have at least some level of proficiency with programming so you can whip up some code to automate the mundate though, so this is a good reason to atleast get familiar with something like PowerShell, C#, Python, etc., even if it is limited to looping over thousands of log files looking for things and saving yourself the pain of doing it manually.</p>
+
+
+
+<hr class="wp-block-separator"/>
+
+
+
+<p><strong>In your view are the major forensic software vendors doing enough to provide ways for established developers who do forensics as a primary job to integrate their creations? If not, any thoughts on what they could do better?</strong></p>
+
+
+
+<p><strong>Eric Zimmerman</strong>: This is a tough one because of the different languages vendors write their programs in. Does a vendor use .NET, C++, or Delphi? Each in turn would have different ways for external users to hook into it when writing code. </p>
+
+
+
+<p>My suggestion to vendors is to provide the ability to write plugins that can be used by the vendor&#8217;s product. X-Ways for example has an API that let&#8217;s you write such things. Several of my tools do as well (plugins in Registry tools, maps in event logs, targets and modules in KAPE).  <br><em>(Forensicmike1: Funny that the vendor that uses Delphi is also the only one who has done any .NET Plugin work!)</em> </p>
+
+
+
+<p>The other avenue is to come up with a non-programming means (or a balance of programming and non-programming) to interact with and extend programs. Things like maps in EvtxECmd or batch file mode in RECmd are good examples here. Both allow end users to wield the capabilities of tools and extend them as far as they see fit, all without me being involved.</p>
+
+
+
+<p>I think the biggest benefit for end users is designing open ended and extensible tools that people can then take to places the developers never thought of before. It is pretty cool to hear about some of the use cases and ways people have put my stuff to use. They find all kinds of new uses and ways to do things I never envisioned when I designed the programs.</p>
+
+
+
+<p>By doing this, it&#8217;s not about the author of the program anymore, but rather it&#8217;s about the end-user and making their job easier, the data more clear, the work more efficient, and so on. Letting the end-user reduce the noise in order to find the signal THEY want to find is what is important.</p>
+
+
+
+<hr class="wp-block-separator"/>
+
+
+
+<p><strong>forensicmike1: Final word goes to you- Any advice for up-and-coming forensic coders who may be hesitant to share their work with the world?</strong></p>
+
+
+
+<p><strong>Eric Zimmerman</strong>: Throw that code out there! Remember, there will always be a first for everything and you were not good at anything the first time you did it (or even the first 100 times!). Put that work out there, get it into people&#8217;s hands, let them play with it, make suggestions, break it, and so on.</p>
+
+
+
+<p>Do not let anyone tell you anything in this space is a &#8220;solved problem&#8221; because the best way by far to learn about an artifact is to write a parser for it. And you never know, you may just find long standing bugs in major products that people have just taken for granted and assumed were right for the past 20 years.</p>
+
+
+
+<p>Even if no one ever uses your code on a case, the fact that you created something from nothing is a great feeling. Seeing your code do what you intended it to do, seeing all your unit tests pass for the first time, seeing the output come out of a program you wrote from start to finish is a magical thing. It still excites me when I get into a new project.</p>
+
+
+
+<p>Share that code, talk about that project, seek out the experts in your field to review and help and provide feedback. I cannot tell you how valuable peers are to bounce ideas off of, test things, and push my ideas to even better places. Two people (among many) that come to mind for me and have done these kinds of things hundreds of times for me over the years are David Cowen and Matt Seyer. Why are they in a position to do this? Because they too took that chance way back in the day to put out code, take a risk, be vulnerable, and EXPLORE THAT DATA in an effort to understand how it works, why it works, and the best ways to leverage that data to help us tell the story of what happened on a computer. As Matt and I like to say, &#8220;Every byte counts!&#8221;. There is a reason for them to be there. Seek to find out exactly why they are there.</p>
+
+
+
+<p>So, in summation, my advice would be:</p>
+
+
+
+<ul><li>Take calculated risks.</li><li>Learn from your mistakes.</li><li>Leverage peers.</li><li>Move the ball forward.</li><li>Leave things better than you found them.</li></ul>
+
+
+
+<p style="text-align:center"><em>Follow Eric on Twitter @<a href="https://twitter.com/EricRZimmerman">EricRZimmerman</a> or visit his website at </em><a href="https://ericzimmerman.github.io/"><em>https://ericzimmerman.github.io/</em></a></p>
+<p>The post <a rel="nofollow" href="/2019/05/06/chatting-net-with-eric-zimmerman/">Chatting .NET with Eric Zimmerman</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/2019/05/06/chatting-net-with-eric-zimmerman/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>iOS Photos.sqlite Forensics</title>
+		<link>/2019/05/02/ios-photos-sqlite-forensics/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=ios-photos-sqlite-forensics</link>
+					<comments>/2019/05/02/ios-photos-sqlite-forensics/#comments</comments>
+		
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Thu, 02 May 2019 12:28:45 +0000</pubDate>
+				<category><![CDATA[Guest Blog]]></category>
+		<category><![CDATA[Mobile Forensics]]></category>
+		<category><![CDATA[Uncategorized]]></category>
+		<category><![CDATA[guest blog]]></category>
+		<category><![CDATA[iOS]]></category>
+		<category><![CDATA[shafik punja]]></category>
+		<category><![CDATA[sqlite]]></category>
+		<guid isPermaLink="false">https://3.88.229.156/?p=120</guid>
+
+					<description><![CDATA[<p>Discussing with Shafik the correlation of photo albums to pictures on iOS using Photos.sqlite.</p>
+<p>The post <a rel="nofollow" href="/2019/05/02/ios-photos-sqlite-forensics/">iOS Photos.sqlite Forensics</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Photos.sqlite, the iOS elephant in the room of mobile forensic vendors that is absolutely chock full of interesting information yet is completely ignored. Why is this? One possible reason is that the database can be hard to work with due to table names that vary from device to device.</p>
+
+
+
+<p>To answer this question, I&#8217;m bringing out the big guns &#8211; colleague and friend <a href="https://twitter.com/qubytelogic">Shafik G. Punja</a> &#8211; who has been working in the digital forensics field for the last 15 years and counting. Shafik&#8217;s meticulous nature and extensive knowledge and experience is unmatched and so is the perfect person to ask about this subject.</p>
+
+
+
+<p><strong><em>Forensicmike</em>: What prompted you to investigate Photos.sqlite?</strong></p>
+
+
+
+<p><em>Shafik</em>: I was working on an already acquired iPhone 8 on iOS 12.1.2 where the device owner had placed the images of interest in an album called &#8220;Evidence&#8221;. The guy who did the acquisition, a blogger who shall not be directly named but rhymes with forensicbike, did not check before releasing the device itself. For most if not all major forensic tools, there is no way to tell which camera roll items belong to an album. This means there is a possibility that for every single instance of a video or photo on the file system there may be membership to one or more albums. Some albums are user created while others are automatically created by iOS such as &#8216;Screenshots&#8217; or even third party applications.</p>
+
+
+
+<p><strong><em>Forensicmike</em>: I don&#8217;t know who you could be referring to! So&#8230; could you summarize the purpose of Photos.sqlite?</strong></p>
+
+
+
+<p><em>Shafik</em>: This SQLite database file contains information about videos and photos stored on an iOS device. Photos.sqlite contains everything from album ownership, to internal photo analysis and GPS and much more. At the time of writing, this database must be manually examined in order to identify the existence of albums which can contain photos or videos.</p>
+
+
+
+<p><strong><em>Forensicmike</em>: Shaf&#8230; there&#8217;s nearly 70 tables in this beast. Which of them are actually needed?</strong></p>
+
+
+
+<p><em>Shafik</em>: All of them! Just kidding. The primary ones you need to focus on for the purpose of album identification and media correlation are ZGENERICALBUM, the mystery Z_##ASSETS table, and the ZGENERICASSET table. There are a handful of other interesting ones that I&#8217;ll provide a list for at the end but those are the main ones. The mystery number is the oddest and seems to vary from device to device. It is also probably the number one reason the forensic tools are staying far away from this otherwise easy target of a database. Keep in mind this is for iOS 12.1 and could be different in future/previous versions.</p>
+
+
+
+<p><strong><em>Forensicmike</em>: Okay, so where do we start?</strong></p>
+
+
+
+<p><em>Shafik</em>: If you know the album you&#8217;re interested in as I did in my case, start with ZGENERICALBUM. The ZTITLE column is where you&#8217;re headed. You can also note the ZCACHEDPHOTOSCOUNT and ZCACHEDVIDEOSCOUNT for a photo/video count &#8211; handy!</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/05/1.png"><img loading="lazy" width="624" height="213" src="http://3.88.229.156/wp-content/uploads/2019/05/1.png" alt="" class="wp-image-123" srcset="/wp-content/uploads/2019/05/1.png 624w, /wp-content/uploads/2019/05/1-300x102.png 300w" sizes="(max-width: 624px) 100vw, 624px" /></a></figure>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/05/2.png"><img loading="lazy" width="596" height="62" src="http://3.88.229.156/wp-content/uploads/2019/05/2.png" alt="" class="wp-image-124" srcset="/wp-content/uploads/2019/05/2.png 596w, /wp-content/uploads/2019/05/2-300x31.png 300w" sizes="(max-width: 596px) 100vw, 596px" /></a></figure>
+
+
+
+<p>So in this case we can see there are 4 items anticipated all of which are photos. At this point you should also note the Z_PK &#8212; in this case it was 47 &#8212; as this is our primary key that we will cross reference in table number 2 &#8211; the mystery number table. On this device, it was Z23_ASSETS. So, step 2 is to check Z23_ASSETS (or Z##_ASSETS) for your Z_PK of interest.</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/05/4.png"><img loading="lazy" width="624" height="201" src="http://3.88.229.156/wp-content/uploads/2019/05/3.png" alt="" class="wp-image-126" srcset="/wp-content/uploads/2019/05/3.png 624w, /wp-content/uploads/2019/05/3-300x97.png 300w" sizes="(max-width: 624px) 100vw, 624px" /></a></figure>
+
+
+
+<p>So we can see there are four items of interest in the Z_23ASSETS table if we filter by Z_23ALBUMS=47 (the Z_PK from ZGENERICALBUM), specifically 4490, 4491, 4492, 4493.</p>
+
+
+
+<p>Now we have one final table to bring into the mix&#8230; ZGENERICASSET. Take your values of interest and search for them as either RowID or Z_PK:</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/05/4.png"><img loading="lazy" width="512" height="283" src="http://3.88.229.156/wp-content/uploads/2019/05/4.png" alt="" class="wp-image-125" srcset="/wp-content/uploads/2019/05/4.png 512w, /wp-content/uploads/2019/05/4-300x166.png 300w" sizes="(max-width: 512px) 100vw, 512px" /></a></figure>
+
+
+
+<p>Now all that&#8217;s left is to scroll to the right&#8230;keep scrolling&#8230;. never give up scrolling&#8230;. and&#8230;.victory!</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/05/5.png"><img loading="lazy" width="406" height="165" src="http://3.88.229.156/wp-content/uploads/2019/05/5.png" alt="" class="wp-image-127" srcset="/wp-content/uploads/2019/05/5.png 406w, /wp-content/uploads/2019/05/5-300x122.png 300w" sizes="(max-width: 406px) 100vw, 406px" /></a></figure>
+
+
+
+<p><strong><em>Forensicmike</em>: Interesting&#8230; all PNG files &#8211; probably suggesting these could be screenshots if I recall from FOR585?</strong></p>
+
+
+
+<p>Shafik: Yes! They were screenshots &#8211; but that&#8217;s not the only thing you can understand from the querying we&#8217;ve done so far. Take a look at the ZDATECREATED for a UTC based creation time, and ZADDEDDATE for a &#8216;added to album time&#8217; &#8211; something that would be utterly missing from an analysis within an industry tool. And we&#8217;re barely scratching the surface here.</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/05/6.png"><img loading="lazy" width="596" height="154" src="http://3.88.229.156/wp-content/uploads/2019/05/6.png" alt="" class="wp-image-128" srcset="/wp-content/uploads/2019/05/6.png 596w, /wp-content/uploads/2019/05/6-300x78.png 300w" sizes="(max-width: 596px) 100vw, 596px" /></a></figure>
+
+
+
+<p><strong><em>Forensicmike</em>: Just confirming, you actually found these images in DCIM/104APPLE right?</strong></p>
+
+
+
+<p>Shafik: Yup &#8211; exactly where the database said they would be!</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/05/7.png"><img loading="lazy" width="323" height="343" src="http://3.88.229.156/wp-content/uploads/2019/05/7.png" alt="" class="wp-image-129" srcset="/wp-content/uploads/2019/05/7.png 323w, /wp-content/uploads/2019/05/7-283x300.png 283w" sizes="(max-width: 323px) 100vw, 323px" /></a></figure>
+
+
+
+<p> <br><strong><em>Forensicmike</em>: </strong> <strong>Awesome.. any other data points you&#8217;d like to draw attention to?</strong></p>
+
+
+
+<p><em>Shafik</em>: Of course. Here is a quick non-exhaustive list of some highlights I found. Keep in mind these are specific to iOS 12.1.2.</p>
+
+
+
+<div class="wp-block-file"><a href="http://3.88.229.156/wp-content/uploads/2019/05/DataPoints-PhotosSQLITE-iOS12_1_2.pdf">DataPoints-PhotosSQLITE-iOS12_1_2</a><a href="http://3.88.229.156/wp-content/uploads/2019/05/DataPoints-PhotosSQLITE-iOS12_1_2.pdf" class="wp-block-file__button" download>Download</a></div>
+
+
+
+<p><strong><em>Forensicmike</em>: What&#8217;s the best way for people to reach you if they have questions?</strong></p>
+
+
+
+<p>Via Twitter (<a href="https://twitter.com/qubytelogic">@qubytelogic</a>) is fine &#8211; my direct messages are open.</p>
+
+
+
+<p><strong>Thanks a lot Shafik! And thank you readers. If there is interest, perhaps we can move forward on this subject by investigating the use of fuzzy SQL querying to programmatically go&#8230;.</strong></p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/05/vendor.png"><img loading="lazy" width="800" height="600" src="http://3.88.229.156/wp-content/uploads/2019/05/vendor.png" alt="" class="wp-image-133" srcset="/wp-content/uploads/2019/05/vendor.png 800w, /wp-content/uploads/2019/05/vendor-300x225.png 300w, /wp-content/uploads/2019/05/vendor-768x576.png 768w" sizes="(max-width: 800px) 100vw, 800px" /></a></figure>
+<p>The post <a rel="nofollow" href="/2019/05/02/ios-photos-sqlite-forensics/">iOS Photos.sqlite Forensics</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/2019/05/02/ios-photos-sqlite-forensics/feed/</wfw:commentRss>
+			<slash:comments>5</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Aggregating iOS PowerLog data using C# &#8211; Part 1</title>
+		<link>/2019/04/28/aggregating-ios-powerlog-data-using-c-part-1/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=aggregating-ios-powerlog-data-using-c-part-1</link>
+					<comments>/2019/04/28/aggregating-ios-powerlog-data-using-c-part-1/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Sun, 28 Apr 2019 14:32:50 +0000</pubDate>
+				<category><![CDATA[Forensic Coding]]></category>
+		<category><![CDATA[Mobile Forensics]]></category>
+		<category><![CDATA[Uncategorized]]></category>
+		<category><![CDATA[apollo]]></category>
+		<category><![CDATA[c#]]></category>
+		<category><![CDATA[gkziplib]]></category>
+		<category><![CDATA[iOS]]></category>
+		<category><![CDATA[linqpad]]></category>
+		<category><![CDATA[powerlogs]]></category>
+		<guid isPermaLink="false">https://3.88.229.156/?p=80</guid>
+
+					<description><![CDATA[<p>Building on the work of Sarah Edwards to re-unify the PowerLog database with C# before running APOLLO.</p>
+<p>The post <a rel="nofollow" href="/2019/04/28/aggregating-ios-powerlog-data-using-c-part-1/">Aggregating iOS PowerLog data using C# &#8211; Part 1</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>If you haven&#8217;t already heard of Sarah Edwards&#8217; <a href="https://github.com/mac4n6/APOLLO">APOLLO</a> (Apple Pattern of Life Lazy Output&#8217;er), you should probably stop reading this and go check that out first. This article builds on Sarah&#8217;s work, specifically with PowerLogs. </p>
+
+
+
+<p>One of the challenges with PowerLogs is that on a daily basis, the device dumps the contents into a compressed archive. This makes sense from Apple&#8217;s perspective but makes it difficult / tedious to query en masse for forensic analysis. Our task today will be to programmatically combine data into a unified dataset upon which we can then run our APOLLO queries.</p>
+
+
+
+<p>For this work, I&#8217;m going to leverage my own <a href="https://github.com/forensicmike/gkziplib">GKZipLib</a>, which is a custom ZIP parsing module I created after becoming frustrated with the sluggish  performance of open source ZIP libraries available (including the ones native to .NET) for archives of significant size. My research iPhone filesystem is only a 15GB archive, but using GKZipLib parsing 271,361 entries to locate PowerLogs took my machine&#8217;s dated hardware a whole 0.5 seconds to complete. </p>
+
+
+
+<p>Finally, I&#8217;ll be using <a href="https://www.linqpad.net/">LINQPad</a>, Joe Albahari&#8217;s massively useful creation that has become a critical part of my day to day work. If you do any .NET coding at all, this is a wonderful tool to have in your arsenal for everything from quick and dirty analytical tasks to developing proof of concept code that can ultimately mature into a fully fledged Windows app in future.</p>
+
+
+
+<p>So let&#8217;s get started. We&#8217;ll begin with a few preparatory steps:</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="csharp" data-enlighter-theme="droide" data-enlighter-highlight="" data-enlighter-linenumbers="false" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">// Instantiate our archive
+var iphoneZip = new GKZipFile(@"D:\a769****_files.zip", false);
+
+// Pattern to find our GZipped powerlogs
+Regex rgxPowerLog = new Regex(@"powerlog_[\w\W]*?\.PLSQL\.gz");
+
+// Place to export all the things
+var outputPath = Directory.CreateDirectory(@"c:\temp\plUnity\");
+
+// Who doesn't love stats?
+var filesParsed = 0;
+var filesExtracted = 0;</pre>
+
+
+
+<p>From here, thanks to the power of LINQ and the implementation of the IEnumerable interface by GKZipFile, it&#8217;s as simple as iterating our archive like it&#8217;s a giant array with foreach.</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="csharp" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">foreach (var file in iphoneZip)
+{
+	// Check for a GZ powerlog archive.
+	if (rgxPowerLog.IsMatch(file.ShortName))
+	{
+		Console.WriteLine($"Extracting {file.Name}...");
+		file.ExtractToFolder(outputPath.FullName);
+		filesExtracted++;
+	}
+	// As well as the 'CurrentPowerLog'
+	// By using IndexOf instead of Contains, we ensure to snag any -shm and -wal files as well
+	if (file.ShortName.IndexOf("CurrentPowerLog.PLSQL", StringComparison.CurrentCultureIgnoreCase) >= 0)
+	{
+		Console.WriteLine($"Extracting {file.Name}...");
+		file.ExtractToFolder(outputPath.FullName);
+		filesExtracted++;
+	}
+	
+	// Count of files parsed
+	filesParsed++;
+}
+
+Console.WriteLine($"Finished parsing {filesParsed} files.");
+Console.WriteLine($"A total of {filesExtracted} files were extracted.");</pre>
+
+
+
+<p>Output:</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="raw" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">Extracting /private/var/containers/Shared/SystemGroup/BCBD844C-BDB8-4D6B-8246-555182B5F39A/Library/BatteryLife/Archives/powerlog_2018-10-07_7F9FC438.PLSQL.gz...
+Extracting /private/var/containers/Shared/SystemGroup/BCBD844C-BDB8-4D6B-8246-555182B5F39A/Library/BatteryLife/Archives/powerlog_2018-10-08_2162C03C.PLSQL.gz...
+Extracting /private/var/containers/Shared/SystemGroup/BCBD844C-BDB8-4D6B-8246-555182B5F39A/Library/BatteryLife/Archives/powerlog_2018-10-09_0DC64180.PLSQL.gz...
+Extracting /private/var/containers/Shared/SystemGroup/BCBD844C-BDB8-4D6B-8246-555182B5F39A/Library/BatteryLife/Archives/powerlog_2018-10-10_24F9BF01.PLSQL.gz...
+Extracting /private/var/containers/Shared/SystemGroup/BCBD844C-BDB8-4D6B-8246-555182B5F39A/Library/BatteryLife/CurrentPowerlog.PLSQL-shm...
+Extracting /private/var/containers/Shared/SystemGroup/BCBD844C-BDB8-4D6B-8246-555182B5F39A/Library/BatteryLife/CurrentPowerlog.PLSQL-wal...
+Extracting /private/var/containers/Shared/SystemGroup/BCBD844C-BDB8-4D6B-8246-555182B5F39A/Library/BatteryLife/CurrentPowerlog.PLSQL...
+Finished parsing 271361 files.
+A total of 7 files were extracted.
+
+</pre>
+
+
+
+<p>The final thing we will do in part 1 is extract our GZ files in place so that they are accessible for querying. To simplify things, I wrote a function to do this which simply removes the GZ extension to determine the output filename. This logic could certainly be flawed for a generic GZ decompression routine but in this case we can rely on the fact that our GZipped files will have the .GZ extension.</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="csharp" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">void GZExtract(string inputFile)
+{
+	using (var fs = new FileStream(inputFile, FileMode.Open, FileAccess.Read, FileShare.Read))
+	{
+		using (var gzstr = new GZipStream(fs, CompressionMode.Decompress))
+		{
+			const int buffSize = 4096;
+			byte[] buffer = new byte[buffSize];
+			using (var uncompressedData = new FileStream(inputFile.Replace(".gz", ""), FileMode.Create))
+			{
+				var bytesRead = 0;
+				do
+				{
+					bytesRead = gzstr.Read(buffer, 0, buffSize);
+					if (bytesRead > 0)
+					{
+						uncompressedData.Write(buffer, 0, bytesRead);
+					}
+				} while (bytesRead > 0);
+
+			}
+		}
+	}
+}</pre>
+
+
+
+<p>And finally, invoke the function for each of our GZ powerlogs:</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="csharp" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">// Decompress all of our gzipped archives
+foreach (var arc in outputPath.GetFiles("*.gz"))
+{
+	GZExtract(arc.FullName);
+}</pre>
+
+
+
+<p>That&#8217;s where we will end off today. Here&#8217;s what we&#8217;ve completed so far:</p>
+
+
+
+<ul><li>Iterate the iOS filesystem archive, locate files of interest including CurrentPowerLog.PLSQL and associated SQLite artifacts and any GZipped archives, and extracted them to the local machine.</li><li>Decompress all GZipped archives in place.</li></ul>
+
+
+
+<figure class="wp-block-image"><img loading="lazy" width="558" height="262" src="http://3.88.229.156/wp-content/uploads/2019/04/powerlog_output.png" alt="" class="wp-image-97" srcset="/wp-content/uploads/2019/04/powerlog_output.png 558w, /wp-content/uploads/2019/04/powerlog_output-300x141.png 300w" sizes="(max-width: 558px) 100vw, 558px" /></figure>
+
+
+
+<p>In part 2, we will look at several different options for amalgamating this data in preparation for running Sarah&#8217;s PowerLog scripts against the entire dataset instead of having to do this manually for each one.</p>
+<p>The post <a rel="nofollow" href="/2019/04/28/aggregating-ios-powerlog-data-using-c-part-1/">Aggregating iOS PowerLog data using C# &#8211; Part 1</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/2019/04/28/aggregating-ios-powerlog-data-using-c-part-1/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>MPT &#8211; LG&#8217;s incognito version of KnowledgeC</title>
+		<link>/2019/04/27/mpt-lgs-incognito-version-of-knowledgec/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=mpt-lgs-incognito-version-of-knowledgec</link>
+					<comments>/2019/04/27/mpt-lgs-incognito-version-of-knowledgec/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Sat, 27 Apr 2019 20:38:49 +0000</pubDate>
+				<category><![CDATA[Mobile Forensics]]></category>
+		<category><![CDATA[Uncategorized]]></category>
+		<category><![CDATA[android]]></category>
+		<category><![CDATA[artifact exchange]]></category>
+		<category><![CDATA[lg]]></category>
+		<category><![CDATA[magnet forensics]]></category>
+		<category><![CDATA[mpt]]></category>
+		<guid isPermaLink="false">http://3.87.228.100/?p=7</guid>
+
+					<description><![CDATA[<p>Learn how LG has been tracking its users for years, and how devices are not purging this data on a factory reset.</p>
+<p>The post <a rel="nofollow" href="/2019/04/27/mpt-lgs-incognito-version-of-knowledgec/">MPT &#8211; LG&#8217;s incognito version of KnowledgeC</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>My first post ought to be about a subject I spent years working on. Little did I know what I expected to be a straightforward forensic examination of a wiped LG phone would result in so much &#8212; becoming a pivotal piece of evidence that contradicted the suspect&#8217;s alibi, my first real foray into reverse engineering Android APKs, the subject of several presentations, and even getting published in a technical op-ed in the INTERPOL Digital Forensics e-Newsletter.</p>
+
+
+
+<p>In recent times, location tracking data from iOS has come to the forefront with the work of people like Sarah Edwards (<a href="http://www.twitter.com/iamevltwin">@iamevltwin</a>), Phill Moore (<a href="http://www.twitter.com/phillmoore">@phillmoore</a>) and Alexis Brignoni (<a href="http://www.twitter.com/alexisbrignoni">@alexisbrignoni</a>). Turns out, LG&#8217;s tracking us too &#8211; except they&#8217;re trying to be sneaky by obfuscating the data that&#8217;s tracked with numeric column and table names. In reality, I think it&#8217;s likely that <strong>all </strong>the mobile vendors are doing this &#8216;diagnostic&#8217; tracking and it&#8217;s just a matter of time (and forensic examinations) before that data gets uncovered.  LG does give an explicit warning that this is going to happen regardless, but most people decline to actually read this stuff. </p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter"><a href="http://3.88.229.156/wp-content/uploads/2019/04/LGScreen.png"><img loading="lazy" width="539" height="749" src="http://3.88.229.156/wp-content/uploads/2019/04/LGScreen.png" alt="" class="wp-image-50" srcset="/wp-content/uploads/2019/04/LGScreen.png 539w, /wp-content/uploads/2019/04/LGScreen-216x300.png 216w" sizes="(max-width: 539px) 100vw, 539px" /></a></figure></div>
+
+
+
+<p>Like many other forensic examiners, I get so focused on completing each examination that it often feels insurmountable to then go on to share my findings with the community, or that the work I did for a file today may be useful in countless other files out there. But with enough years of doing this, and enough opportunities to network with other seasoned forensicators across the globe, it has become clear that we are often trapped in a perpetual state of unnecessary wheel re-invention.</p>
+
+
+
+<p>Enter the <a href="https://www.magnetforensics.com/artifact-exchange/">Magnet Artifact Exchange</a>, a ridiculously needed sharing piece in the digital forensics community, which I only came to know about in the last couple of months. Since learning about it, I&#8217;ve had a strong desire to start developing custom artifacts for it, and so today I officially submitted my first of them.</p>
+
+
+
+<p>So let&#8217;s get down to business. What is LG MPT? It&#8217;s a background service that is mostly invisible to the user that runs on LG-Android devices since atleast Android 4.4.2, and as recent as Android 8. It resides on it&#8217;s own partition (cleverly named &#8216;mpt&#8217;) and is enabled by default and difficult to disable. On the tiny island of a partition there&#8217;s a database or two, the biggest being &#8216;LDB_MainData.db&#8217;, with a LOT of tables with unhelpful names like &#8216;t301&#8217; and so on. As you can see from the screenshot below, the columns aren&#8217;t much better, each one starting with &#8216;f001&#8217;, &#8216;f002&#8217;, and so on.</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/04/mptTables.png"><img loading="lazy" width="1024" height="496" src="http://3.87.228.100/wp-content/uploads/2019/04/mptTables-1024x496.png" alt="" class="wp-image-8" srcset="/wp-content/uploads/2019/04/mptTables-1024x496.png 1024w, /wp-content/uploads/2019/04/mptTables-300x145.png 300w, /wp-content/uploads/2019/04/mptTables-768x372.png 768w, /wp-content/uploads/2019/04/mptTables.png 1053w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<p>If you start browsing the data you come across some extremely data-packed tables such as t312:</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/04/mptData-1.png"><img loading="lazy" width="745" height="523" src="http://3.88.229.156/wp-content/uploads/2019/04/mptData-1.png" alt="" class="wp-image-108" srcset="/wp-content/uploads/2019/04/mptData-1.png 745w, /wp-content/uploads/2019/04/mptData-1-300x211.png 300w" sizes="(max-width: 745px) 100vw, 745px" /></a><figcaption><strong>14000 rows in t312 alone <img src="https://s.w.org/images/core/emoji/13.1.0/72x72/1f642.png" alt="🙂" class="wp-smiley" style="height: 1em; max-height: 1em;" /></strong></figcaption></figure>
+
+
+
+<p>So where do we go next? Sure, f002 looks like a timestamp. Sure, f006 and f007 looks like MCC/MNC, but are we willing to get up on the stand and point the finger based on what we THINK data might be? Of course, we need to flesh this out much further. One of the easiest things to do here is a trick Paul Sanderson (<a href="https://twitter.com/sandersonforens">@sandersonforens</a>) taught me and that is check for TRIGGERS in our database. Sure enough &#8211; descriptive words &#8211; hooray! </p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/04/tableDescriptions.png"><img loading="lazy" width="1024" height="376" src="http://3.87.228.100/wp-content/uploads/2019/04/tableDescriptions-1024x376.png" alt="" class="wp-image-10" srcset="/wp-content/uploads/2019/04/tableDescriptions-1024x376.png 1024w, /wp-content/uploads/2019/04/tableDescriptions-300x110.png 300w, /wp-content/uploads/2019/04/tableDescriptions-768x282.png 768w, /wp-content/uploads/2019/04/tableDescriptions.png 1096w" sizes="(max-width: 1024px) 100vw, 1024px" /></a><figcaption><strong>Note &#8211; the &#8216;limit&#8217; in the wording here is describing the trigger, it&#8217;s not part of the table description</strong><br></figcaption></figure>
+
+
+
+<p>Keep in mind, the word &#8216;limit&#8217; on the end of each of these is describing the <strong>trigger</strong> whose purpose is to hard-cap the amount of rows in each table. But the former pertains to the table as well.  You can&#8217;t see t312 in the above list, but it&#8217;s <em>gsm_cell_info</em>.  Even with size limits, these are obviously data intensive logs. This trigger ensures that it automatically purges content once it hits a certain size. But let&#8217;s be honest, it still tracks A LOT. And does not get wiped when you wipe your phone. Makes you think twice about selling an old LG phone doesn&#8217;t it?</p>
+
+
+
+<p>To determine the purpose of each field, one must do some reverse engineering work. You can use the tool of your choice, and this post isn&#8217;t going to go so in depth as to explain the entire spectrum of APK decompilers, but I will say this from experience &#8212; don&#8217;t think that APKTOOL / learning SMALI (think of it as an Android equivalent of ASM) is the only way to do this. There are some incredible APK -&gt; Java tools out there that make it so much easier that I wish I had known about way back when.</p>
+
+
+
+<p>Instead, I am going to link my research paper which details the process I went through to discover the purpose of each table. Keep in mind, my research was for MPT as it existed back in Android 4.4.2. It&#8217;s changed since then &#8212; mostly in the sense of adding more tables. A LOT more tables in fact. But the premise is the same if you&#8217;re looking to prove what certain data is.</p>
+
+
+
+<p>One golden rule when dealing with MPT is that F001 is always ROWID, and F002 is always a Unix MS timestamp, no matter what. After that, things diverge for each table. Some of them are very self explanatory (like the ones that show the current Android version and fingerprint, etc) while others are as subtle as saying a single number which is representative of an enum that you can generally lookup on the Android Developer Documentation.</p>
+
+
+
+<p>Anyhow, here is the research paper, I hope you find it useful. The most helpful information is in the first few pages, after that I get into a table-by-table look at what each means. I&#8217;ve submitted one artifact for t312 (mappable cell tower data), to Magnet Artifact Exchange as of today, and I&#8217;ll be adding more as time permits.</p>
+
+
+
+<div class="wp-block-file"><a href="http://3.87.228.100/wp-content/uploads/2019/04/MLT_Paper.pdf">MLT Research Paper</a><a href="http://3.87.228.100/wp-content/uploads/2019/04/MLT_Paper.pdf" class="wp-block-file__button" download>Download</a></div>
+
+
+
+<p>Finally, a sneak peek at the result &#8212; reviewing MPT logs directly in-app with <a href="https://www.magnetforensics.com/products/magnet-axiom/">Magnet AXIOM</a>. Coming to an app near you!</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/04/axiom.png"><img loading="lazy" width="1024" height="775" src="http://3.88.229.156/wp-content/uploads/2019/04/axiom-1024x775.png" alt="" class="wp-image-41" srcset="/wp-content/uploads/2019/04/axiom-1024x775.png 1024w, /wp-content/uploads/2019/04/axiom-300x227.png 300w, /wp-content/uploads/2019/04/axiom-768x581.png 768w, /wp-content/uploads/2019/04/axiom.png 1285w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+<p>The post <a rel="nofollow" href="/2019/04/27/mpt-lgs-incognito-version-of-knowledgec/">MPT &#8211; LG&#8217;s incognito version of KnowledgeC</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/2019/04/27/mpt-lgs-incognito-version-of-knowledgec/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>

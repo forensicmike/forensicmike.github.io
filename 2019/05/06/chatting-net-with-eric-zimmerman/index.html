@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+		<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
+	
+	<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
+	<!-- This site is optimized with the Yoast SEO plugin v19.4 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>Chatting .NET with Eric Zimmerman - forensicmike1</title>
+	<link rel="canonical" href="https://forensicmike1.com/2019/05/06/chatting-net-with-eric-zimmerman/">
+	<meta property="og:locale" content="en_US">
+	<meta property="og:type" content="article">
+	<meta property="og:title" content="Chatting .NET with Eric Zimmerman - forensicmike1">
+	<meta property="og:description" content="I don&#8217;t think anyone in the Digital Forensics world would dispute that Python is the most used language in forensic programming today. In fact, many of its more fanatical followers frequently remind us of its ostensibly long list of superior characteristics. To the extent I think sometimes people might forget that there exists other programming [&hellip;]">
+	<meta property="og:url" content="https://forensicmike1.com/2019/05/06/chatting-net-with-eric-zimmerman/">
+	<meta property="og:site_name" content="forensicmike1">
+	<meta property="article:published_time" content="2019-05-06T12:58:18+00:00">
+	<meta property="article:modified_time" content="2019-05-20T01:49:24+00:00">
+	<meta name="author" content="Mike Williamson">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:creator" content="@forensicmike1">
+	<meta name="twitter:label1" content="Written by">
+	<meta name="twitter:data1" content="Mike Williamson">
+	<meta name="twitter:label2" content="Est. reading time">
+	<meta name="twitter:data2" content="13 minutes">
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"httpswww.forensicmike1.com/#website","url":"httpswww.forensicmike1.com/","name":"forensicmike1","description":"#DFIR | #RE | #OtherGeekThings => Views expressed are my own.","potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"httpswww.forensicmike1.com/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"WebPage","@id":"https://forensicmike1.com/2019/05/06/chatting-net-with-eric-zimmerman/","url":"https://forensicmike1.com/2019/05/06/chatting-net-with-eric-zimmerman/","name":"Chatting .NET with Eric Zimmerman - forensicmike1","isPartOf":{"@id":"httpswww.forensicmike1.com/#website"},"datePublished":"2019-05-06T12:58:18+00:00","dateModified":"2019-05-20T01:49:24+00:00","author":{"@id":"httpswww.forensicmike1.com/#/schema/person/9452bbb839546322f3705877143ce492"},"breadcrumb":{"@id":"https://forensicmike1.com/2019/05/06/chatting-net-with-eric-zimmerman/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://forensicmike1.com/2019/05/06/chatting-net-with-eric-zimmerman/"]}]},{"@type":"BreadcrumbList","@id":"https://forensicmike1.com/2019/05/06/chatting-net-with-eric-zimmerman/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"httpswww.forensicmike1.com/"},{"@type":"ListItem","position":2,"name":"Chatting .NET with Eric Zimmerman"}]},{"@type":"Person","@id":"httpswww.forensicmike1.com/#/schema/person/9452bbb839546322f3705877143ce492","name":"Mike Williamson","image":{"@type":"ImageObject","inLanguage":"en-US","@id":"httpswww.forensicmike1.com/#/schema/person/image/","url":"http://2.gravatar.com/avatar/540f47dd0fb41a572604e4bf8594c723?s=96&d=mm&r=g","contentUrl":"http://2.gravatar.com/avatar/540f47dd0fb41a572604e4bf8594c723?s=96&d=mm&r=g","caption":"Mike Williamson"},"sameAs":["https://3.88.229.156","https://twitter.com/forensicmike1"],"url":"httpswww.forensicmike1.com/author/forensicmike/"}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="dns-prefetch" href="//s.w.org">
+<link rel="alternate" type="application/rss+xml" title="forensicmike1 &raquo; Feed" href="/feed/">
+<link rel="alternate" type="application/rss+xml" title="forensicmike1 &raquo; Comments Feed" href="/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="forensicmike1 &raquo; Chatting .NET with Eric Zimmerman Comments Feed" href="/2019/05/06/chatting-net-with-eric-zimmerman/feed/">
+		<!-- This site uses the Google Analytics by MonsterInsights plugin v8.9.1 - Using Analytics tracking - https://www.monsterinsights.com/ -->
+							<script src="//www.googletagmanager.com/gtag/js?id=UA-139204696-1" data-cfasync="false" data-wpfc-render="false" type="text/javascript" async></script>
+			<script data-cfasync="false" data-wpfc-render="false" type="text/javascript">
+				var mi_version = '8.9.1';
+				var mi_track_user = true;
+				var mi_no_track_reason = '';
+				
+								var disableStrs = [
+															'ga-disable-UA-139204696-1',
+									];
+
+				/* Function to detect opted out users */
+				function __gtagTrackerIsOptedOut() {
+					for (var index = 0; index < disableStrs.length; index++) {
+						if (document.cookie.indexOf(disableStrs[index] + '=true') > -1) {
+							return true;
+						}
+					}
+
+					return false;
+				}
+
+				/* Disable tracking if the opt-out cookie exists. */
+				if (__gtagTrackerIsOptedOut()) {
+					for (var index = 0; index < disableStrs.length; index++) {
+						window[disableStrs[index]] = true;
+					}
+				}
+
+				/* Opt-out function */
+				function __gtagTrackerOptout() {
+					for (var index = 0; index < disableStrs.length; index++) {
+						document.cookie = disableStrs[index] + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
+						window[disableStrs[index]] = true;
+					}
+				}
+
+				if ('undefined' === typeof gaOptout) {
+					function gaOptout() {
+						__gtagTrackerOptout();
+					}
+				}
+								window.dataLayer = window.dataLayer || [];
+
+				window.MonsterInsightsDualTracker = {
+					helpers: {},
+					trackers: {},
+				};
+				if (mi_track_user) {
+					function __gtagDataLayer() {
+						dataLayer.push(arguments);
+					}
+
+					function __gtagTracker(type, name, parameters) {
+						if (!parameters) {
+							parameters = {};
+						}
+
+						if (parameters.send_to) {
+							__gtagDataLayer.apply(null, arguments);
+							return;
+						}
+
+						if (type === 'event') {
+							
+														parameters.send_to = monsterinsights_frontend.ua;
+							__gtagDataLayer(type, name, parameters);
+													} else {
+							__gtagDataLayer.apply(null, arguments);
+						}
+					}
+
+					__gtagTracker('js', new Date());
+					__gtagTracker('set', {
+						'developer_id.dZGIzZG': true,
+											});
+															__gtagTracker('config', 'UA-139204696-1', {"forceSSL":"true","link_attribution":"true"} );
+										window.gtag = __gtagTracker;										(function () {
+						/* https://developers.google.com/analytics/devguides/collection/analyticsjs/ */
+						/* ga and __gaTracker compatibility shim. */
+						var noopfn = function () {
+							return null;
+						};
+						var newtracker = function () {
+							return new Tracker();
+						};
+						var Tracker = function () {
+							return null;
+						};
+						var p = Tracker.prototype;
+						p.get = noopfn;
+						p.set = noopfn;
+						p.send = function () {
+							var args = Array.prototype.slice.call(arguments);
+							args.unshift('send');
+							__gaTracker.apply(null, args);
+						};
+						var __gaTracker = function () {
+							var len = arguments.length;
+							if (len === 0) {
+								return;
+							}
+							var f = arguments[len - 1];
+							if (typeof f !== 'object' || f === null || typeof f.hitCallback !== 'function') {
+								if ('send' === arguments[0]) {
+									var hitConverted, hitObject = false, action;
+									if ('event' === arguments[1]) {
+										if ('undefined' !== typeof arguments[3]) {
+											hitObject = {
+												'eventAction': arguments[3],
+												'eventCategory': arguments[2],
+												'eventLabel': arguments[4],
+												'value': arguments[5] ? arguments[5] : 1,
+											}
+										}
+									}
+									if ('pageview' === arguments[1]) {
+										if ('undefined' !== typeof arguments[2]) {
+											hitObject = {
+												'eventAction': 'page_view',
+												'page_path': arguments[2],
+											}
+										}
+									}
+									if (typeof arguments[2] === 'object') {
+										hitObject = arguments[2];
+									}
+									if (typeof arguments[5] === 'object') {
+										Object.assign(hitObject, arguments[5]);
+									}
+									if ('undefined' !== typeof arguments[1].hitType) {
+										hitObject = arguments[1];
+										if ('pageview' === hitObject.hitType) {
+											hitObject.eventAction = 'page_view';
+										}
+									}
+									if (hitObject) {
+										action = 'timing' === arguments[1].hitType ? 'timing_complete' : hitObject.eventAction;
+										hitConverted = mapArgs(hitObject);
+										__gtagTracker('event', action, hitConverted);
+									}
+								}
+								return;
+							}
+
+							function mapArgs(args) {
+								var arg, hit = {};
+								var gaMap = {
+									'eventCategory': 'event_category',
+									'eventAction': 'event_action',
+									'eventLabel': 'event_label',
+									'eventValue': 'event_value',
+									'nonInteraction': 'non_interaction',
+									'timingCategory': 'event_category',
+									'timingVar': 'name',
+									'timingValue': 'value',
+									'timingLabel': 'event_label',
+									'page': 'page_path',
+									'location': 'page_location',
+									'title': 'page_title',
+								};
+								for (arg in args) {
+																		if (!(!args.hasOwnProperty(arg) || !gaMap.hasOwnProperty(arg))) {
+										hit[gaMap[arg]] = args[arg];
+									} else {
+										hit[arg] = args[arg];
+									}
+								}
+								return hit;
+							}
+
+							try {
+								f.hitCallback();
+							} catch (ex) {
+							}
+						};
+						__gaTracker.create = newtracker;
+						__gaTracker.getByName = newtracker;
+						__gaTracker.getAll = function () {
+							return [];
+						};
+						__gaTracker.remove = noopfn;
+						__gaTracker.loaded = true;
+						window['__gaTracker'] = __gaTracker;
+					})();
+									} else {
+										console.log("");
+					(function () {
+						function __gtagTracker() {
+							return null;
+						}
+
+						window['__gtagTracker'] = __gtagTracker;
+						window['gtag'] = __gtagTracker;
+					})();
+									}
+			</script>
+				<!-- / Google Analytics by MonsterInsights -->
+				<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.1.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.1.0\/svg\/","svgExt":".svg","source":{"concatemoji":"httpswww.forensicmike1.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.8.6"}};
+			!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode;p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0);e=i.toDataURL();return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(!p||!p.fillText)return!1;switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([10084,65039,8205,55357,56613],[10084,65039,8203,55357,56613])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(n=t.source||{}).concatemoji?c(n.concatemoji):n.wpemoji&&n.twemoji&&(c(n.twemoji),c(n.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}</style>
+	<link rel="stylesheet" id="sgr-css" href="/wp-content/plugins/simple-google-recaptcha/sgr.css?ver=1664546415" type="text/css" media="all">
+<link rel="stylesheet" id="wp-block-library-css" href="/wp-includes/css/dist/block-library/style.min.css?ver=5.8.6" type="text/css" media="all">
+<link rel="stylesheet" id="power_magazine-google-fonts-css" href="https://fonts.googleapis.com/css?family=Montserrat%3A100%2C100i%2C200%2C200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i&#038;subset=latin%2Clatin-ext" type="text/css" media="all">
+<link rel="stylesheet" id="fontawesome-css" href="/wp-content/themes/power-magazine/assets/css/font-awesome.min.css?ver=5.8.6" type="text/css" media="all">
+<link rel="stylesheet" id="meanmenu-css" href="/wp-content/themes/power-magazine/assets/css/meanmenu.css?ver=5.8.6" type="text/css" media="all">
+<link rel="stylesheet" id="magnific-popup-css-css" href="/wp-content/themes/power-magazine/assets/css/magnific-popup.css?ver=5.8.6" type="text/css" media="all">
+<link rel="stylesheet" id="slick-css" href="/wp-content/themes/power-magazine/assets/css/slick.css?ver=5.8.6" type="text/css" media="all">
+<link rel="stylesheet" id="slick-theme-css" href="/wp-content/themes/power-magazine/assets/css/slick-theme.css?ver=5.8.6" type="text/css" media="all">
+<link rel="stylesheet" id="power-magazine-style-css" href="/wp-content/themes/power-magazine/style.css?ver=5.8.6" type="text/css" media="all">
+<style id="power-magazine-style-inline-css" type="text/css">.site-title a, .site-description {
+			color: #000000;			
+		}img.custom-logo{
+		max-width: 100px;
+
+	}.site-header .search-toggle, 
+					.site-header .search-section form input[type=submit],
+					button, 
+					input[type="button"], 
+					input[type="reset"], input[type="submit"], 
+					a.button{
+						background-color: #ee3232;
+	}button, 
+	input[type="button"], 
+	input[type="reset"],
+	input[type="submit"], 
+	a.button{
+		border-color: #ee3232;
+	} button:hover, 
+	input[type="button"]:hover, 
+	input[type="reset"]:hover, 
+	input[type="submit"]:hover, 
+	a.button:hover,
+	.entry-meta > div, 
+	.entry-meta > div a,
+	.author-info-wrap .author-info a{
+		color: #ee3232;
+	}</style>
+<link rel="stylesheet" id="power-magazine-responsive-css" href="/wp-content/themes/power-magazine/assets/css/responsive.css?ver=5.8.6" type="text/css" media="all">
+<link rel="stylesheet" id="enlighterjs-css" href="/wp-content/plugins/enlighter/cache/enlighterjs.min.css?ver=tebjVoJSSILa+Co" type="text/css" media="all">
+<script type="text/javascript" id="sgr-js-extra">
+/* <![CDATA[ */
+var sgr = {"sgr_site_key":"6Lfmn8cUAAAAAEFkKYR0a70gA7BMfcVqABBSYyDX"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/plugins/simple-google-recaptcha/sgr.js?ver=1664546415" id="sgr-js"></script>
+<script type="text/javascript" src="/wp-content/plugins/google-analytics-for-wordpress/assets/js/frontend-gtag.js?ver=8.9.1" id="monsterinsights-frontend-script-js"></script>
+<script data-cfasync="false" data-wpfc-render="false" type="text/javascript" id="monsterinsights-frontend-script-js-extra">/* <![CDATA[ */
+var monsterinsights_frontend = {"js_events_tracking":"true","download_extensions":"doc,pdf,ppt,zip,xls,docx,pptx,xlsx","inbound_paths":"[{\"path\":\"\\\/go\\\/\",\"label\":\"affiliate\"},{\"path\":\"\\\/recommend\\\/\",\"label\":\"affiliate\"}]","home_url":"httpswww.forensicmike1.com","hash_tracking":"false","ua":"UA-139204696-1","v4_id":""};/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js?ver=3.6.0" id="jquery-core-js"></script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2" id="jquery-migrate-js"></script>
+<link rel="https://api.w.org/" href="/wp-json/">
+<link rel="alternate" type="application/json" href="/wp-json/wp/v2/posts/140">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 5.8.6">
+<link rel="shortlink" href="/?p=140">
+<link rel="alternate" type="application/json+oembed" href="/wp-json/oembed/1.0/embed?url=http%3A%2F%2F%2F2019%2F05%2F06%2Fchatting-net-with-eric-zimmerman%2F">
+<link rel="alternate" type="text/xml+oembed" href="/wp-json/oembed/1.0/embed?url=http%3A%2F%2F%2F2019%2F05%2F06%2Fchatting-net-with-eric-zimmerman%2F&#038;format=xml">
+<link rel="pingback" href="/xmlrpc.php">
+</head>
+
+<body class="post-template-default single single-post postid-140 single-format-standard right-sidebar full-layout boxed-layout">
+		    <div id="page" class="site">
+    	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+    	<header id="masthead" class="site-header"><!-- header starting from here --><div class="hgroup-wrap">
+<!-- hrgroup wrapper -->        <div class="site-header-middle">
+            <div class="container ">
+                <div class="row ">
+                    <div class="custom-col-5">
+								<section class="site-branding">
+	    	
+													<p class="site-title"><a href="/" rel="home">forensicmike1</a></p>
+											<p class="site-description">#DFIR | #RE | #OtherGeekThings =&gt; Views expressed are my own.</p>
+										</section><!-- .site-branding -->	
+		                    </div>
+                    <div class="custom-col-7">
+						                    </div>
+                </div>
+            </div>
+        </div>
+
+	
+        <div id="navbar" class="navbar">        	
+            <div class="container">
+                <nav id="site-navigation" class="navigation main-navigation">
+                                            <div class="home-icon">
+                            <a href="/" rel="home"> <i class="fa fa-home"> </i> </a>
+                        </div>
+                    					<div class="menu-main-container"><ul id="primary-menu" class="menu">
+<li id="menu-item-557" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-557"><a href="https://www.forensicmike1.com/">Home</a></li>
+<li id="menu-item-555" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-555"><a href="https://twitter.com/forensicmike1">Twitter</a></li>
+<li id="menu-item-556" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-556"><a href="https://github.com/forensicmike">Github</a></li>
+</ul></div>                </nav><!-- main-navigation ends here -->
+            </div>            
+            	            <div class="search-section">
+	                <a href="javascript:void(0)" class="search-toggle"><i class="fa fa-search" aria-hidden="true"></i></a>
+	                <form role="search" method="get" class="search-form" action="http://172.31.17.250/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s">
+				</label>
+				<input type="submit" class="search-submit" value="Search">
+			</form>	            </div>
+<!-- .search-section -->
+                    </div>
+<!-- navbar ends here -->
+	</div>
+<!-- hrgroup wrapper ends here --></header><!-- header ends here --><div id="content" class="site-content">
+<div class="container">
+	<div class="row">
+		<div id="primary" class="content-area">
+			<main id="main" class="site-main">
+
+				<article id="post-140" class="featured-post post-140 post type-post status-publish format-standard hentry category-forensic-coding category-guest-blog category-uncategorized">
+        <div class="post-content">
+        <header class="entry-header">
+            <h4 class="entry-title">
+                Chatting .NET with Eric Zimmerman            </h4>
+        </header>
+        <div class="entry-meta">
+            <div class="posted-on"><a href="/2019/05/06/chatting-net-with-eric-zimmerman/" rel="bookmark"><time class="entry-date published" datetime="2019-05-06T05:58:18-07:00">May 6, 2019</time><time class="updated" datetime="2019-05-19T18:49:24-07:00">May 19, 2019</time></a></div>
+<div class="post-author"> by <span class="author vcard"><a class="url fn n" href="/author/forensicmike/">Mike Williamson</a></span>
+</div>           
+        </div>        
+        <div class="entry-content">
+            
+<p>I don&#8217;t think anyone in the Digital Forensics world would dispute that Python is the most used language in forensic programming today. In fact, many of its more fanatical followers frequently remind us of its ostensibly long list of superior characteristics. To the extent I think sometimes people might forget that there exists other programming languages at all. Recognizing this, I knew I wanted to write a post discussing one of my favorite technologies &#8212; C# and .NET as a whole &#8212; but I could think of no better guest contributor to bring into that conversation than Eric Zimmerman, one of if not <strong>the </strong>most household name in forensic coding, and and a staunch supporter of the tech.</p>
+
+
+
+<p>Eric is the mastermind behind KAPE, Registry Explorer, JumpList Explorer, AmCacheParser, and so many more. Like many readers, I was introduced to Eric&#8217;s work early on in my forensics career &#8211; right at the beginning, in fact, as part of the curriculum of my &#8220;forensics 101&#8221; course at the Canadian Police College. I am honored to chat with him about one of my favorite subjects!</p>
+
+
+
+<p><strong>forensicmike1: Thanks so much for taking part in this conversation Eric! I am curious to hear what brought you into the .NET world initially, and what is it that’s kept you there for all these years?</strong></p>
+
+
+
+<p><strong>Eric Zimmerman</strong>: I initially started my development career in Access. When I outgrew that, I moved on to VB6 (way back in the pre-.NET days). Once .NET came out, I slowly switched to VB.NET because I already knew VB. I always wanted to do C#, but did not want to have to re-learn thing so I held onto it for a long time. In fact, osTriage v1 and 2 were both written in VB! Soon after osTriage v2 came out, I decided to force myself into C# for a few projects and I have never looked back from that point.</p>
+
+
+
+<p>So for me, it is a matter of wanting to use a first class language on the platform I deal with the most, which is Windows. I am a big believer in the concept of doing Windows forensics on Windows, Mac forensics on a Mac, and so on. You are just asking for issues when you do not do things this way. For example, a very popular method for accessing volume shadow copies for Windows does not, at least in some cases, present the data for access the same way as native methods in Windows does. This leads to corrupt files being exported and obviously, that&#8217;s a problem when it comes time to process them. Does this happen all the time? No, but even once is enough that I would be hesitant to trust that method in any case that matters, unless I also verified getting the data in exactly the same way from Windows natively. At this point however, you are now doubling your work, so why bother with the non-Windows method at all?</p>
+
+
+
+<p>I stay with .NET because it&#8217;s what I know and what works for a wide range of needs. I know it&#8217;s not going anywhere, and it has great IDEs and other resources for efficient development, debugging, logging, and so on.</p>
+
+
+
+<p>The other huge advantage is it&#8217;s range of 3rd party controls that just do not exist anywhere else for creating amazing graphical user interfaces (GUIs). Things like grids, tree views, and a ton of other controls I use in my GUIs aren&#8217;t available so I wouldn&#8217;t be able to write something like RegistryExplorer in Python &#8212; and if I did it wouldn&#8217;t do what it can do on the Windows side.</p>
+
+
+
+<hr class="wp-block-separator">
+
+
+
+<p><strong>forensicmike1: I couldn&#8217;t agree more! And I&#8217;ve seen this happen over and over to people as they make their way to C#. Forensically speaking, can you think of any other advantages to writing code in .NET?</strong></p>
+
+
+
+<p><strong>Eric Zimmerman</strong>:   With .NET, I know the runtime I need is going to be in place by default &#8212; or will be in the vast majority of cases. I do not have to worry about making a self-contained executable, or not handling Unicode correctly, or not being able to install something where I need it.</p>
+
+
+
+<p>Going back to what I said earlier, I feel you should do Windows forensics on a Windows box, so this makes things a lot easier for end users of my software. With my stuff you can download and unzip my programs on any machine and it will most likely work the first time without issues. This can be on a forensics box doing dead box work, or live response stuff against a running system in the field.</p>
+
+
+
+<p>Speed is also a big thing for me. I tend to do a lot of work to tune my code so that it is, first and foremost, as accurate as it can be. Once this is done, I tune for performance. As the old saying goes, speed is fine, but accuracy is final. When you look at forensics programs written in other languages (Rust being an exception that comes to mind), the performance is often terrible and it takes a lot of work to get the environment ready to even run an application. Sure, the developer can do some work to package a Perl or Python program into a self contained Windows executable, but that process can be painful and it still does not address the performance issues. Can performant code be written in Python? Maybe, but it involves redoing parts in Cython, or writing critical sections in C++ and so on. So while it is possible, to me it&#8217;s just not worth it, especially in light of the issues I mentioned above. Getting accurate data is of course paramount, so even one time where you might not get that accurate data is one too many to take the chance.</p>
+
+
+
+<p>When writing forensic tools that target Windows artifacts, what Windows does and says should be the target we aim for. If you can exceed what Windows lets you see and do, all the better. Shedding light on data in a different way is always a good thing, but not at the expense of excluding or missing things (or the risk of doing so).</p>
+
+
+
+<p>At the end of the day, I would rather my code run amazingly well on one platform, than poorly on five platforms.</p>
+
+
+
+<hr class="wp-block-separator">
+
+
+
+<p><strong>forensicmike1: Aside from not many people in forensics being familiar, can you speak to any disadvantages?</strong></p>
+
+
+
+<p><strong>Eric Zimmerman</strong>:  The funny thing about that is, most people are using .NET all over the place every day if they use a Windows box. Just because they may not be aware of it, does not mean it isn&#8217;t there.</p>
+
+
+
+<p>I don&#8217;t really see any disadvantages for it in the tool chains <em>I</em> <em>design and use</em>, but obviously it has been an issue in the past of being able to run .NET code on non-Windows platforms. This is becoming less and less of an issue with Microsoft becoming more involved in the open source world &#8212; remember that .NET Core is open source now &#8212; and this is furthered by being able to run PowerShell on Linux too.</p>
+
+
+
+<p>So at some point in the not so distant future, the code I write would be cross platform (atleast the CLI ones). In some cases, the code can already run on .NET core and Standard. The big hold up for me personally in this regard is that .NET Core and Standard do not have a seamless way to make a single executable for each platform. I hate distributing 38 DLLs and the executable for programs, so until I can do this on Linux or a Mac the same way I can on Windows (i.e. giving you a single executable to run) I won&#8217;t be doing cross platform stuff full time.</p>
+
+
+
+<p>For a lot of people, the biggest hurdle people have when it comes to using .NET is not a technical one, but rather bias towards Microsoft or Windows for some reason. Given how easy it is to stand up a VM these days, excuses like &#8220;I can&#8217;t run X because it is Windows only&#8221; just shouldn&#8217;t be a valid excuse anymore.</p>
+
+
+
+<hr class="wp-block-separator">
+
+
+
+<p><strong>forensicmike1: Do you think programming is a legitimate specialization within the field of Digital Forensics &#8212; or is it something every examiner should atleast dabble in at this point?</strong></p>
+
+
+
+<p><strong>Eric Zimmerman</strong>: Well, I don&#8217;t know if it&#8217;s forensic programming that is a specialty, or the ability to program in a way that is necessary for use in the kinds of work we do in forensics that is more important. In other words, you do not have to be IN forensics to be able to look at programming in the way I am speaking of. What does this look like in practical terms? For me, it means failing early and often (i.e. NEVER, EVER eat error messages or other &#8220;unknown&#8221; conditions), programming defensively (i.e. protecting the end user from themselves to a degree), sanitizing input, providing the ability to see diagnostic and trace messages for debugging purposes, robust output options, and so on. (<em>Forensicmike1: This is great advice and I hope some vendors are reading!</em>)</p>
+
+
+
+<p>Not everyone is wired to be able to program at higher levels and I am certainly no expert in the field. In fact, not even 10 years ago I started looking for a way to process LNK files natively in one of my live response programs. Looking at a LNK file in a hex editor, I said to myself &#8220;I would never be able to program something to read these things&#8221;, but now I have native parsers for just about every key Windows artifact out there &#8212; all of which I did in C#. I learned how to code and parse things partly out of necessity (they didn&#8217;t exist prior to my work) or because the existing tools did not do the job (incomplete, inaccurate, slow, etc) and I thought I could do better. Of course, curiosity and wanting to solve a problem comes into it too (I do not want to even think about how many hours I have spent looking at shellbags).</p>
+
+
+
+<p>With that said, no one is expected to walk into DFIR and be able to write a forensic parser for an artifact on day one. In fact, most people just don&#8217;t have a reason to do so. It is certainly beneficial to have at least some level of proficiency with programming so you can whip up some code to automate the mundate though, so this is a good reason to atleast get familiar with something like PowerShell, C#, Python, etc., even if it is limited to looping over thousands of log files looking for things and saving yourself the pain of doing it manually.</p>
+
+
+
+<hr class="wp-block-separator">
+
+
+
+<p><strong>In your view are the major forensic software vendors doing enough to provide ways for established developers who do forensics as a primary job to integrate their creations? If not, any thoughts on what they could do better?</strong></p>
+
+
+
+<p><strong>Eric Zimmerman</strong>: This is a tough one because of the different languages vendors write their programs in. Does a vendor use .NET, C++, or Delphi? Each in turn would have different ways for external users to hook into it when writing code. </p>
+
+
+
+<p>My suggestion to vendors is to provide the ability to write plugins that can be used by the vendor&#8217;s product. X-Ways for example has an API that let&#8217;s you write such things. Several of my tools do as well (plugins in Registry tools, maps in event logs, targets and modules in KAPE).  <br><em>(Forensicmike1: Funny that the vendor that uses Delphi is also the only one who has done any .NET Plugin work!)</em> </p>
+
+
+
+<p>The other avenue is to come up with a non-programming means (or a balance of programming and non-programming) to interact with and extend programs. Things like maps in EvtxECmd or batch file mode in RECmd are good examples here. Both allow end users to wield the capabilities of tools and extend them as far as they see fit, all without me being involved.</p>
+
+
+
+<p>I think the biggest benefit for end users is designing open ended and extensible tools that people can then take to places the developers never thought of before. It is pretty cool to hear about some of the use cases and ways people have put my stuff to use. They find all kinds of new uses and ways to do things I never envisioned when I designed the programs.</p>
+
+
+
+<p>By doing this, it&#8217;s not about the author of the program anymore, but rather it&#8217;s about the end-user and making their job easier, the data more clear, the work more efficient, and so on. Letting the end-user reduce the noise in order to find the signal THEY want to find is what is important.</p>
+
+
+
+<hr class="wp-block-separator">
+
+
+
+<p><strong>forensicmike1: Final word goes to you- Any advice for up-and-coming forensic coders who may be hesitant to share their work with the world?</strong></p>
+
+
+
+<p><strong>Eric Zimmerman</strong>: Throw that code out there! Remember, there will always be a first for everything and you were not good at anything the first time you did it (or even the first 100 times!). Put that work out there, get it into people&#8217;s hands, let them play with it, make suggestions, break it, and so on.</p>
+
+
+
+<p>Do not let anyone tell you anything in this space is a &#8220;solved problem&#8221; because the best way by far to learn about an artifact is to write a parser for it. And you never know, you may just find long standing bugs in major products that people have just taken for granted and assumed were right for the past 20 years.</p>
+
+
+
+<p>Even if no one ever uses your code on a case, the fact that you created something from nothing is a great feeling. Seeing your code do what you intended it to do, seeing all your unit tests pass for the first time, seeing the output come out of a program you wrote from start to finish is a magical thing. It still excites me when I get into a new project.</p>
+
+
+
+<p>Share that code, talk about that project, seek out the experts in your field to review and help and provide feedback. I cannot tell you how valuable peers are to bounce ideas off of, test things, and push my ideas to even better places. Two people (among many) that come to mind for me and have done these kinds of things hundreds of times for me over the years are David Cowen and Matt Seyer. Why are they in a position to do this? Because they too took that chance way back in the day to put out code, take a risk, be vulnerable, and EXPLORE THAT DATA in an effort to understand how it works, why it works, and the best ways to leverage that data to help us tell the story of what happened on a computer. As Matt and I like to say, &#8220;Every byte counts!&#8221;. There is a reason for them to be there. Seek to find out exactly why they are there.</p>
+
+
+
+<p>So, in summation, my advice would be:</p>
+
+
+
+<ul>
+<li>Take calculated risks.</li>
+<li>Learn from your mistakes.</li>
+<li>Leverage peers.</li>
+<li>Move the ball forward.</li>
+<li>Leave things better than you found them.</li>
+</ul>
+
+
+
+<p style="text-align:center"><em>Follow Eric on Twitter @<a href="https://twitter.com/EricRZimmerman">EricRZimmerman</a> or visit his website at </em><a href="https://ericzimmerman.github.io/"><em>https://ericzimmerman.github.io/</em></a></p>
+                    </div>
+    </div>
+</article><!-- #post-140 -->
+
+
+	<nav class="navigation post-navigation" role="navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links">
+<div class="nav-previous"><a href="/2019/05/02/ios-photos-sqlite-forensics/" rel="prev">iOS Photos.sqlite Forensics</a></div>
+<div class="nav-next"><a href="/2019/05/11/forensicblend-designing-a-scalable-community-plugin-api/" rel="next">forensicBlend: Designing a scalable community plugin API</a></div>
+</div>
+	</nav>
+        <aside class="widget widget-post-author">
+            <figure class="avatar"><img alt="" src="http://2.gravatar.com/avatar/540f47dd0fb41a572604e4bf8594c723?s=96&#038;d=mm&#038;r=g" class="avatar avatar-96 photo" height="96" width="96" loading="lazy"></figure>
+            <div class="author-details">
+                <h3>Mike Williamson</h3>
+                <p></p>
+                <div class="author-info-wrap">
+                    <div class="author-info">
+                        VIEW ALL POSTS BY <span class="author vcard"><a class="url fn n" href="/author/forensicmike/">Mike Williamson</a></span>                    </div>
+                </div>
+            </div>
+        </aside> 
+    
+<div id="comments" class="comments-area">
+
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2019/05/06/chatting-net-with-eric-zimmerman/#respond" style="display:none;">Cancel reply</a></small>
+</h3>
+<form action="http://172.31.17.250/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate>
+<p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span></p>
+<p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required="required"></textarea></p>
+<p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" required="required"></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" required="required"></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200"></p>
+<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"> <label for="wp-comment-cookies-consent">Save my name, email, and website in this browser for the next time I comment.</label></p>
+<div class="sgr-main"></div>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment"> <input type="hidden" name="comment_post_ID" value="140" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p>
+</form>	</div>
+<!-- #respond -->
+	
+</div>
+<!-- #comments -->
+<section class="related-post-section">
+      
+                    <div class="heading">
+                <header class="entry-header">
+                    <h3 class="entry-title">Releated</h3>
+                </header>
+            </div>
+                      
+        <div class="related-post-wrap">
+                            <article class="featured-post post hentry">
+                    
+			<figure class="post-thumbnail">
+				<img width="1266" height="715" src="/wp-content/uploads/2020/02/github_dfir.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" loading="lazy" srcset="/wp-content/uploads/2020/02/github_dfir.png 1266w, /wp-content/uploads/2020/02/github_dfir-300x169.png 300w, /wp-content/uploads/2020/02/github_dfir-1024x578.png 1024w, /wp-content/uploads/2020/02/github_dfir-768x434.png 768w" sizes="(max-width: 1266px) 100vw, 1266px">			</figure><!-- .post-thumbnail -->
+
+		                    <div class="post-content">
+                        <header class="entry-header">
+                            <h4 class="entry-title">
+                                <a href="/2020/02/29/examiner-coder-types-learningit-can-make-you-a-better-developer/">Examiner-coder-types: Learnin&#8217;git can make you a better developer</a>
+                            </h4>
+                        </header>
+                        <div class="entry-content">
+                            <p>I decided to write an article about Git and Github. Why? I&#8217;ve been exposed to Git a lot since I started working for a software company. Now, I&#8217;m wishing I could go back in time and have used it a lot more&#8230; even for projects I had no intention of ever releasing to the public [&hellip;]</p>
+                        </div>
+                        <div class="entry-meta">
+                            <div class="posted-on"><a href="/2020/02/29/examiner-coder-types-learningit-can-make-you-a-better-developer/" rel="bookmark"><time class="entry-date published" datetime="2020-02-29T11:37:46-07:00">February 29, 2020</time><time class="updated" datetime="2020-02-29T15:10:45-07:00">February 29, 2020</time></a></div>
+<div class="post-author"> by <span class="author vcard"><a class="url fn n" href="/author/forensicmike/">Mike Williamson</a></span>
+</div>                                                    </div>
+                    </div>
+                </article>
+                            <article class="featured-post post hentry">
+                    
+			<figure class="post-thumbnail">
+				<img width="558" height="274" src="/wp-content/uploads/2020/01/image-8.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" loading="lazy" srcset="/wp-content/uploads/2020/01/image-8.png 558w, /wp-content/uploads/2020/01/image-8-300x147.png 300w" sizes="(max-width: 558px) 100vw, 558px">			</figure><!-- .post-thumbnail -->
+
+		                    <div class="post-content">
+                        <header class="entry-header">
+                            <h4 class="entry-title">
+                                <a href="/2020/01/03/spice-up-your-forensic-web-reports-with-ui-frameworks/">Spice up your forensic web reports with UI Frameworks</a>
+                            </h4>
+                        </header>
+                        <div class="entry-content">
+                            <p>I wanted to blog about a subject that&#8217;s come up in a number of converations recently- that is the idea of spicing up web reports spit out by scripts by making use of UI frameworks (which are generally free but may also have paid options if things get serious!). Like many examiners, I had some [&hellip;]</p>
+                        </div>
+                        <div class="entry-meta">
+                            <div class="posted-on"><a href="/2020/01/03/spice-up-your-forensic-web-reports-with-ui-frameworks/" rel="bookmark"><time class="entry-date published updated" datetime="2020-01-03T12:07:21-07:00">January 3, 2020</time></a></div>
+<div class="post-author"> by <span class="author vcard"><a class="url fn n" href="/author/forensicmike/">Mike Williamson</a></span>
+</div>                                                    </div>
+                    </div>
+                </article>
+                    </div>
+        
+      
+</section>
+			</main><!-- #main -->
+		</div>
+<!-- #primary -->
+		
+<aside id="secondary" class="widget-area">
+    <section id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="http://172.31.17.250/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s">
+				</label>
+				<input type="submit" class="search-submit" value="Search">
+			</form></section>
+		<section id="recent-posts-2" class="widget widget_recent_entries">
+		<h3 class="widget-title"><span>Recent Posts</span></h3>
+		<ul>
+											<li>
+					<a href="/2021/05/25/taking-a-look-at-ios-apps-on-an-m1-mac/">Taking a gander at iOS apps on an M1 Mac</a>
+									</li>
+											<li>
+					<a href="/2020/05/01/analysis-of-the-abtracetogether-app-ios/">Analysis of the ABTraceTogether app (iOS)</a>
+									</li>
+											<li>
+					<a href="/2020/02/29/examiner-coder-types-learningit-can-make-you-a-better-developer/">Examiner-coder-types: Learnin&#8217;git can make you a better developer</a>
+									</li>
+											<li>
+					<a href="/2020/01/03/spice-up-your-forensic-web-reports-with-ui-frameworks/">Spice up your forensic web reports with UI Frameworks</a>
+									</li>
+											<li>
+					<a href="/2019/10/07/knowledgec-now-playing-entries/">KnowledgeC: Now Playing entries</a>
+									</li>
+					</ul>
+
+		</section><section id="categories-3" class="widget widget_categories"><h3 class="widget-title"><span>Categories</span></h3>
+			<ul>
+					<li class="cat-item cat-item-33">
+<a href="/category/dfir/">DFIR</a>
+</li>
+	<li class="cat-item cat-item-27">
+<a href="/category/forensic-coding/">Forensic Coding</a>
+</li>
+	<li class="cat-item cat-item-35">
+<a href="/category/git-good/">Git Good</a>
+</li>
+	<li class="cat-item cat-item-28">
+<a href="/category/guest-blog/">Guest Blog</a>
+</li>
+	<li class="cat-item cat-item-25">
+<a href="/category/infosec/">InfoSec</a>
+</li>
+	<li class="cat-item cat-item-37">
+<a href="/category/mac/">Mac</a>
+</li>
+	<li class="cat-item cat-item-26">
+<a href="/category/mobile-forensics/">Mobile Forensics</a>
+</li>
+	<li class="cat-item cat-item-30">
+<a href="/category/reverse-engineering/">Reverse Engineering</a>
+</li>
+	<li class="cat-item cat-item-1">
+<a href="/category/uncategorized/">Uncategorized</a>
+</li>
+			</ul>
+
+			</section><section id="archives-2" class="widget widget_archive"><h3 class="widget-title"><span>Archives</span></h3>
+			<ul>
+					<li><a href="/2021/05/">May 2021</a></li>
+	<li><a href="/2020/05/">May 2020</a></li>
+	<li><a href="/2020/02/">February 2020</a></li>
+	<li><a href="/2020/01/">January 2020</a></li>
+	<li><a href="/2019/10/">October 2019</a></li>
+	<li><a href="/2019/06/">June 2019</a></li>
+	<li><a href="/2019/05/">May 2019</a></li>
+	<li><a href="/2019/04/">April 2019</a></li>
+			</ul>
+
+			</section><section id="custom_html-3" class="widget_text widget widget_custom_html"><h3 class="widget-title"><span>Contact</span></h3>
+<div class="textwidget custom-html-widget">Twitter: <a href="http://twitter.com/forensicmike1/">@forensicmike1</a><br>
+Discord: forensicmike#6426</div></section></aside><!-- #secondary -->	</div>
+</div>
+</div>
+<!-- #content --><footer id="colophon" class="site-footer"> <!-- footer starting from here --> 
+	        <div class="site-generator">
+            <div class="container">
+                <div class="row">
+                    <div class="custom-col-6">
+                        <div class="copy-right">
+											
+							Theme of <a target="_blank" rel="designer" href="https://theme404.com/">Theme404</a>&nbsp;
+							                        </div>
+                    </div>
+                    <div class="custom-col-6">
+                        <div class="footer-menu">
+							                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</footer><!-- #colophon -->            <!-- footer ends here -->
+            <div class="back-to-top">
+                <a href="#masthead" title="Go to Top" class="fa-angle-up"></a>
+            </div>
+            </div>
+<!-- #page -->
+<script type="text/javascript" src="/wp-content/themes/power-magazine/assets/js/isotope.min.js?ver=v3.0.6" id="isotope-js"></script>
+<script type="text/javascript" src="/wp-includes/js/imagesloaded.min.js?ver=4.1.4" id="imagesloaded-js"></script>
+<script type="text/javascript" src="/wp-content/themes/power-magazine/assets/js/slick.min.js?ver=1.9.0" id="slick-js"></script>
+<script type="text/javascript" src="/wp-content/themes/power-magazine/assets/js/jquery.meanmenu.js?ver=v2.0.8" id="jquery-meanenu-js-js"></script>
+<script type="text/javascript" src="/wp-content/themes/power-magazine/assets/js/ResizeSensor.js?ver=v2.0.8" id="ResizeSensor-js-js"></script>
+<script type="text/javascript" src="/wp-content/themes/power-magazine/assets/js/theia-sticky-sidebar.js?ver=v1.7.0" id="theia-sticky-sidebar-js-js"></script>
+<script type="text/javascript" src="/wp-content/themes/power-magazine/assets/js/jquery.magnific-popup.js?ver=v1.1.0" id="jquery.magnific-popup.js-js"></script>
+<script type="text/javascript" src="/wp-content/themes/power-magazine/assets/js/navigation.js?ver=20151215" id="power-magazine-navigation-js"></script>
+<script type="text/javascript" src="/wp-content/themes/power-magazine/assets/js/skip-link-focus-fix.js?ver=20151215" id="power-magazine-skip-link-focus-fix-js"></script>
+<script type="text/javascript" src="/wp-includes/js/comment-reply.min.js?ver=5.8.6" id="comment-reply-js"></script>
+<script type="text/javascript" src="/wp-content/themes/power-magazine/assets/js/custom.js?ver=1.0.0" id="power_magazine-custom-js"></script>
+<script type="text/javascript" src="/wp-content/plugins/enlighter/cache/enlighterjs.min.js?ver=tebjVoJSSILa+Co" id="enlighterjs-js"></script>
+<script type="text/javascript" id="enlighterjs-js-after">!function(e,n){if("undefined"!=typeof EnlighterJS){var o={"selectors":{"block":"pre.EnlighterJSRAW","inline":"code.EnlighterJSRAW"},"options":{"indent":2,"ampersandCleanup":true,"linehover":true,"rawcodeDbclick":false,"textOverflow":"break","linenumbers":false,"theme":"droide","language":"csharp","retainCssClasses":false,"collapse":false,"toolbarOuter":"","toolbarTop":"{BTN_RAW}{BTN_COPY}{BTN_WINDOW}{BTN_WEBSITE}","toolbarBottom":""}};(e.EnlighterJSINIT=function(){EnlighterJS.init(o.selectors.block,o.selectors.inline,o.options)})()}else{(n&&(n.error||n.log)||function(){})("Error: EnlighterJS resources not loaded yet!")}}(window,console);</script>
+<script type="text/javascript" src="/wp-includes/js/wp-embed.min.js?ver=5.8.6" id="wp-embed-js"></script>
+<script type="text/javascript" src="https://www.recaptcha.net/recaptcha/api.js?hl=en_US&#038;onload=sgr_2&#038;render=explicit&#038;ver=1666185621" id="sgr_recaptcha-js"></script>
+
+</body>
+</html>

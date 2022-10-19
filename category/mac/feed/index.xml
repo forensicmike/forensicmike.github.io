@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Mac Archives - forensicmike1</title>
+	<atom:link href="/category/mac/feed/" rel="self" type="application/rss+xml" />
+	<link>https://34.196.241.14/category/mac/</link>
+	<description>#DFIR &#124; #RE &#124; #OtherGeekThings =&#62; Views expressed are my own.</description>
+	<lastBuildDate>Tue, 25 May 2021 21:56:55 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.8.6</generator>
+	<item>
+		<title>Taking a gander at iOS apps on an M1 Mac</title>
+		<link>/2021/05/25/taking-a-look-at-ios-apps-on-an-m1-mac/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=taking-a-look-at-ios-apps-on-an-m1-mac</link>
+					<comments>/2021/05/25/taking-a-look-at-ios-apps-on-an-m1-mac/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Tue, 25 May 2021 20:47:39 +0000</pubDate>
+				<category><![CDATA[DFIR]]></category>
+		<category><![CDATA[Mac]]></category>
+		<category><![CDATA[Reverse Engineering]]></category>
+		<guid isPermaLink="false">https://3.88.229.156/?p=570</guid>
+
+					<description><![CDATA[<p>I wanted to share some initial research I did over the rainy long weekend. I recently got access to a MacBook Pro with the M1 chip and so naturally I wanted to take a look at how running iOS apps natively on macOS works, where the app data ends up on the HDD, and of [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/2021/05/25/taking-a-look-at-ios-apps-on-an-m1-mac/">Taking a gander at iOS apps on an M1 Mac</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>I wanted to share some initial research I did over the rainy long weekend. I recently got access to a MacBook Pro with the M1 chip and so naturally I wanted to take a look at how running iOS apps natively on macOS works, where the app data ends up on the HDD, and of course, to see if Frida works on it or not. <img src="https://s.w.org/images/core/emoji/13.1.0/72x72/1f642.png" alt="🙂" class="wp-smiley" style="height: 1em; max-height: 1em;" /></p>
+
+
+
+<p>Given the large number of iOS apps that you can presently install via the App Store, it&#8217;s definitely conceivable that we might start seeing instances of this on Mac extractions, so I thought it might be helpful to have a frame of reference for where iOS app data is located.</p>
+
+
+
+<p>For this research, I decided to install Private Photo Vault (which continues to bring a ton of traffic to my site to this day haha), but I suspect the story will be similar for other apps.</p>
+
+
+
+<p>First things first, let&#8217;s find PPV on the App Store. One note is that you need to click on the iPhone &amp; iPad Apps filter, which seems obvious now but didn&#8217;t immediately jump out when I started this before my coffee activated.</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="625" src="http://3.88.229.156/wp-content/uploads/2021/05/image-1024x625.png" alt="" class="wp-image-571" srcset="/wp-content/uploads/2021/05/image-1024x625.png 1024w, /wp-content/uploads/2021/05/image-300x183.png 300w, /wp-content/uploads/2021/05/image-768x469.png 768w, /wp-content/uploads/2021/05/image-1536x938.png 1536w, /wp-content/uploads/2021/05/image-2048x1250.png 2048w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<p>Okay great, it&#8217;s installed. It shows up on the LaunchPad just like any other installed app, neat.</p>
+
+
+
+<figure class="wp-block-image size-large is-resized"><img loading="lazy" src="http://3.88.229.156/wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-1.59.55-PM.png" alt="" class="wp-image-575" width="337" height="222" srcset="/wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-1.59.55-PM.png 718w, /wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-1.59.55-PM-300x198.png 300w" sizes="(max-width: 337px) 100vw, 337px" /></figure>
+
+
+
+<p>OK great, let&#8217;s launch the app and set it up, and take a photo. The app seamlessly integrates with the MBP&#8217;s front facing camera (which still produces pretty awful looking pictures compared to iPhone).</p>
+
+
+
+<p>First I&#8217;ll check if Frida sees the process by running</p>
+
+
+
+<p> <code>frida-ps | grep Vault</code>. </p>
+
+
+
+<p>We see two processes of interest including Photo Vault and Keychain (Photo Vault):</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="297" src="http://3.88.229.156/wp-content/uploads/2021/05/image-2-1024x297.png" alt="" class="wp-image-573" srcset="/wp-content/uploads/2021/05/image-2-1024x297.png 1024w, /wp-content/uploads/2021/05/image-2-300x87.png 300w, /wp-content/uploads/2021/05/image-2-768x223.png 768w, /wp-content/uploads/2021/05/image-2-1536x446.png 1536w, /wp-content/uploads/2021/05/image-2-2048x595.png 2048w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<p>More on my adventures with frida in a moment, but let&#8217;s take a moment to search for the data. With the help of the find command (and knowing by heart at this point what files and folders PPV generally leaves in the filesystem on iDevices), I located the data for the app at:</p>
+
+
+
+<p><code>/Users/(name)/Library/Containers/(Installation GUID)/Data/Library</code></p>
+
+
+
+<p>As seen in the below screenshot, within this folder we have similar contents as PPV on iOS, except with a ton of other folders too!</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="721" src="http://3.88.229.156/wp-content/uploads/2021/05/image-3-1024x721.png" alt="" class="wp-image-574" srcset="/wp-content/uploads/2021/05/image-3-1024x721.png 1024w, /wp-content/uploads/2021/05/image-3-300x211.png 300w, /wp-content/uploads/2021/05/image-3-768x541.png 768w, /wp-content/uploads/2021/05/image-3.png 1142w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<p>So what is going on here? If we do an <code>ls -l</code> it becomes clearer:</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="864" src="http://3.88.229.156/wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-2.05.38-PM-1024x864.png" alt="" class="wp-image-576" srcset="/wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-2.05.38-PM-1024x864.png 1024w, /wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-2.05.38-PM-300x253.png 300w, /wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-2.05.38-PM-768x648.png 768w, /wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-2.05.38-PM.png 1502w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<p>Any of the items starting with <code>l</code> are symlinks! In fact, if we step up a folder to /Data we can see Desktop, Downloads etc. and all of the folders we expect to see in <code>~/</code> for our user, are here again, as symlinks.</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="412" src="http://3.88.229.156/wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-1.59.22-PM-1024x412.png" alt="" class="wp-image-577" srcset="/wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-1.59.22-PM-1024x412.png 1024w, /wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-1.59.22-PM-300x121.png 300w, /wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-1.59.22-PM-768x309.png 768w, /wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-1.59.22-PM-1536x618.png 1536w, /wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-1.59.22-PM.png 1600w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<p>I&#8217;m sure there&#8217;s a good reason for this, but it&#8217;s something to be aware of when traversing these app directories as it can spam us pretty bad when using the <code>find</code> or <code>ls</code> command <img src="https://s.w.org/images/core/emoji/13.1.0/72x72/1f642.png" alt="🙂" class="wp-smiley" style="height: 1em; max-height: 1em;" /></p>
+
+
+
+<p>Fortunately, when we create a tar file with the contents of the Data directory, it does not <strong>fully </strong>traverse the symlinks. Here I did: <code>tar cvf ~/Desktop/ppv_macos.tar .</code></p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="949" height="1024" src="http://3.88.229.156/wp-content/uploads/2021/05/image-4-949x1024.png" alt="" class="wp-image-578" srcset="/wp-content/uploads/2021/05/image-4-949x1024.png 949w, /wp-content/uploads/2021/05/image-4-278x300.png 278w, /wp-content/uploads/2021/05/image-4-768x829.png 768w, /wp-content/uploads/2021/05/image-4.png 1184w" sizes="(max-width: 949px) 100vw, 949px" /></figure>
+
+
+
+<p>And as you can see, the symlinks are still present but listed as ~20 byte files instead of directories.</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="967" height="951" src="http://3.88.229.156/wp-content/uploads/2021/05/image-5.png" alt="" class="wp-image-579" srcset="/wp-content/uploads/2021/05/image-5.png 967w, /wp-content/uploads/2021/05/image-5-300x295.png 300w, /wp-content/uploads/2021/05/image-5-768x755.png 768w" sizes="(max-width: 967px) 100vw, 967px" /></figure>
+
+
+
+<p>And 7-zip considers them <em>dangerous</em> and doesn&#8217;t bother to create them when you do a full extraction:</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="601" height="505" src="http://3.88.229.156/wp-content/uploads/2021/05/image-6.png" alt="" class="wp-image-580" srcset="/wp-content/uploads/2021/05/image-6.png 601w, /wp-content/uploads/2021/05/image-6-300x252.png 300w" sizes="(max-width: 601px) 100vw, 601px" /></figure>
+
+
+
+<h2>Frida</h2>
+
+
+
+<p>I now wanted to see if I could attach with Frida. First attempt, I got an error saying my user account didn&#8217;t have permissions to attach. I remembered seeing this before, and after googling I found it indeed it had to do with <a href="https://developer.apple.com/documentation/security/disabling_and_enabling_system_integrity_protection" target="_blank" rel="noreferrer noopener">SIP</a> (System Integrity Protection) being enabled. To disable, one must shutdown and then restart into recovery. Note that on M1 Macs, instead of holding Cmd+R and booting, you actually just hold down the power button until the boot options screen appears. After booting to recovery a good ol&#8217; <code>csrutil disable</code> from the terminal still does the trick.</p>
+
+
+
+<p>After rebooting, I went to startup PPV again and was met with this sad message:</p>
+
+
+
+<figure class="wp-block-image size-large is-resized"><img loading="lazy" src="http://3.88.229.156/wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-2.00.04-PM.png" alt="" class="wp-image-581" width="310" height="301" srcset="/wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-2.00.04-PM.png 612w, /wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-2.00.04-PM-300x292.png 300w" sizes="(max-width: 310px) 100vw, 310px" /></figure>
+
+
+
+<p>So, it looks like some additional work will be required in order to deal with this. I did find <a href="https://twitter.com/SparkZheng/status/1334808131981910019" target="_blank" rel="noreferrer noopener">this tweet</a> from <a href="https://twitter.com/SparkZheng" target="_blank" rel="noreferrer noopener">@SparkZheng</a> though, so looks like it is possible with resigning?, but I haven&#8217;t had time to go further just yet.</p>
+
+
+
+<figure class="wp-block-embed is-type-rich is-provider-twitter wp-block-embed-twitter"><div class="wp-block-embed__wrapper">
+<blockquote class="twitter-tweet" data-width="550" data-dnt="true"><p lang="en" dir="ltr">You can use frida or lldb to hook or debug iOS apps on MacBook with M1 chip. hits: disable SIP and resign apps. <a href="https://t.co/JhDmmJ2IUj">pic.twitter.com/JhDmmJ2IUj</a></p>&mdash; Min(Spark) Zheng (@SparkZheng) <a href="https://twitter.com/SparkZheng/status/1334808131981910019?ref_src=twsrc%5Etfw">December 4, 2020</a></blockquote><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div></figure>
+
+
+
+<p>Notwithstanding that, if you don&#8217;t have yourself a test iDevice but do have an M1 Mac and are interested in accessing filesystem artifacts without having to do repeated extractions, this could definitely be a timesaver.</p>
+<p>The post <a rel="nofollow" href="/2021/05/25/taking-a-look-at-ios-apps-on-an-m1-mac/">Taking a gander at iOS apps on an M1 Mac</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/2021/05/25/taking-a-look-at-ios-apps-on-an-m1-mac/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>

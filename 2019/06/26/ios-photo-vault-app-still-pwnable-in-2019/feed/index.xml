@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>
+	Comments on: Photo Vault app still pwnable in 2021? An adventure in iOS RE	</title>
+	<atom:link href="/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/feed/" rel="self" type="application/rss+xml" />
+	<link>/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=ios-photo-vault-app-still-pwnable-in-2019</link>
+	<description>#DFIR &#124; #RE &#124; #OtherGeekThings =&#62; Views expressed are my own.</description>
+	<lastBuildDate>Sun, 22 Aug 2021 14:40:21 +0000</lastBuildDate>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.8.6</generator>
+	<item>
+		<title>
+		By: Mike Williamson		</title>
+		<link>/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/#comment-454</link>
+
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Sun, 22 Aug 2021 13:20:02 +0000</pubDate>
+		<guid isPermaLink="false">https://3.88.229.156/?p=288#comment-454</guid>
+
+					<description><![CDATA[In reply to &lt;a href=&quot;/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/#comment-453&quot;&gt;BHarr&lt;/a&gt;.
+
+Hi, everything you need to perform decryption should be contained in the backup. I need to update this post a little as PPV has changed things recently (Aug 2021).]]></description>
+			<content:encoded><![CDATA[<p>In reply to <a href="/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/#comment-453">BHarr</a>.</p>
+<p>Hi, everything you need to perform decryption should be contained in the backup. I need to update this post a little as PPV has changed things recently (Aug 2021).</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: BHarr		</title>
+		<link>/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/#comment-453</link>
+
+		<dc:creator><![CDATA[BHarr]]></dc:creator>
+		<pubDate>Sun, 22 Aug 2021 08:56:12 +0000</pubDate>
+		<guid isPermaLink="false">https://3.88.229.156/?p=288#comment-453</guid>
+
+					<description><![CDATA[I had private photo vault on my old iphonex and before I traded it in , I made sure to do an iCloud backup and an iTunes backup on my MacBook Air. I now have an iPhone pro max 12 and when I added everything from my old phone to this one, in private photo vault , everything didn’t transfer over; please help!]]></description>
+			<content:encoded><![CDATA[<p>I had private photo vault on my old iphonex and before I traded it in , I made sure to do an iCloud backup and an iTunes backup on my MacBook Air. I now have an iPhone pro max 12 and when I added everything from my old phone to this one, in private photo vault , everything didn’t transfer over; please help!</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Cmonet		</title>
+		<link>/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/#comment-432</link>
+
+		<dc:creator><![CDATA[Cmonet]]></dc:creator>
+		<pubDate>Thu, 13 May 2021 13:55:50 +0000</pubDate>
+		<guid isPermaLink="false">https://3.88.229.156/?p=288#comment-432</guid>
+
+					<description><![CDATA[I Hey Mike,
+I really appreciate the write up on this. I&#039;m in the same boat as Matt K. above. I have an iPhone backup that I&#039;ve extracted the PPV app data from and need some assistance decrypting it. Any help would be greatly appreciated. I&#039;ll reach out via Discord also. Thanks!]]></description>
+			<content:encoded><![CDATA[<p>I Hey Mike,<br />
+I really appreciate the write up on this. I&#8217;m in the same boat as Matt K. above. I have an iPhone backup that I&#8217;ve extracted the PPV app data from and need some assistance decrypting it. Any help would be greatly appreciated. I&#8217;ll reach out via Discord also. Thanks!</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Peter M		</title>
+		<link>/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/#comment-418</link>
+
+		<dc:creator><![CDATA[Peter M]]></dc:creator>
+		<pubDate>Sun, 28 Mar 2021 10:16:39 +0000</pubDate>
+		<guid isPermaLink="false">https://3.88.229.156/?p=288#comment-418</guid>
+
+					<description><![CDATA[In reply to &lt;a href=&quot;/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/#comment-402&quot;&gt;Mike Williamson&lt;/a&gt;.
+
+Hi Mike,
+
+Really interesting blog post!
+
+I have similiar problem as Matt. I still have my old iphone backup but switched to android so I cant restore the PPV app.
+
+Is there a way to extract the key from the keychain-backup.plist somehow?]]></description>
+			<content:encoded><![CDATA[<p>In reply to <a href="/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/#comment-402">Mike Williamson</a>.</p>
+<p>Hi Mike,</p>
+<p>Really interesting blog post!</p>
+<p>I have similiar problem as Matt. I still have my old iphone backup but switched to android so I cant restore the PPV app.</p>
+<p>Is there a way to extract the key from the keychain-backup.plist somehow?</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Mike Williamson		</title>
+		<link>/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/#comment-402</link>
+
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Sat, 06 Feb 2021 15:36:40 +0000</pubDate>
+		<guid isPermaLink="false">https://3.88.229.156/?p=288#comment-402</guid>
+
+					<description><![CDATA[In reply to &lt;a href=&quot;/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/#comment-371&quot;&gt;Matt K&lt;/a&gt;.
+
+There is indeed. Feel free to reach out on Twitter or Discord]]></description>
+			<content:encoded><![CDATA[<p>In reply to <a href="/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/#comment-371">Matt K</a>.</p>
+<p>There is indeed. Feel free to reach out on Twitter or Discord</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Matt K		</title>
+		<link>/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/#comment-371</link>
+
+		<dc:creator><![CDATA[Matt K]]></dc:creator>
+		<pubDate>Tue, 08 Dec 2020 20:35:36 +0000</pubDate>
+		<guid isPermaLink="false">https://3.88.229.156/?p=288#comment-371</guid>
+
+					<description><![CDATA[Hi Mike,
+Thanks for your detailed code .
+I used to have that app and since it got discontinued and I upgraded to a new phone I have lost all the data as I am unable to get/acces PPV app.
+Is there any way to extract the data from Iphone backup instead?]]></description>
+			<content:encoded><![CDATA[<p>Hi Mike,<br />
+Thanks for your detailed code .<br />
+I used to have that app and since it got discontinued and I upgraded to a new phone I have lost all the data as I am unable to get/acces PPV app.<br />
+Is there any way to extract the data from Iphone backup instead?</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Mike Williamson		</title>
+		<link>/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/#comment-348</link>
+
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Sat, 02 May 2020 14:57:20 +0000</pubDate>
+		<guid isPermaLink="false">https://3.88.229.156/?p=288#comment-348</guid>
+
+					<description><![CDATA[In reply to &lt;a href=&quot;/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/#comment-346&quot;&gt;Jon&lt;/a&gt;.
+
+Very true! I often say taking those first steps with Frida are the most difficult ones. That&#039;s not to say there aren&#039;t challenges every time, but once you start to see what&#039;s possible it becomes so fun to poke around.]]></description>
+			<content:encoded><![CDATA[<p>In reply to <a href="/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/#comment-346">Jon</a>.</p>
+<p>Very true! I often say taking those first steps with Frida are the most difficult ones. That&#8217;s not to say there aren&#8217;t challenges every time, but once you start to see what&#8217;s possible it becomes so fun to poke around.</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: John		</title>
+		<link>/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/#comment-347</link>
+
+		<dc:creator><![CDATA[John]]></dc:creator>
+		<pubDate>Tue, 07 Apr 2020 14:41:46 +0000</pubDate>
+		<guid isPermaLink="false">https://3.88.229.156/?p=288#comment-347</guid>
+
+					<description><![CDATA[You have given me a glimmer of hope when PPV took it away. I am one of the unfortunate souls who purchased this application and now find myself stuck waiting on the company to provide support. It&#039;s been a month btw and no response from them.
+
+I upgraded my device from an iPhone 8 to the 11 but downsized from the 256 GIG to 128 GIG model. Before shipping the device back to Apple for credit, I of course made a full encrypted backup on my Mac thinking that I could pull out the data I wanted at a later time. I purchased a 3rd party application to extract files / data from my backup which works great, the app supports the decryption process of Apple Backups and I have full access to the previous devices file system. My problem is the PPV files are still encrypted and the current version of the application does not allow you to put them back on a device in a manner that restores viewing. I know the PIN code which was set on the previous device and PPV app. 
+
+I obviously don&#039;t code or fully understand the methods you described in the write up but I figured it was worth a shot to ask if you had a suggestion. You can see for yourself in the App store comments section that I&#039;m not alone in my frustration with the makers of PPV!]]></description>
+			<content:encoded><![CDATA[<p>You have given me a glimmer of hope when PPV took it away. I am one of the unfortunate souls who purchased this application and now find myself stuck waiting on the company to provide support. It&#8217;s been a month btw and no response from them.</p>
+<p>I upgraded my device from an iPhone 8 to the 11 but downsized from the 256 GIG to 128 GIG model. Before shipping the device back to Apple for credit, I of course made a full encrypted backup on my Mac thinking that I could pull out the data I wanted at a later time. I purchased a 3rd party application to extract files / data from my backup which works great, the app supports the decryption process of Apple Backups and I have full access to the previous devices file system. My problem is the PPV files are still encrypted and the current version of the application does not allow you to put them back on a device in a manner that restores viewing. I know the PIN code which was set on the previous device and PPV app. </p>
+<p>I obviously don&#8217;t code or fully understand the methods you described in the write up but I figured it was worth a shot to ask if you had a suggestion. You can see for yourself in the App store comments section that I&#8217;m not alone in my frustration with the makers of PPV!</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Jon		</title>
+		<link>/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/#comment-346</link>
+
+		<dc:creator><![CDATA[Jon]]></dc:creator>
+		<pubDate>Tue, 07 Apr 2020 05:38:52 +0000</pubDate>
+		<guid isPermaLink="false">https://3.88.229.156/?p=288#comment-346</guid>
+
+					<description><![CDATA[In reply to &lt;a href=&quot;/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/#comment-345&quot;&gt;Mike Williamson&lt;/a&gt;.
+
+Thanks for the help, Mike! Learning Frida was a bit of a challenge but once I figured that out, the rest was trivial. 
+
+Observing the LSLCrypt class and entering a wrong password will result in the correct one being dumped to the console... Not very private, huh? :)]]></description>
+			<content:encoded><![CDATA[<p>In reply to <a href="/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/#comment-345">Mike Williamson</a>.</p>
+<p>Thanks for the help, Mike! Learning Frida was a bit of a challenge but once I figured that out, the rest was trivial. </p>
+<p>Observing the LSLCrypt class and entering a wrong password will result in the correct one being dumped to the console&#8230; Not very private, huh? 🙂</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Mike Williamson		</title>
+		<link>/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/#comment-345</link>
+
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Mon, 06 Apr 2020 13:06:04 +0000</pubDate>
+		<guid isPermaLink="false">https://3.88.229.156/?p=288#comment-345</guid>
+
+					<description><![CDATA[In reply to &lt;a href=&quot;/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/#comment-344&quot;&gt;Jon&lt;/a&gt;.
+
+Hi Jon,
+You&#039;ll need to find a way to extract the keychain. This can be done with various commercial tools or, fairly easily at runtime with Frida.
+
+Key derivation follows a specific pattern (hint: it involves the string concatenation of three specific things), so it should be possible to do without the keychain at all as I alluded to in the post.
+
+Best of luck!
+Mike]]></description>
+			<content:encoded><![CDATA[<p>In reply to <a href="/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/#comment-344">Jon</a>.</p>
+<p>Hi Jon,<br />
+You&#8217;ll need to find a way to extract the keychain. This can be done with various commercial tools or, fairly easily at runtime with Frida.</p>
+<p>Key derivation follows a specific pattern (hint: it involves the string concatenation of three specific things), so it should be possible to do without the keychain at all as I alluded to in the post.</p>
+<p>Best of luck!<br />
+Mike</p>
+]]></content:encoded>
+		
+			</item>
+	</channel>
+</rss>

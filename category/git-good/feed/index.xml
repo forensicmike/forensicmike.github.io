@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Git Good Archives - forensicmike1</title>
+	<atom:link href="/category/git-good/feed/" rel="self" type="application/rss+xml" />
+	<link>https://forensicmike1.com/category/git-good/</link>
+	<description>#DFIR &#124; #RE &#124; #OtherGeekThings =&#62; Views expressed are my own.</description>
+	<lastBuildDate>Sat, 29 Feb 2020 22:10:45 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.8.6</generator>
+	<item>
+		<title>Examiner-coder-types: Learnin&#8217;git can make you a better developer</title>
+		<link>/2020/02/29/examiner-coder-types-learningit-can-make-you-a-better-developer/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=examiner-coder-types-learningit-can-make-you-a-better-developer</link>
+					<comments>/2020/02/29/examiner-coder-types-learningit-can-make-you-a-better-developer/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Sat, 29 Feb 2020 18:37:46 +0000</pubDate>
+				<category><![CDATA[DFIR]]></category>
+		<category><![CDATA[Forensic Coding]]></category>
+		<category><![CDATA[Git Good]]></category>
+		<guid isPermaLink="false">https://3.88.229.156/?p=444</guid>
+
+					<description><![CDATA[<p>I decided to write an article about Git and Github. Why? I&#8217;ve been exposed to Git a lot since I started working for a software company. Now, I&#8217;m wishing I could go back in time and have used it a lot more&#8230; even for projects I had no intention of ever releasing to the public [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/2020/02/29/examiner-coder-types-learningit-can-make-you-a-better-developer/">Examiner-coder-types: Learnin&#8217;git can make you a better developer</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>I decided to write an article about Git and Github. Why? I&#8217;ve been exposed to Git a lot since I started working for a software company. Now, I&#8217;m wishing I could go back in time and have used it a lot more&#8230; even for projects I had no intention of ever releasing to the public (e.g. most of them!). This article is meant to speak directly to those just like &#8220;pre-software company me&#8221; &#8212; who might be missing out on the significant advantages of using Git. Ask yourself the following:</p>
+
+
+
+<ul><li>Are you self-taught in most of the programming you know?</li><li>Have you ever made a change to your project and subsequently wished you could undo said change as it created unforeseen bug(s)?</li><li>Have you tried to use git before and been frustrated with some of the very first steps you need to take, such as setting up a new repo from an existing project?</li><li>Do you keep all of your code in a cloud drive like Dropbox or Google Drive to ensure you have consistent code backups?</li><li>Have you ever struggled to work collaboratively with another developer on a project?</li><li>Are you aware of git, and the fact that it is popular and supposedly useful, but been overwhelmed by the initial learning curve?</li></ul>
+
+
+
+<p>If you identified with any of the above, this article might help you. If you already know why Git / Github are amazing, you could still benefit from some of the tips below. This article isn&#8217;t so much a &#8220;git 101&#8221; as there are <a href="https://www.learnenough.com/git-tutorial/getting_started" target="_blank" rel="noreferrer noopener" aria-label="lots of great resources (opens in a new tab)">lots of great resources</a> out there for that. I may write more on this subject in future though!</p>
+
+
+
+<h2>Disclaimer</h2>
+
+
+
+<p>I am not a git master. I am a git neophyte, and that&#8217;s okay. You don&#8217;t need mastery to reap the benefits. Since I started working at a software company, I&#8217;ve met some true git wizards, and have benefited greatly from their willingness to impart wisdom. </p>
+
+
+
+<p>I&#8217;m only just getting started in my Git-learning journey, and I do mean journey &#8212; it&#8217;s a slough that can honestly be pretty frustrating. (Out of those times of frustration often come some of the biggest Git-epiphanies). </p>
+
+
+
+<p>Despite my relative newness, I feel strongly enough about the benefits to write a post because I think there are a lot of folks out there that stand to benefit greatly from beginning to use this technology.</p>
+
+
+
+<p>If you disagree with any of the advice I&#8217;ve laid out, think I should add to this article, or just want to chat Git &#8211; feel free to drop a comment or connect with me on Twitter/Discord.</p>
+
+
+
+<h2>Just /some/ of the advantages&#8230;</h2>
+
+
+
+<ul><li>Redundant, cloud-based backups of <span style="text-decoration: underline;">JUST YOUR SOURCE CODE</span>. Github now offers private repositories for free. This is SO much better than storing your entire code folder on Dropbox / GDrive / etc.</li><li>The ability to selectively roll-back changes or track specific changes over time.</li><li>Makes collaborative coding much easier if it ends up being a project that involves multiple developers.</li><li>Increases the likelihood of people trying out your product (vs. downloading an installer from a random website authored by someone they don&#8217;t know or trust)</li><li>If you have future aspirations of working at a software company, particularly in any kind of development role, pre-existing fluency in Git will be a huge asset.</li></ul>
+
+
+
+<p>While it does take time to learn, and is a skill that must be maintained, you will benefit greatly as a developer by learning it, and you don&#8217;t need to be a master to use it right away.</p>
+
+
+
+<h2>Setup a repo from an already existing project</h2>
+
+
+
+<p>If you&#8217;re like me, you may find that you have often already begun writing code before it ever occurred to you to setup a github repo. There are in-built features in Visual Studio, but I&#8217;ve always struggled to make them work with a project that already has code in it. All is not lost. </p>
+
+
+
+<p>There&#8217;s a pretty good write-up here:  <a rel="noreferrer noopener" aria-label="https://help.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line  (opens in a new tab)" href="https://help.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line" target="_blank">https://help.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line </a></p>
+
+
+
+<p>But if the inner-millennial in you can&#8217;t bear to read the above tutorial start-to-finish, please at a minimum keep in mind the following KEY POINT:</p>
+
+
+
+<p>When creating your repo on Github, <strong>DO NOT create a readme</strong> <strong>or set a license</strong>. You want an entirely empty repo. E.g.</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="762" height="682" src="http://3.88.229.156/wp-content/uploads/2020/02/image-3.png" alt="" class="wp-image-454" srcset="/wp-content/uploads/2020/02/image-3.png 762w, /wp-content/uploads/2020/02/image-3-300x269.png 300w" sizes="(max-width: 762px) 100vw, 762px" /></figure>
+
+
+
+<p>As long as you do that, things will go smoothly in the tutorial. I&#8217;d also recommend running a &#8220;git status&#8221; command before you proceed with your first commit, and ensure you don&#8217;t see &#8220;bin/&#8221; or other such folders. If you do, read the next section first.</p>
+
+
+
+<h2>Before doing your initial commit, create a .gitignore</h2>
+
+
+
+<p>.gitignore is a file that lists off what should and shouldn&#8217;t go into your commit. In general, it is considered bad practice to include stuff that gets generated by your compiler in your commits. Another no-no would be including dependencies like NuGet packages as this will massively inflate the size of your repository unnecessarily.</p>
+
+
+
+<p>Of course, you are welcome to research what a good .gitignore looks like, but I would personally recommend checking out <a rel="noreferrer noopener" aria-label="Gitignore.io (opens in a new tab)" href="https://gitignore.io/" target="_blank">Gitignore.io</a> . This site provides templates depending on the type of project you&#8217;re working on. For instance, if you are working on a C# project you can search for CSharp and get yourself a ready to go .gitignore:</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/02/image-2.png"><img loading="lazy" width="1024" height="466" src="http://3.88.229.156/wp-content/uploads/2020/02/image-2-1024x466.png" alt="" class="wp-image-452" srcset="/wp-content/uploads/2020/02/image-2-1024x466.png 1024w, /wp-content/uploads/2020/02/image-2-300x137.png 300w, /wp-content/uploads/2020/02/image-2-768x349.png 768w, /wp-content/uploads/2020/02/image-2.png 1090w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<p>You can then save this as .gitignore in the root of your repository and the next time you run &#8220;git status&#8221; you&#8217;ll see that folders like:<br>bin/<br>obj/<br>.vs/<br>packages/</p>
+
+
+
+<p>Are all absent from the change list. This means you will only be committing the important stuff to github and any would-be repo cloners will be pleased with you.</p>
+
+
+
+<h2>Make a nice readme.md</h2>
+
+
+
+<p>Readme.md is a critical piece of any good git repo. It is one of your only &#8216;sell me&#8217; pitches that will help your potential user decide whether or not to going to use this repo. It&#8217;s a great place to include things like:</p>
+
+
+
+<ul><li>Explain what the product is today and where it came from. Also where you envision it in future. (Current &amp; Future features / roadmap)</li><li>Give direction on how you would like potential issues reported, or whether you are open to others submitting pull requests to your repository.</li><li>Provide links to pre-compiled binaries, if you decide to provide them.</li><li>Shout out any third party libraries you are using in your project.</li></ul>
+
+
+
+<p>If your goal is to increase exposure, consider adding one or more screenshots to show off your product.</p>
+
+
+
+<p>The &#8220;md&#8221; in readme.md stands for Markdown. Generous (but not gratuitous) use of markdown-based formatting will add polish to your repo. If you aren&#8217;t sure how to start with markdown, check out Github&#8217;s help page on the subject: <a rel="noreferrer noopener" aria-label="https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax (opens in a new tab)" href="https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax" target="_blank">https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax</a></p>
+
+
+
+<p>Tip: If you have setup your repo without a read me (such as when you are creating a repo from an existing project) you can add a readme off your main repo page:</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/02/image-4.png"><img loading="lazy" width="1013" height="70" src="http://3.88.229.156/wp-content/uploads/2020/02/image-4.png" alt="" class="wp-image-455" srcset="/wp-content/uploads/2020/02/image-4.png 1013w, /wp-content/uploads/2020/02/image-4-300x21.png 300w, /wp-content/uploads/2020/02/image-4-768x53.png 768w" sizes="(max-width: 1013px) 100vw, 1013px" /></a><figcaption>Click the green button</figcaption></figure>
+
+
+
+<h2>Choose the right license</h2>
+
+
+
+<p>If you&#8217;re planning to make your repo public at any point, it is important to not only specify a license, but also understand the implications of the license you ultimately select. Github has made this process easier by providing summaries of what each license can do. You might wonder which license is &#8220;the best&#8221; &#8211; and the truth is this really depends on what your project is intended to do.</p>
+
+
+
+<p>I&#8217;m not an expert in OSS licensing by any stretch, but I definitely see the value in learning the differences between them depending on how widespread of use you anticipate your project seeing.</p>
+
+
+
+<p>For example, if you are writing a new filesystem, codec, parser or algorithm which you envision software companies to potentially adopt the use of your code in the future. GPL licenses are designed to force anyone who uses the code to have their code be open source as well.</p>
+
+
+
+<p>If on the other hand, you are writing a full fledged app and you&#8217;d like to avoid having your stuff plagiarized, GPL might be the perfect solution.</p>
+
+
+
+<p>For additional reading on licenses, I recommend the following resources:</p>
+
+
+
+<ul><li><a rel="noreferrer noopener" aria-label=" https://choosealicense.com/  (opens in a new tab)" href="https://choosealicense.com/" target="_blank">https://choosealicense.com/</a> (An objective resource from Github themselves)</li><li><a rel="noreferrer noopener" aria-label="https://www.freecodecamp.org/news/how-open-source-licenses-work-and-how-to-add-them-to-your-projects-34310c3cf94/ (opens in a new tab)" href="https://www.freecodecamp.org/news/how-open-source-licenses-work-and-how-to-add-them-to-your-projects-34310c3cf94/" target="_blank">https://www.freecodecamp.org/news/how-open-source-licenses-work-and-how-to-add-them-to-your-projects-34310c3cf94/</a></li></ul>
+
+
+
+<h3>How to add a license after the repo is already setup</h3>
+
+
+
+<p>You&#8217;ve setup your repo but now you need to add a license. How do we do this?</p>
+
+
+
+<p>From your repository&#8217;s homepage on Github, click &#8220;Create New File&#8221;. As soon as you type in the word <em>license</em> you will see a button appear called &#8216;Choose a license template&#8217; &#8211; Click it!</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/02/image.png"><img loading="lazy" width="895" height="54" src="http://3.88.229.156/wp-content/uploads/2020/02/image.png" alt="" class="wp-image-446" srcset="/wp-content/uploads/2020/02/image.png 895w, /wp-content/uploads/2020/02/image-300x18.png 300w, /wp-content/uploads/2020/02/image-768x46.png 768w" sizes="(max-width: 895px) 100vw, 895px" /></a></figure>
+
+
+
+<p>From here, you can select different licenses (the popular ones like Apache, GPL, and MIT are listed at the top) and review their differences. Once ready, click &#8216;Review and submit&#8217;.</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/02/image-1.png"><img loading="lazy" width="1024" height="200" src="http://3.88.229.156/wp-content/uploads/2020/02/image-1-1024x200.png" alt="" class="wp-image-447" srcset="/wp-content/uploads/2020/02/image-1-1024x200.png 1024w, /wp-content/uploads/2020/02/image-1-300x59.png 300w, /wp-content/uploads/2020/02/image-1-768x150.png 768w, /wp-content/uploads/2020/02/image-1-1536x300.png 1536w, /wp-content/uploads/2020/02/image-1.png 1891w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<h2>Finish every coding session with a commit or PR</h2>
+
+
+
+<p>There are lots of different considerations here, such as whether your repo is public or private, whether you are collaborating with others, etc. The easiest of all is to just commit directly to master, which might be fine if it&#8217;s a private repo and you&#8217;re the only one contributing.</p>
+
+
+
+<p>The point is, in order to maximize the &#8216;redundant backup&#8217; benefit, you need to make sure that any code you write exists somewhere other than your local machine. Don&#8217;t make the mistake of thinking that you should wait until you&#8217;ve finished an entire topic worth of code changes to push them. If you&#8217;ve made any code changes at all you wouldn&#8217;t want to have to re-write, make sure you propagate those changes to Github somehow. Remember: git commit isn&#8217;t git push. Running &#8220;git commit&#8221; won&#8217;t actually backup your changes to Github. Keep an eye on the output of your git commands as it&#8217;s usually pretty clear when your code has gone out to the internet:</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="240" src="http://3.88.229.156/wp-content/uploads/2020/02/image-5-1024x240.png" alt="" class="wp-image-461" srcset="/wp-content/uploads/2020/02/image-5-1024x240.png 1024w, /wp-content/uploads/2020/02/image-5-300x70.png 300w, /wp-content/uploads/2020/02/image-5-768x180.png 768w, /wp-content/uploads/2020/02/image-5.png 1031w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<h2>Conclusion</h2>
+
+
+
+<p>Git has a learning curve, and isn&#8217;t something you can master in a week. But the sooner you start getting exposed to it the better.</p>
+<p>The post <a rel="nofollow" href="/2020/02/29/examiner-coder-types-learningit-can-make-you-a-better-developer/">Examiner-coder-types: Learnin&#8217;git can make you a better developer</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/2020/02/29/examiner-coder-types-learningit-can-make-you-a-better-developer/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>

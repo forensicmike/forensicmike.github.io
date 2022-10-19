@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>
+	Comments on: Analysis of the ABTraceTogether app (iOS)	</title>
+	<atom:link href="/2020/05/01/analysis-of-the-abtracetogether-app-ios/feed/" rel="self" type="application/rss+xml" />
+	<link>/2020/05/01/analysis-of-the-abtracetogether-app-ios/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=analysis-of-the-abtracetogether-app-ios</link>
+	<description>#DFIR &#124; #RE &#124; #OtherGeekThings =&#62; Views expressed are my own.</description>
+	<lastBuildDate>Sat, 06 Feb 2021 15:38:04 +0000</lastBuildDate>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.8.6</generator>
+	<item>
+		<title>
+		By: Mike Williamson		</title>
+		<link>/2020/05/01/analysis-of-the-abtracetogether-app-ios/#comment-404</link>
+
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Sat, 06 Feb 2021 15:38:04 +0000</pubDate>
+		<guid isPermaLink="false">https://3.88.229.156/?p=495#comment-404</guid>
+
+					<description><![CDATA[In reply to &lt;a href=&quot;/2020/05/01/analysis-of-the-abtracetogether-app-ios/#comment-361&quot;&gt;Duncan MacFarlane&lt;/a&gt;.
+
+I&#039;m guessing the provincial govt just wants to avoid admitting they spent a lot of money on this for nothing :)]]></description>
+			<content:encoded><![CDATA[<p>In reply to <a href="/2020/05/01/analysis-of-the-abtracetogether-app-ios/#comment-361">Duncan MacFarlane</a>.</p>
+<p>I&#8217;m guessing the provincial govt just wants to avoid admitting they spent a lot of money on this for nothing 🙂</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Duncan MacFarlane		</title>
+		<link>/2020/05/01/analysis-of-the-abtracetogether-app-ios/#comment-361</link>
+
+		<dc:creator><![CDATA[Duncan MacFarlane]]></dc:creator>
+		<pubDate>Sun, 18 Oct 2020 12:50:21 +0000</pubDate>
+		<guid isPermaLink="false">https://3.88.229.156/?p=495#comment-361</guid>
+
+					<description><![CDATA[This app is useless for iPhone users. Very few will leave their screen unlocked and the app running in the foreground all day long!
+Why not use the Federal APP ??]]></description>
+			<content:encoded><![CDATA[<p>This app is useless for iPhone users. Very few will leave their screen unlocked and the app running in the foreground all day long!<br />
+Why not use the Federal APP ??</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Garmick		</title>
+		<link>/2020/05/01/analysis-of-the-abtracetogether-app-ios/#comment-352</link>
+
+		<dc:creator><![CDATA[Garmick]]></dc:creator>
+		<pubDate>Fri, 08 May 2020 20:39:36 +0000</pubDate>
+		<guid isPermaLink="false">https://3.88.229.156/?p=495#comment-352</guid>
+
+					<description><![CDATA[Great job mike!
+
+Have you been able to perform any traffic analysis?
+I see that the app only interacts with one server but i haven&#039;t been able to look at  the traffic since they are implementing SSL pining.]]></description>
+			<content:encoded><![CDATA[<p>Great job mike!</p>
+<p>Have you been able to perform any traffic analysis?<br />
+I see that the app only interacts with one server but i haven&#8217;t been able to look at  the traffic since they are implementing SSL pining.</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Mike Williamson		</title>
+		<link>/2020/05/01/analysis-of-the-abtracetogether-app-ios/#comment-351</link>
+
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Mon, 04 May 2020 14:24:55 +0000</pubDate>
+		<guid isPermaLink="false">https://3.88.229.156/?p=495#comment-351</guid>
+
+					<description><![CDATA[In reply to &lt;a href=&quot;/2020/05/01/analysis-of-the-abtracetogether-app-ios/#comment-350&quot;&gt;Nobody You Know&lt;/a&gt;.
+
+Thanks for the comments. I do have to reiterate my position here that the encryption keys for BlueTrace aren&#039;t stored on the device. They are serverside only. This is based both on my own observations, as well as in numerous places throughout the BlueTrace spec. If you have evidence to the contrary I&#039;d love to take a look! Consider:
+
+On &lt;b&gt;page 2 of the BlueTrace whitepaper&lt;/b&gt;, under &quot;Generation of TempIDs&quot; - &quot;&lt;em&gt;Only the health authority holds the secret key to encrypt and decrypt TempIDs&lt;/em&gt;&quot;.
+
+On &lt;b&gt;page 6 of the BlueTrace whitepaper&lt;/b&gt;, the author speaks to a number of points:
+&lt;ul&gt;
+&lt;li&gt;That the server is responsible for generating the tempIDs (and is why the post-dated tempIDs must be sent in advance, in case of connection issues).&lt;/li&gt;
+&lt;li&gt;The author also discusses the alternative - using a public key to generate the tempIDs on-device, and why it was ultimately decided against.&lt;/li&gt;
+&lt;li&gt;I admit, I am a little skeptical as to the reasons cited here (that it uses too much CPU in the background) but I don&#039;t have any direct experience in developing apps intended to run in the background, so I&#039;m merely speculating.&lt;/li&gt;
+&lt;/ul&gt;
+
+As with many of my posts, and indeed forensics in general... there are many other angles that could (and perhaps should) still be explored. What I&#039;ve learned is if you wait until you&#039;ve explored every avenue, the topic may have already past its period of relevance, or the app will have a new version and you&#039;ll have to start all over again :). For example, one thing that *is* resident on the device - and definitely deserves a deeper dive - is telemetry (IBM WLAnalytics). It is my present belief that WLAnalytics is responsible for most if not all of the keychain values in this app. But this might even be a separate post as it is unlikely to have any bearing on the core bluetooth tracing functionality.]]></description>
+			<content:encoded><![CDATA[<p>In reply to <a href="/2020/05/01/analysis-of-the-abtracetogether-app-ios/#comment-350">Nobody You Know</a>.</p>
+<p>Thanks for the comments. I do have to reiterate my position here that the encryption keys for BlueTrace aren&#8217;t stored on the device. They are serverside only. This is based both on my own observations, as well as in numerous places throughout the BlueTrace spec. If you have evidence to the contrary I&#8217;d love to take a look! Consider:</p>
+<p>On <b>page 2 of the BlueTrace whitepaper</b>, under &#8220;Generation of TempIDs&#8221; &#8211; &#8220;<em>Only the health authority holds the secret key to encrypt and decrypt TempIDs</em>&#8220;.</p>
+<p>On <b>page 6 of the BlueTrace whitepaper</b>, the author speaks to a number of points:</p>
+<ul>
+<li>That the server is responsible for generating the tempIDs (and is why the post-dated tempIDs must be sent in advance, in case of connection issues).</li>
+<li>The author also discusses the alternative &#8211; using a public key to generate the tempIDs on-device, and why it was ultimately decided against.</li>
+<li>I admit, I am a little skeptical as to the reasons cited here (that it uses too much CPU in the background) but I don&#8217;t have any direct experience in developing apps intended to run in the background, so I&#8217;m merely speculating.</li>
+</ul>
+<p>As with many of my posts, and indeed forensics in general&#8230; there are many other angles that could (and perhaps should) still be explored. What I&#8217;ve learned is if you wait until you&#8217;ve explored every avenue, the topic may have already past its period of relevance, or the app will have a new version and you&#8217;ll have to start all over again :). For example, one thing that *is* resident on the device &#8211; and definitely deserves a deeper dive &#8211; is telemetry (IBM WLAnalytics). It is my present belief that WLAnalytics is responsible for most if not all of the keychain values in this app. But this might even be a separate post as it is unlikely to have any bearing on the core bluetooth tracing functionality.</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Nobody You Know		</title>
+		<link>/2020/05/01/analysis-of-the-abtracetogether-app-ios/#comment-350</link>
+
+		<dc:creator><![CDATA[Nobody You Know]]></dc:creator>
+		<pubDate>Sun, 03 May 2020 22:26:56 +0000</pubDate>
+		<guid isPermaLink="false">https://3.88.229.156/?p=495#comment-350</guid>
+
+					<description><![CDATA[&#062; The remaining data is encrypted and not accessible without keys that AHS maintains.
+
+Correction: the remaining data is encrypted and is accessible with keys that both AHS and the app user have access to. The whitepaper explains that the data is encrypted symmetrically. This means that both parties possess the same key, and it is used for both encryption and decryption. It would be interesting to investigate how the app stores the key (probably not hard, since it is derived from an open source app) to make sure that it&#039;s not exposed to other apps on the device.  Also, finding that key would obviously allow you to further investigate exactly what the app is storing.
+
+I suspect the conclusion will be the same, that it&#039;s only doing what it advertises, I&#039;m just pointing out there is more you can do to actually validate this and provide more meaningful reassurance.  If all you did was run the binaries and the stored data through strings or something that&#039;s a pretty shallow forensics dive tbh.]]></description>
+			<content:encoded><![CDATA[<p>&gt; The remaining data is encrypted and not accessible without keys that AHS maintains.</p>
+<p>Correction: the remaining data is encrypted and is accessible with keys that both AHS and the app user have access to. The whitepaper explains that the data is encrypted symmetrically. This means that both parties possess the same key, and it is used for both encryption and decryption. It would be interesting to investigate how the app stores the key (probably not hard, since it is derived from an open source app) to make sure that it&#8217;s not exposed to other apps on the device.  Also, finding that key would obviously allow you to further investigate exactly what the app is storing.</p>
+<p>I suspect the conclusion will be the same, that it&#8217;s only doing what it advertises, I&#8217;m just pointing out there is more you can do to actually validate this and provide more meaningful reassurance.  If all you did was run the binaries and the stored data through strings or something that&#8217;s a pretty shallow forensics dive tbh.</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Jeremy		</title>
+		<link>/2020/05/01/analysis-of-the-abtracetogether-app-ios/#comment-349</link>
+
+		<dc:creator><![CDATA[Jeremy]]></dc:creator>
+		<pubDate>Sun, 03 May 2020 19:47:08 +0000</pubDate>
+		<guid isPermaLink="false">https://3.88.229.156/?p=495#comment-349</guid>
+
+					<description><![CDATA[As always super thorough and detailed. Thanks Mike :-)
+Plus I trust your assessments of these things so that is always helpful for when other third party or media folks have their own perspectives.]]></description>
+			<content:encoded><![CDATA[<p>As always super thorough and detailed. Thanks Mike 🙂<br />
+Plus I trust your assessments of these things so that is always helpful for when other third party or media folks have their own perspectives.</p>
+]]></content:encoded>
+		
+			</item>
+	</channel>
+</rss>

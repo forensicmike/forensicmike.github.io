@@ -1,0 +1,716 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Forensic Coding Archives - forensicmike1</title>
+	<atom:link href="/category/forensic-coding/feed/" rel="self" type="application/rss+xml" />
+	<link>https://forensicmike1.com/category/forensic-coding/</link>
+	<description>#DFIR &#124; #RE &#124; #OtherGeekThings =&#62; Views expressed are my own.</description>
+	<lastBuildDate>Sat, 29 Feb 2020 22:10:45 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.8.6</generator>
+	<item>
+		<title>Examiner-coder-types: Learnin&#8217;git can make you a better developer</title>
+		<link>/2020/02/29/examiner-coder-types-learningit-can-make-you-a-better-developer/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=examiner-coder-types-learningit-can-make-you-a-better-developer</link>
+					<comments>/2020/02/29/examiner-coder-types-learningit-can-make-you-a-better-developer/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Sat, 29 Feb 2020 18:37:46 +0000</pubDate>
+				<category><![CDATA[DFIR]]></category>
+		<category><![CDATA[Forensic Coding]]></category>
+		<category><![CDATA[Git Good]]></category>
+		<guid isPermaLink="false">https://3.88.229.156/?p=444</guid>
+
+					<description><![CDATA[<p>I decided to write an article about Git and Github. Why? I&#8217;ve been exposed to Git a lot since I started working for a software company. Now, I&#8217;m wishing I could go back in time and have used it a lot more&#8230; even for projects I had no intention of ever releasing to the public [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/2020/02/29/examiner-coder-types-learningit-can-make-you-a-better-developer/">Examiner-coder-types: Learnin&#8217;git can make you a better developer</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>I decided to write an article about Git and Github. Why? I&#8217;ve been exposed to Git a lot since I started working for a software company. Now, I&#8217;m wishing I could go back in time and have used it a lot more&#8230; even for projects I had no intention of ever releasing to the public (e.g. most of them!). This article is meant to speak directly to those just like &#8220;pre-software company me&#8221; &#8212; who might be missing out on the significant advantages of using Git. Ask yourself the following:</p>
+
+
+
+<ul><li>Are you self-taught in most of the programming you know?</li><li>Have you ever made a change to your project and subsequently wished you could undo said change as it created unforeseen bug(s)?</li><li>Have you tried to use git before and been frustrated with some of the very first steps you need to take, such as setting up a new repo from an existing project?</li><li>Do you keep all of your code in a cloud drive like Dropbox or Google Drive to ensure you have consistent code backups?</li><li>Have you ever struggled to work collaboratively with another developer on a project?</li><li>Are you aware of git, and the fact that it is popular and supposedly useful, but been overwhelmed by the initial learning curve?</li></ul>
+
+
+
+<p>If you identified with any of the above, this article might help you. If you already know why Git / Github are amazing, you could still benefit from some of the tips below. This article isn&#8217;t so much a &#8220;git 101&#8221; as there are <a href="https://www.learnenough.com/git-tutorial/getting_started" target="_blank" rel="noreferrer noopener" aria-label="lots of great resources (opens in a new tab)">lots of great resources</a> out there for that. I may write more on this subject in future though!</p>
+
+
+
+<h2>Disclaimer</h2>
+
+
+
+<p>I am not a git master. I am a git neophyte, and that&#8217;s okay. You don&#8217;t need mastery to reap the benefits. Since I started working at a software company, I&#8217;ve met some true git wizards, and have benefited greatly from their willingness to impart wisdom. </p>
+
+
+
+<p>I&#8217;m only just getting started in my Git-learning journey, and I do mean journey &#8212; it&#8217;s a slough that can honestly be pretty frustrating. (Out of those times of frustration often come some of the biggest Git-epiphanies). </p>
+
+
+
+<p>Despite my relative newness, I feel strongly enough about the benefits to write a post because I think there are a lot of folks out there that stand to benefit greatly from beginning to use this technology.</p>
+
+
+
+<p>If you disagree with any of the advice I&#8217;ve laid out, think I should add to this article, or just want to chat Git &#8211; feel free to drop a comment or connect with me on Twitter/Discord.</p>
+
+
+
+<h2>Just /some/ of the advantages&#8230;</h2>
+
+
+
+<ul><li>Redundant, cloud-based backups of <span style="text-decoration: underline;">JUST YOUR SOURCE CODE</span>. Github now offers private repositories for free. This is SO much better than storing your entire code folder on Dropbox / GDrive / etc.</li><li>The ability to selectively roll-back changes or track specific changes over time.</li><li>Makes collaborative coding much easier if it ends up being a project that involves multiple developers.</li><li>Increases the likelihood of people trying out your product (vs. downloading an installer from a random website authored by someone they don&#8217;t know or trust)</li><li>If you have future aspirations of working at a software company, particularly in any kind of development role, pre-existing fluency in Git will be a huge asset.</li></ul>
+
+
+
+<p>While it does take time to learn, and is a skill that must be maintained, you will benefit greatly as a developer by learning it, and you don&#8217;t need to be a master to use it right away.</p>
+
+
+
+<h2>Setup a repo from an already existing project</h2>
+
+
+
+<p>If you&#8217;re like me, you may find that you have often already begun writing code before it ever occurred to you to setup a github repo. There are in-built features in Visual Studio, but I&#8217;ve always struggled to make them work with a project that already has code in it. All is not lost. </p>
+
+
+
+<p>There&#8217;s a pretty good write-up here:  <a rel="noreferrer noopener" aria-label="https://help.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line  (opens in a new tab)" href="https://help.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line" target="_blank">https://help.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line </a></p>
+
+
+
+<p>But if the inner-millennial in you can&#8217;t bear to read the above tutorial start-to-finish, please at a minimum keep in mind the following KEY POINT:</p>
+
+
+
+<p>When creating your repo on Github, <strong>DO NOT create a readme</strong> <strong>or set a license</strong>. You want an entirely empty repo. E.g.</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="762" height="682" src="http://3.88.229.156/wp-content/uploads/2020/02/image-3.png" alt="" class="wp-image-454" srcset="/wp-content/uploads/2020/02/image-3.png 762w, /wp-content/uploads/2020/02/image-3-300x269.png 300w" sizes="(max-width: 762px) 100vw, 762px" /></figure>
+
+
+
+<p>As long as you do that, things will go smoothly in the tutorial. I&#8217;d also recommend running a &#8220;git status&#8221; command before you proceed with your first commit, and ensure you don&#8217;t see &#8220;bin/&#8221; or other such folders. If you do, read the next section first.</p>
+
+
+
+<h2>Before doing your initial commit, create a .gitignore</h2>
+
+
+
+<p>.gitignore is a file that lists off what should and shouldn&#8217;t go into your commit. In general, it is considered bad practice to include stuff that gets generated by your compiler in your commits. Another no-no would be including dependencies like NuGet packages as this will massively inflate the size of your repository unnecessarily.</p>
+
+
+
+<p>Of course, you are welcome to research what a good .gitignore looks like, but I would personally recommend checking out <a rel="noreferrer noopener" aria-label="Gitignore.io (opens in a new tab)" href="https://gitignore.io/" target="_blank">Gitignore.io</a> . This site provides templates depending on the type of project you&#8217;re working on. For instance, if you are working on a C# project you can search for CSharp and get yourself a ready to go .gitignore:</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/02/image-2.png"><img loading="lazy" width="1024" height="466" src="http://3.88.229.156/wp-content/uploads/2020/02/image-2-1024x466.png" alt="" class="wp-image-452" srcset="/wp-content/uploads/2020/02/image-2-1024x466.png 1024w, /wp-content/uploads/2020/02/image-2-300x137.png 300w, /wp-content/uploads/2020/02/image-2-768x349.png 768w, /wp-content/uploads/2020/02/image-2.png 1090w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<p>You can then save this as .gitignore in the root of your repository and the next time you run &#8220;git status&#8221; you&#8217;ll see that folders like:<br>bin/<br>obj/<br>.vs/<br>packages/</p>
+
+
+
+<p>Are all absent from the change list. This means you will only be committing the important stuff to github and any would-be repo cloners will be pleased with you.</p>
+
+
+
+<h2>Make a nice readme.md</h2>
+
+
+
+<p>Readme.md is a critical piece of any good git repo. It is one of your only &#8216;sell me&#8217; pitches that will help your potential user decide whether or not to going to use this repo. It&#8217;s a great place to include things like:</p>
+
+
+
+<ul><li>Explain what the product is today and where it came from. Also where you envision it in future. (Current &amp; Future features / roadmap)</li><li>Give direction on how you would like potential issues reported, or whether you are open to others submitting pull requests to your repository.</li><li>Provide links to pre-compiled binaries, if you decide to provide them.</li><li>Shout out any third party libraries you are using in your project.</li></ul>
+
+
+
+<p>If your goal is to increase exposure, consider adding one or more screenshots to show off your product.</p>
+
+
+
+<p>The &#8220;md&#8221; in readme.md stands for Markdown. Generous (but not gratuitous) use of markdown-based formatting will add polish to your repo. If you aren&#8217;t sure how to start with markdown, check out Github&#8217;s help page on the subject: <a rel="noreferrer noopener" aria-label="https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax (opens in a new tab)" href="https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax" target="_blank">https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax</a></p>
+
+
+
+<p>Tip: If you have setup your repo without a read me (such as when you are creating a repo from an existing project) you can add a readme off your main repo page:</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/02/image-4.png"><img loading="lazy" width="1013" height="70" src="http://3.88.229.156/wp-content/uploads/2020/02/image-4.png" alt="" class="wp-image-455" srcset="/wp-content/uploads/2020/02/image-4.png 1013w, /wp-content/uploads/2020/02/image-4-300x21.png 300w, /wp-content/uploads/2020/02/image-4-768x53.png 768w" sizes="(max-width: 1013px) 100vw, 1013px" /></a><figcaption>Click the green button</figcaption></figure>
+
+
+
+<h2>Choose the right license</h2>
+
+
+
+<p>If you&#8217;re planning to make your repo public at any point, it is important to not only specify a license, but also understand the implications of the license you ultimately select. Github has made this process easier by providing summaries of what each license can do. You might wonder which license is &#8220;the best&#8221; &#8211; and the truth is this really depends on what your project is intended to do.</p>
+
+
+
+<p>I&#8217;m not an expert in OSS licensing by any stretch, but I definitely see the value in learning the differences between them depending on how widespread of use you anticipate your project seeing.</p>
+
+
+
+<p>For example, if you are writing a new filesystem, codec, parser or algorithm which you envision software companies to potentially adopt the use of your code in the future. GPL licenses are designed to force anyone who uses the code to have their code be open source as well.</p>
+
+
+
+<p>If on the other hand, you are writing a full fledged app and you&#8217;d like to avoid having your stuff plagiarized, GPL might be the perfect solution.</p>
+
+
+
+<p>For additional reading on licenses, I recommend the following resources:</p>
+
+
+
+<ul><li><a rel="noreferrer noopener" aria-label=" https://choosealicense.com/  (opens in a new tab)" href="https://choosealicense.com/" target="_blank">https://choosealicense.com/</a> (An objective resource from Github themselves)</li><li><a rel="noreferrer noopener" aria-label="https://www.freecodecamp.org/news/how-open-source-licenses-work-and-how-to-add-them-to-your-projects-34310c3cf94/ (opens in a new tab)" href="https://www.freecodecamp.org/news/how-open-source-licenses-work-and-how-to-add-them-to-your-projects-34310c3cf94/" target="_blank">https://www.freecodecamp.org/news/how-open-source-licenses-work-and-how-to-add-them-to-your-projects-34310c3cf94/</a></li></ul>
+
+
+
+<h3>How to add a license after the repo is already setup</h3>
+
+
+
+<p>You&#8217;ve setup your repo but now you need to add a license. How do we do this?</p>
+
+
+
+<p>From your repository&#8217;s homepage on Github, click &#8220;Create New File&#8221;. As soon as you type in the word <em>license</em> you will see a button appear called &#8216;Choose a license template&#8217; &#8211; Click it!</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/02/image.png"><img loading="lazy" width="895" height="54" src="http://3.88.229.156/wp-content/uploads/2020/02/image.png" alt="" class="wp-image-446" srcset="/wp-content/uploads/2020/02/image.png 895w, /wp-content/uploads/2020/02/image-300x18.png 300w, /wp-content/uploads/2020/02/image-768x46.png 768w" sizes="(max-width: 895px) 100vw, 895px" /></a></figure>
+
+
+
+<p>From here, you can select different licenses (the popular ones like Apache, GPL, and MIT are listed at the top) and review their differences. Once ready, click &#8216;Review and submit&#8217;.</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/02/image-1.png"><img loading="lazy" width="1024" height="200" src="http://3.88.229.156/wp-content/uploads/2020/02/image-1-1024x200.png" alt="" class="wp-image-447" srcset="/wp-content/uploads/2020/02/image-1-1024x200.png 1024w, /wp-content/uploads/2020/02/image-1-300x59.png 300w, /wp-content/uploads/2020/02/image-1-768x150.png 768w, /wp-content/uploads/2020/02/image-1-1536x300.png 1536w, /wp-content/uploads/2020/02/image-1.png 1891w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<h2>Finish every coding session with a commit or PR</h2>
+
+
+
+<p>There are lots of different considerations here, such as whether your repo is public or private, whether you are collaborating with others, etc. The easiest of all is to just commit directly to master, which might be fine if it&#8217;s a private repo and you&#8217;re the only one contributing.</p>
+
+
+
+<p>The point is, in order to maximize the &#8216;redundant backup&#8217; benefit, you need to make sure that any code you write exists somewhere other than your local machine. Don&#8217;t make the mistake of thinking that you should wait until you&#8217;ve finished an entire topic worth of code changes to push them. If you&#8217;ve made any code changes at all you wouldn&#8217;t want to have to re-write, make sure you propagate those changes to Github somehow. Remember: git commit isn&#8217;t git push. Running &#8220;git commit&#8221; won&#8217;t actually backup your changes to Github. Keep an eye on the output of your git commands as it&#8217;s usually pretty clear when your code has gone out to the internet:</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="240" src="http://3.88.229.156/wp-content/uploads/2020/02/image-5-1024x240.png" alt="" class="wp-image-461" srcset="/wp-content/uploads/2020/02/image-5-1024x240.png 1024w, /wp-content/uploads/2020/02/image-5-300x70.png 300w, /wp-content/uploads/2020/02/image-5-768x180.png 768w, /wp-content/uploads/2020/02/image-5.png 1031w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<h2>Conclusion</h2>
+
+
+
+<p>Git has a learning curve, and isn&#8217;t something you can master in a week. But the sooner you start getting exposed to it the better.</p>
+<p>The post <a rel="nofollow" href="/2020/02/29/examiner-coder-types-learningit-can-make-you-a-better-developer/">Examiner-coder-types: Learnin&#8217;git can make you a better developer</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/2020/02/29/examiner-coder-types-learningit-can-make-you-a-better-developer/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>forensicBlend: Designing a scalable community plugin API</title>
+		<link>/2019/05/11/forensicblend-designing-a-scalable-community-plugin-api/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=forensicblend-designing-a-scalable-community-plugin-api</link>
+					<comments>/2019/05/11/forensicblend-designing-a-scalable-community-plugin-api/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Sat, 11 May 2019 14:09:10 +0000</pubDate>
+				<category><![CDATA[Forensic Coding]]></category>
+		<category><![CDATA[Mobile Forensics]]></category>
+		<category><![CDATA[Uncategorized]]></category>
+		<category><![CDATA[.NET]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[c#]]></category>
+		<category><![CDATA[forensicBlend]]></category>
+		<guid isPermaLink="false">https://3.88.229.156/?p=149</guid>
+
+					<description><![CDATA[<p>I decided to start writing this series to document my work on forensicBlend, a project I previewed on Twitter yesterday that takes device logs and translates them into a modern report format that can be searched, filtered, and exported. One of my fundamental design goals is to provide a high level of extensibility and allow [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/2019/05/11/forensicblend-designing-a-scalable-community-plugin-api/">forensicBlend: Designing a scalable community plugin API</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>I decided to start writing this series to document my work on forensicBlend, a project I <a rel="noreferrer noopener" aria-label=" (opens in a new tab)" href="https://twitter.com/forensicmike1/status/1126989265420730368?s=20" target="_blank">previewed on Twitter yesterday</a> that takes device logs and translates them into a modern report format that can be searched, filtered, and exported. One of my fundamental design goals is to provide a high level of extensibility and allow community developers to contribute. That is, I want for people who know how to script to be able to contribute their own custom logic and see it work in my apps (and ultimately, result in a better timeline tool). This is something <a rel="noreferrer noopener" aria-label="Eric Zimmerman (opens in a new tab)" href="https://ericzimmerman.github.io/#!index.md" target="_blank">Eric Zimmerman</a> touched on <a rel="noreferrer noopener" aria-label=" (opens in a new tab)" href="https://3.88.229.156/2019/05/06/chatting-net-with-eric-zimmerman/" target="_blank">in our interview</a> last week.</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/05/1-1.png"><img loading="lazy" width="1000" height="650" src="http://3.88.229.156/wp-content/uploads/2019/05/1-1.png" alt="" class="wp-image-150" srcset="/wp-content/uploads/2019/05/1-1.png 1000w, /wp-content/uploads/2019/05/1-1-300x195.png 300w, /wp-content/uploads/2019/05/1-1-768x499.png 768w" sizes="(max-width: 1000px) 100vw, 1000px" /></a></figure>
+
+
+
+<p>I scaffolded some of the UX (above) based roughly on how I want this to work. Essentially- list the currently installed plugins, prompt for updates where available, and provide a way to browse the online repository to download additional plugins.</p>
+
+
+
+<p><em>Side note</em>:<em> I&#8217;ve had some questions regarding what UI framework I am using. The above is a WPF app which uses the excellent <a rel="noreferrer noopener" aria-label=" (opens in a new tab)" href="https://github.com/MahApps/MahApps.Metro" target="_blank">MahApps.Metro</a> and <a href="https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit" target="_blank" rel="noreferrer noopener" aria-label=" (opens in a new tab)">Material Design in XAML</a> libraries. These are </em><u><em>free</em></u><em> offerings that you can use in your own WPF project to elevate your UI to the next level.</em></p>
+
+
+
+<h3><u>Requirements</u></h3>
+
+
+
+<p>There are really two areas of work here to think about: the plugin API itself (what to do with the packages once they are installed), and package hosting/redistribution. Here are a few overall design considerations and requirements I came up with:</p>
+
+
+
+<ul><li>As a lone developer, time and cost savings are a priority. If there are any wheels that have already been invented, don&#8217;t invent new ones unless the need be great.</li><li>It&#8217;s 2019 and it&#8217;s therefore important we take time to consider things like security. Packages containing plugins may have DLLs (more on this later) with code that will ultimately be executed by our app. This could (and should) be considered a potential attack surface.  We can mitigate this with some of the following:<ul><li>Packages should be signed and verified at every step of the way.</li><li>Community created plugins and updates will undergo a thorough, manual code review and testing before they are posted to the package library (think Apple&#8217;s App Store).</li></ul></li><li>Plugin packages should have versioning capabilities and upgrading to the latest version should be as seamless as possible, being cognizant that not all users will have internet access.</li><li>Community created plugins will be managed centrally and approved prior to being posted to the online package library (think Apple App Store).</li></ul>
+
+
+
+<h3><u>Hosting and Package Distribution</u></h3>
+
+
+
+<p>I knew going into a project like this that I wanted to use Amazon AWS. The cost effectiveness, sheer scalability, and all-around cool factor of using AWS made this an easy design decision. Off the top of my head, I expect to be using the following AWS components:</p>
+
+
+
+<ul><li>API Gateway <ul><li>Create and administer web endpoints for the app.</li></ul></li><li>Certificate Manager<ul><li>Free SSL certificate!</li></ul></li><li>CloudFront<ul><li>Content Delivery Network (CDN) to ensure low latency, high speed access to data from anywhere in the world</li></ul></li><li>Cognito<ul><li>Complete User Account Management and Authentication</li></ul></li><li>EC2 (Elastic Compute Cloud)<ul><li>Host microinstance of some sort of RDBMS. Or perhaps we will try out a NoSQL solution DynamoDB for science / learning &#8212; and because DynamoDB has a permanent free tier option.</li></ul></li><li>Elastic Load Balancing<ul><li>Distribute incoming application traffic across multiple targets across several Availability zones.</li></ul></li><li>Lambda<ul><li>Provide the business logic for serving our REST API to answer questions like &#8220;What are all the plugins currently available and what is the latest version?&#8221;</li><li>Provide the business logic for facilitating and monitoring package downloads (users like to see download counts), potentially provide a &#8216;thumbs up / thumbs down&#8217; interaction or possibly even comment</li></ul></li><li>Route 53<ul><li>DNS Registration</li></ul></li><li>S3<ul><li>Secure, encrypted, redundant hosting of the compiled packages themselves</li><li>Web front-end for users who choose to browse it this way.</li></ul></li></ul>
+
+
+
+<p>Let&#8217;s keep in mind I&#8217;ve touched on less than 10 of the things AWS can do for you, whereas the actual list of things it can do is much, much longer. For most of us, the usage involved will be in or around the Free Tier, so basically what I&#8217;m saying is you can get all of the things above for NO COST. If you are reading this and going, &#8220;Why am I still renting web space like I did in 2005?&#8221; this is an excellent question. You may wanna migrate! There is also an irreplaceable feeling you get when you realize you are using the same exact same serverless environment as some of the largest of corporate juggernauts out there. </p>
+
+
+
+<h3><u>Packaging Technologies</u></h3>
+
+
+
+<p>Earlier I mentioned leveraging as many existing technologies as possible. Most every .NET programmer out there is familiar with the idea of <a href="https://www.nuget.org/" target="_blank" rel="noreferrer noopener" aria-label=" (opens in a new tab)">NuGet</a>. From NuGet themselves:  </p>
+
+
+
+<p style="text-align:right"><em>NuGet is the package manager for .NET. The NuGet client tools provide the ability to produce and consume packages. The NuGet Gallery is the central package repository used by all package authors and consumers.  </em></p>
+
+
+
+<p></p>
+
+
+
+<p>So if I&#8217;m writing an app, and I want to bring in code from a library to perform a specific function, I can open the NuGet Package Manager in my development environment (Visual Studio shown below) and perform a search for the function I need. Then it&#8217;s one click to install and be off.</p>
+
+
+
+<figure class="wp-block-image"><img loading="lazy" width="1024" height="562" src="http://3.88.229.156/wp-content/uploads/2019/05/nuget-1024x562.png" alt="" class="wp-image-152" srcset="/wp-content/uploads/2019/05/nuget-1024x562.png 1024w, /wp-content/uploads/2019/05/nuget-300x165.png 300w, /wp-content/uploads/2019/05/nuget-768x421.png 768w, /wp-content/uploads/2019/05/nuget.png 1320w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<p>It goes even further by providing strong versioning, licensing, dependency tracking, and more. Behind the scenes, NuGet uses .NUPKG files which are containers that bake alot of this functionality in for us, and provide desirable things like package signing.</p>
+
+
+
+<p>Since NuGet already does everything we need and then some, for free, why would we design our own solution from scratch? Seeing the recurring theme here?</p>
+
+
+
+<h3><u>Next steps</u></h3>
+
+
+
+<p>So we know we&#8217;re going to use NuGet as a package management solution, and we know we&#8217;re going to use AWS for community hosting and package distribution, but what about the actual code to load said plugins? This could be the most entertaining part, but also the most time intensive. For the purposes of development, I will need to look at how to extract and use content from a NuGet package <u>at runtime</u>.</p>
+
+
+
+<p>I&#8217;m going to have to weigh the advantages of dynamic code compilation (source code compilation at runtime) vs. distributing pre-compiled binaries (DLLs) and simply loading them.</p>
+
+
+
+<p>Stay tuned for the next article in the series where we will get coding!</p>
+<p>The post <a rel="nofollow" href="/2019/05/11/forensicblend-designing-a-scalable-community-plugin-api/">forensicBlend: Designing a scalable community plugin API</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/2019/05/11/forensicblend-designing-a-scalable-community-plugin-api/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Chatting .NET with Eric Zimmerman</title>
+		<link>/2019/05/06/chatting-net-with-eric-zimmerman/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=chatting-net-with-eric-zimmerman</link>
+					<comments>/2019/05/06/chatting-net-with-eric-zimmerman/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Mon, 06 May 2019 12:58:18 +0000</pubDate>
+				<category><![CDATA[Forensic Coding]]></category>
+		<category><![CDATA[Guest Blog]]></category>
+		<category><![CDATA[Uncategorized]]></category>
+		<guid isPermaLink="false">https://3.88.229.156/?p=140</guid>
+
+					<description><![CDATA[<p>I don&#8217;t think anyone in the Digital Forensics world would dispute that Python is the most used language in forensic programming today. In fact, many of its more fanatical followers frequently remind us of its ostensibly long list of superior characteristics. To the extent I think sometimes people might forget that there exists other programming [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/2019/05/06/chatting-net-with-eric-zimmerman/">Chatting .NET with Eric Zimmerman</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>I don&#8217;t think anyone in the Digital Forensics world would dispute that Python is the most used language in forensic programming today. In fact, many of its more fanatical followers frequently remind us of its ostensibly long list of superior characteristics. To the extent I think sometimes people might forget that there exists other programming languages at all. Recognizing this, I knew I wanted to write a post discussing one of my favorite technologies &#8212; C# and .NET as a whole &#8212; but I could think of no better guest contributor to bring into that conversation than Eric Zimmerman, one of if not <strong>the </strong>most household name in forensic coding, and and a staunch supporter of the tech.</p>
+
+
+
+<p>Eric is the mastermind behind KAPE, Registry Explorer, JumpList Explorer, AmCacheParser, and so many more. Like many readers, I was introduced to Eric&#8217;s work early on in my forensics career &#8211; right at the beginning, in fact, as part of the curriculum of my &#8220;forensics 101&#8221; course at the Canadian Police College. I am honored to chat with him about one of my favorite subjects!</p>
+
+
+
+<p><strong>forensicmike1: Thanks so much for taking part in this conversation Eric! I am curious to hear what brought you into the .NET world initially, and what is it that’s kept you there for all these years?</strong></p>
+
+
+
+<p><strong>Eric Zimmerman</strong>: I initially started my development career in Access. When I outgrew that, I moved on to VB6 (way back in the pre-.NET days). Once .NET came out, I slowly switched to VB.NET because I already knew VB. I always wanted to do C#, but did not want to have to re-learn thing so I held onto it for a long time. In fact, osTriage v1 and 2 were both written in VB! Soon after osTriage v2 came out, I decided to force myself into C# for a few projects and I have never looked back from that point.</p>
+
+
+
+<p>So for me, it is a matter of wanting to use a first class language on the platform I deal with the most, which is Windows. I am a big believer in the concept of doing Windows forensics on Windows, Mac forensics on a Mac, and so on. You are just asking for issues when you do not do things this way. For example, a very popular method for accessing volume shadow copies for Windows does not, at least in some cases, present the data for access the same way as native methods in Windows does. This leads to corrupt files being exported and obviously, that&#8217;s a problem when it comes time to process them. Does this happen all the time? No, but even once is enough that I would be hesitant to trust that method in any case that matters, unless I also verified getting the data in exactly the same way from Windows natively. At this point however, you are now doubling your work, so why bother with the non-Windows method at all?</p>
+
+
+
+<p>I stay with .NET because it&#8217;s what I know and what works for a wide range of needs. I know it&#8217;s not going anywhere, and it has great IDEs and other resources for efficient development, debugging, logging, and so on.</p>
+
+
+
+<p>The other huge advantage is it&#8217;s range of 3rd party controls that just do not exist anywhere else for creating amazing graphical user interfaces (GUIs). Things like grids, tree views, and a ton of other controls I use in my GUIs aren&#8217;t available so I wouldn&#8217;t be able to write something like RegistryExplorer in Python &#8212; and if I did it wouldn&#8217;t do what it can do on the Windows side.</p>
+
+
+
+<hr class="wp-block-separator"/>
+
+
+
+<p><strong>forensicmike1: I couldn&#8217;t agree more! And I&#8217;ve seen this happen over and over to people as they make their way to C#. Forensically speaking, can you think of any other advantages to writing code in .NET?</strong></p>
+
+
+
+<p><strong>Eric Zimmerman</strong>:   With .NET, I know the runtime I need is going to be in place by default &#8212; or will be in the vast majority of cases. I do not have to worry about making a self-contained executable, or not handling Unicode correctly, or not being able to install something where I need it.</p>
+
+
+
+<p>Going back to what I said earlier, I feel you should do Windows forensics on a Windows box, so this makes things a lot easier for end users of my software. With my stuff you can download and unzip my programs on any machine and it will most likely work the first time without issues. This can be on a forensics box doing dead box work, or live response stuff against a running system in the field.</p>
+
+
+
+<p>Speed is also a big thing for me. I tend to do a lot of work to tune my code so that it is, first and foremost, as accurate as it can be. Once this is done, I tune for performance. As the old saying goes, speed is fine, but accuracy is final. When you look at forensics programs written in other languages (Rust being an exception that comes to mind), the performance is often terrible and it takes a lot of work to get the environment ready to even run an application. Sure, the developer can do some work to package a Perl or Python program into a self contained Windows executable, but that process can be painful and it still does not address the performance issues. Can performant code be written in Python? Maybe, but it involves redoing parts in Cython, or writing critical sections in C++ and so on. So while it is possible, to me it&#8217;s just not worth it, especially in light of the issues I mentioned above. Getting accurate data is of course paramount, so even one time where you might not get that accurate data is one too many to take the chance.</p>
+
+
+
+<p>When writing forensic tools that target Windows artifacts, what Windows does and says should be the target we aim for. If you can exceed what Windows lets you see and do, all the better. Shedding light on data in a different way is always a good thing, but not at the expense of excluding or missing things (or the risk of doing so).</p>
+
+
+
+<p>At the end of the day, I would rather my code run amazingly well on one platform, than poorly on five platforms.</p>
+
+
+
+<hr class="wp-block-separator"/>
+
+
+
+<p><strong>forensicmike1: Aside from not many people in forensics being familiar, can you speak to any disadvantages?</strong></p>
+
+
+
+<p><strong>Eric Zimmerman</strong>:  The funny thing about that is, most people are using .NET all over the place every day if they use a Windows box. Just because they may not be aware of it, does not mean it isn&#8217;t there.</p>
+
+
+
+<p>I don&#8217;t really see any disadvantages for it in the tool chains <em>I</em> <em>design and use</em>, but obviously it has been an issue in the past of being able to run .NET code on non-Windows platforms. This is becoming less and less of an issue with Microsoft becoming more involved in the open source world &#8212; remember that .NET Core is open source now &#8212; and this is furthered by being able to run PowerShell on Linux too.</p>
+
+
+
+<p>So at some point in the not so distant future, the code I write would be cross platform (atleast the CLI ones). In some cases, the code can already run on .NET core and Standard. The big hold up for me personally in this regard is that .NET Core and Standard do not have a seamless way to make a single executable for each platform. I hate distributing 38 DLLs and the executable for programs, so until I can do this on Linux or a Mac the same way I can on Windows (i.e. giving you a single executable to run) I won&#8217;t be doing cross platform stuff full time.</p>
+
+
+
+<p>For a lot of people, the biggest hurdle people have when it comes to using .NET is not a technical one, but rather bias towards Microsoft or Windows for some reason. Given how easy it is to stand up a VM these days, excuses like &#8220;I can&#8217;t run X because it is Windows only&#8221; just shouldn&#8217;t be a valid excuse anymore.</p>
+
+
+
+<hr class="wp-block-separator"/>
+
+
+
+<p><strong>forensicmike1: Do you think programming is a legitimate specialization within the field of Digital Forensics &#8212; or is it something every examiner should atleast dabble in at this point?</strong></p>
+
+
+
+<p><strong>Eric Zimmerman</strong>: Well, I don&#8217;t know if it&#8217;s forensic programming that is a specialty, or the ability to program in a way that is necessary for use in the kinds of work we do in forensics that is more important. In other words, you do not have to be IN forensics to be able to look at programming in the way I am speaking of. What does this look like in practical terms? For me, it means failing early and often (i.e. NEVER, EVER eat error messages or other &#8220;unknown&#8221; conditions), programming defensively (i.e. protecting the end user from themselves to a degree), sanitizing input, providing the ability to see diagnostic and trace messages for debugging purposes, robust output options, and so on. (<em>Forensicmike1: This is great advice and I hope some vendors are reading!</em>)</p>
+
+
+
+<p>Not everyone is wired to be able to program at higher levels and I am certainly no expert in the field. In fact, not even 10 years ago I started looking for a way to process LNK files natively in one of my live response programs. Looking at a LNK file in a hex editor, I said to myself &#8220;I would never be able to program something to read these things&#8221;, but now I have native parsers for just about every key Windows artifact out there &#8212; all of which I did in C#. I learned how to code and parse things partly out of necessity (they didn&#8217;t exist prior to my work) or because the existing tools did not do the job (incomplete, inaccurate, slow, etc) and I thought I could do better. Of course, curiosity and wanting to solve a problem comes into it too (I do not want to even think about how many hours I have spent looking at shellbags).</p>
+
+
+
+<p>With that said, no one is expected to walk into DFIR and be able to write a forensic parser for an artifact on day one. In fact, most people just don&#8217;t have a reason to do so. It is certainly beneficial to have at least some level of proficiency with programming so you can whip up some code to automate the mundate though, so this is a good reason to atleast get familiar with something like PowerShell, C#, Python, etc., even if it is limited to looping over thousands of log files looking for things and saving yourself the pain of doing it manually.</p>
+
+
+
+<hr class="wp-block-separator"/>
+
+
+
+<p><strong>In your view are the major forensic software vendors doing enough to provide ways for established developers who do forensics as a primary job to integrate their creations? If not, any thoughts on what they could do better?</strong></p>
+
+
+
+<p><strong>Eric Zimmerman</strong>: This is a tough one because of the different languages vendors write their programs in. Does a vendor use .NET, C++, or Delphi? Each in turn would have different ways for external users to hook into it when writing code. </p>
+
+
+
+<p>My suggestion to vendors is to provide the ability to write plugins that can be used by the vendor&#8217;s product. X-Ways for example has an API that let&#8217;s you write such things. Several of my tools do as well (plugins in Registry tools, maps in event logs, targets and modules in KAPE).  <br><em>(Forensicmike1: Funny that the vendor that uses Delphi is also the only one who has done any .NET Plugin work!)</em> </p>
+
+
+
+<p>The other avenue is to come up with a non-programming means (or a balance of programming and non-programming) to interact with and extend programs. Things like maps in EvtxECmd or batch file mode in RECmd are good examples here. Both allow end users to wield the capabilities of tools and extend them as far as they see fit, all without me being involved.</p>
+
+
+
+<p>I think the biggest benefit for end users is designing open ended and extensible tools that people can then take to places the developers never thought of before. It is pretty cool to hear about some of the use cases and ways people have put my stuff to use. They find all kinds of new uses and ways to do things I never envisioned when I designed the programs.</p>
+
+
+
+<p>By doing this, it&#8217;s not about the author of the program anymore, but rather it&#8217;s about the end-user and making their job easier, the data more clear, the work more efficient, and so on. Letting the end-user reduce the noise in order to find the signal THEY want to find is what is important.</p>
+
+
+
+<hr class="wp-block-separator"/>
+
+
+
+<p><strong>forensicmike1: Final word goes to you- Any advice for up-and-coming forensic coders who may be hesitant to share their work with the world?</strong></p>
+
+
+
+<p><strong>Eric Zimmerman</strong>: Throw that code out there! Remember, there will always be a first for everything and you were not good at anything the first time you did it (or even the first 100 times!). Put that work out there, get it into people&#8217;s hands, let them play with it, make suggestions, break it, and so on.</p>
+
+
+
+<p>Do not let anyone tell you anything in this space is a &#8220;solved problem&#8221; because the best way by far to learn about an artifact is to write a parser for it. And you never know, you may just find long standing bugs in major products that people have just taken for granted and assumed were right for the past 20 years.</p>
+
+
+
+<p>Even if no one ever uses your code on a case, the fact that you created something from nothing is a great feeling. Seeing your code do what you intended it to do, seeing all your unit tests pass for the first time, seeing the output come out of a program you wrote from start to finish is a magical thing. It still excites me when I get into a new project.</p>
+
+
+
+<p>Share that code, talk about that project, seek out the experts in your field to review and help and provide feedback. I cannot tell you how valuable peers are to bounce ideas off of, test things, and push my ideas to even better places. Two people (among many) that come to mind for me and have done these kinds of things hundreds of times for me over the years are David Cowen and Matt Seyer. Why are they in a position to do this? Because they too took that chance way back in the day to put out code, take a risk, be vulnerable, and EXPLORE THAT DATA in an effort to understand how it works, why it works, and the best ways to leverage that data to help us tell the story of what happened on a computer. As Matt and I like to say, &#8220;Every byte counts!&#8221;. There is a reason for them to be there. Seek to find out exactly why they are there.</p>
+
+
+
+<p>So, in summation, my advice would be:</p>
+
+
+
+<ul><li>Take calculated risks.</li><li>Learn from your mistakes.</li><li>Leverage peers.</li><li>Move the ball forward.</li><li>Leave things better than you found them.</li></ul>
+
+
+
+<p style="text-align:center"><em>Follow Eric on Twitter @<a href="https://twitter.com/EricRZimmerman">EricRZimmerman</a> or visit his website at </em><a href="https://ericzimmerman.github.io/"><em>https://ericzimmerman.github.io/</em></a></p>
+<p>The post <a rel="nofollow" href="/2019/05/06/chatting-net-with-eric-zimmerman/">Chatting .NET with Eric Zimmerman</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/2019/05/06/chatting-net-with-eric-zimmerman/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Aggregating iOS PowerLog data using C# &#8211; Part 1</title>
+		<link>/2019/04/28/aggregating-ios-powerlog-data-using-c-part-1/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=aggregating-ios-powerlog-data-using-c-part-1</link>
+					<comments>/2019/04/28/aggregating-ios-powerlog-data-using-c-part-1/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Sun, 28 Apr 2019 14:32:50 +0000</pubDate>
+				<category><![CDATA[Forensic Coding]]></category>
+		<category><![CDATA[Mobile Forensics]]></category>
+		<category><![CDATA[Uncategorized]]></category>
+		<category><![CDATA[apollo]]></category>
+		<category><![CDATA[c#]]></category>
+		<category><![CDATA[gkziplib]]></category>
+		<category><![CDATA[iOS]]></category>
+		<category><![CDATA[linqpad]]></category>
+		<category><![CDATA[powerlogs]]></category>
+		<guid isPermaLink="false">https://3.88.229.156/?p=80</guid>
+
+					<description><![CDATA[<p>Building on the work of Sarah Edwards to re-unify the PowerLog database with C# before running APOLLO.</p>
+<p>The post <a rel="nofollow" href="/2019/04/28/aggregating-ios-powerlog-data-using-c-part-1/">Aggregating iOS PowerLog data using C# &#8211; Part 1</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>If you haven&#8217;t already heard of Sarah Edwards&#8217; <a href="https://github.com/mac4n6/APOLLO">APOLLO</a> (Apple Pattern of Life Lazy Output&#8217;er), you should probably stop reading this and go check that out first. This article builds on Sarah&#8217;s work, specifically with PowerLogs. </p>
+
+
+
+<p>One of the challenges with PowerLogs is that on a daily basis, the device dumps the contents into a compressed archive. This makes sense from Apple&#8217;s perspective but makes it difficult / tedious to query en masse for forensic analysis. Our task today will be to programmatically combine data into a unified dataset upon which we can then run our APOLLO queries.</p>
+
+
+
+<p>For this work, I&#8217;m going to leverage my own <a href="https://github.com/forensicmike/gkziplib">GKZipLib</a>, which is a custom ZIP parsing module I created after becoming frustrated with the sluggish  performance of open source ZIP libraries available (including the ones native to .NET) for archives of significant size. My research iPhone filesystem is only a 15GB archive, but using GKZipLib parsing 271,361 entries to locate PowerLogs took my machine&#8217;s dated hardware a whole 0.5 seconds to complete. </p>
+
+
+
+<p>Finally, I&#8217;ll be using <a href="https://www.linqpad.net/">LINQPad</a>, Joe Albahari&#8217;s massively useful creation that has become a critical part of my day to day work. If you do any .NET coding at all, this is a wonderful tool to have in your arsenal for everything from quick and dirty analytical tasks to developing proof of concept code that can ultimately mature into a fully fledged Windows app in future.</p>
+
+
+
+<p>So let&#8217;s get started. We&#8217;ll begin with a few preparatory steps:</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="csharp" data-enlighter-theme="droide" data-enlighter-highlight="" data-enlighter-linenumbers="false" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">// Instantiate our archive
+var iphoneZip = new GKZipFile(@"D:\a769****_files.zip", false);
+
+// Pattern to find our GZipped powerlogs
+Regex rgxPowerLog = new Regex(@"powerlog_[\w\W]*?\.PLSQL\.gz");
+
+// Place to export all the things
+var outputPath = Directory.CreateDirectory(@"c:\temp\plUnity\");
+
+// Who doesn't love stats?
+var filesParsed = 0;
+var filesExtracted = 0;</pre>
+
+
+
+<p>From here, thanks to the power of LINQ and the implementation of the IEnumerable interface by GKZipFile, it&#8217;s as simple as iterating our archive like it&#8217;s a giant array with foreach.</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="csharp" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">foreach (var file in iphoneZip)
+{
+	// Check for a GZ powerlog archive.
+	if (rgxPowerLog.IsMatch(file.ShortName))
+	{
+		Console.WriteLine($"Extracting {file.Name}...");
+		file.ExtractToFolder(outputPath.FullName);
+		filesExtracted++;
+	}
+	// As well as the 'CurrentPowerLog'
+	// By using IndexOf instead of Contains, we ensure to snag any -shm and -wal files as well
+	if (file.ShortName.IndexOf("CurrentPowerLog.PLSQL", StringComparison.CurrentCultureIgnoreCase) >= 0)
+	{
+		Console.WriteLine($"Extracting {file.Name}...");
+		file.ExtractToFolder(outputPath.FullName);
+		filesExtracted++;
+	}
+	
+	// Count of files parsed
+	filesParsed++;
+}
+
+Console.WriteLine($"Finished parsing {filesParsed} files.");
+Console.WriteLine($"A total of {filesExtracted} files were extracted.");</pre>
+
+
+
+<p>Output:</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="raw" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">Extracting /private/var/containers/Shared/SystemGroup/BCBD844C-BDB8-4D6B-8246-555182B5F39A/Library/BatteryLife/Archives/powerlog_2018-10-07_7F9FC438.PLSQL.gz...
+Extracting /private/var/containers/Shared/SystemGroup/BCBD844C-BDB8-4D6B-8246-555182B5F39A/Library/BatteryLife/Archives/powerlog_2018-10-08_2162C03C.PLSQL.gz...
+Extracting /private/var/containers/Shared/SystemGroup/BCBD844C-BDB8-4D6B-8246-555182B5F39A/Library/BatteryLife/Archives/powerlog_2018-10-09_0DC64180.PLSQL.gz...
+Extracting /private/var/containers/Shared/SystemGroup/BCBD844C-BDB8-4D6B-8246-555182B5F39A/Library/BatteryLife/Archives/powerlog_2018-10-10_24F9BF01.PLSQL.gz...
+Extracting /private/var/containers/Shared/SystemGroup/BCBD844C-BDB8-4D6B-8246-555182B5F39A/Library/BatteryLife/CurrentPowerlog.PLSQL-shm...
+Extracting /private/var/containers/Shared/SystemGroup/BCBD844C-BDB8-4D6B-8246-555182B5F39A/Library/BatteryLife/CurrentPowerlog.PLSQL-wal...
+Extracting /private/var/containers/Shared/SystemGroup/BCBD844C-BDB8-4D6B-8246-555182B5F39A/Library/BatteryLife/CurrentPowerlog.PLSQL...
+Finished parsing 271361 files.
+A total of 7 files were extracted.
+
+</pre>
+
+
+
+<p>The final thing we will do in part 1 is extract our GZ files in place so that they are accessible for querying. To simplify things, I wrote a function to do this which simply removes the GZ extension to determine the output filename. This logic could certainly be flawed for a generic GZ decompression routine but in this case we can rely on the fact that our GZipped files will have the .GZ extension.</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="csharp" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">void GZExtract(string inputFile)
+{
+	using (var fs = new FileStream(inputFile, FileMode.Open, FileAccess.Read, FileShare.Read))
+	{
+		using (var gzstr = new GZipStream(fs, CompressionMode.Decompress))
+		{
+			const int buffSize = 4096;
+			byte[] buffer = new byte[buffSize];
+			using (var uncompressedData = new FileStream(inputFile.Replace(".gz", ""), FileMode.Create))
+			{
+				var bytesRead = 0;
+				do
+				{
+					bytesRead = gzstr.Read(buffer, 0, buffSize);
+					if (bytesRead > 0)
+					{
+						uncompressedData.Write(buffer, 0, bytesRead);
+					}
+				} while (bytesRead > 0);
+
+			}
+		}
+	}
+}</pre>
+
+
+
+<p>And finally, invoke the function for each of our GZ powerlogs:</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="csharp" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">// Decompress all of our gzipped archives
+foreach (var arc in outputPath.GetFiles("*.gz"))
+{
+	GZExtract(arc.FullName);
+}</pre>
+
+
+
+<p>That&#8217;s where we will end off today. Here&#8217;s what we&#8217;ve completed so far:</p>
+
+
+
+<ul><li>Iterate the iOS filesystem archive, locate files of interest including CurrentPowerLog.PLSQL and associated SQLite artifacts and any GZipped archives, and extracted them to the local machine.</li><li>Decompress all GZipped archives in place.</li></ul>
+
+
+
+<figure class="wp-block-image"><img loading="lazy" width="558" height="262" src="http://3.88.229.156/wp-content/uploads/2019/04/powerlog_output.png" alt="" class="wp-image-97" srcset="/wp-content/uploads/2019/04/powerlog_output.png 558w, /wp-content/uploads/2019/04/powerlog_output-300x141.png 300w" sizes="(max-width: 558px) 100vw, 558px" /></figure>
+
+
+
+<p>In part 2, we will look at several different options for amalgamating this data in preparation for running Sarah&#8217;s PowerLog scripts against the entire dataset instead of having to do this manually for each one.</p>
+<p>The post <a rel="nofollow" href="/2019/04/28/aggregating-ios-powerlog-data-using-c-part-1/">Aggregating iOS PowerLog data using C# &#8211; Part 1</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/2019/04/28/aggregating-ios-powerlog-data-using-c-part-1/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>

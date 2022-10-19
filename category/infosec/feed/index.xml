@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>InfoSec Archives - forensicmike1</title>
+	<atom:link href="/category/infosec/feed/" rel="self" type="application/rss+xml" />
+	<link>https://forensicmike1.com/category/infosec/</link>
+	<description>#DFIR &#124; #RE &#124; #OtherGeekThings =&#62; Views expressed are my own.</description>
+	<lastBuildDate>Sun, 22 Aug 2021 14:40:21 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.8.6</generator>
+	<item>
+		<title>Photo Vault app still pwnable in 2021? An adventure in iOS RE</title>
+		<link>/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=ios-photo-vault-app-still-pwnable-in-2019</link>
+					<comments>/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/#comments</comments>
+		
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Wed, 26 Jun 2019 19:40:46 +0000</pubDate>
+				<category><![CDATA[InfoSec]]></category>
+		<category><![CDATA[Mobile Forensics]]></category>
+		<category><![CDATA[Reverse Engineering]]></category>
+		<category><![CDATA[FRIDA]]></category>
+		<category><![CDATA[iOS]]></category>
+		<guid isPermaLink="false">https://3.88.229.156/?p=288</guid>
+
+					<description><![CDATA[<p>Update 2021/08/22: Thanks to a tip from a reader, it was brought to my attention that PPV iOS made some pretty big changes in a recent update (early August 2021 &#8211; version 11.9). In reading the release notes, as well as doing some of my own tests, I&#8217;ve discovered some stuff and wanted to touch [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/">Photo Vault app still pwnable in 2021? An adventure in iOS RE</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p><strong>Update 2021/08/22</strong>: Thanks to a tip from a reader, it was brought to my attention that PPV iOS made some pretty big changes in a recent update (early August 2021 &#8211; version 11.9). In reading the release notes, as well as doing some of my own tests, I&#8217;ve discovered some stuff and wanted to touch on their impact. </p>
+
+
+
+<p><span style="text-decoration: underline;">Summary</span></p>
+
+
+
+<ul><li>Happy to say that across the board, almost all the changes <strong>improve</strong> security for PPV users. The only source of apprehension for me is the cloud based backup which I will discuss in more detail later in the post.</li><li>Bruteforcing the PIN is still possible although the time it takes to do so has increased, due to a larger keyspace.</li><li>With some effort put into reversing, it is still possible to decrypt the media, especially if you know the PIN or have access to the decrypted keychain.</li><li>For users who were using PPV before this version, my suspicion is that the app will continue to use the old way, in order to avoid re-encrypting all media. So don&#8217;t assume if you have data from 11.9 that it will be subject to the new approach.</li></ul>
+
+
+
+<p><span style="text-decoration: underline;">Database location has changed, and is now encrypted.</span></p>
+
+
+
+<ul><li>The database can be found a directory up from its previous location, with the extension &#8216;.ecd&#8217; (short for Encrypted Core Data). Despite this, it is fully compatible with SQLCipher viewing tools like DB Browser for SQLCipher.</li><li>This is a solid security upgrade to PPV as previously one could glean a lot of information about what the encrypted media might be by simply looking at the database (and observing things like album titles).</li></ul>
+
+
+
+<p><span style="text-decoration: underline;">Media items are now protected using a unique key per item.</span></p>
+
+
+
+<ul><li>Formerly, once you had derived the &#8216;media key&#8217;, you were good to go for decrypting all data if you knew the structure of the cryptographic media container.</li><li>From a security perspective, this doesn&#8217;t change things a whole lot because of the fact that you still only need 1 key (the SQLCipher key) to get to the database. It does add extra steps though, and falls more in line with what some of the larger apps are doing (e.g. Snapchat).</li></ul>
+
+
+
+<p><span style="text-decoration: underline;">Numeric passcodes can now be *up to* 8 digits long.</span></p>
+
+
+
+<ul><li>This is a long overdue increase of security for the app. 4 digit numeric keyspaces, even ones with a reasonably strong KDF backing them, are pretty much always going to be susceptible to bruteforce.</li><li>The &#8216;up to&#8217; is significant as well. Instead of having a known length (4 digit) PIN (keyspace of 10^4), we now have any length from 4-8, e.g. (10^4+10^5+10^6+10^7+10^8)</li><li>Still, having any cap on the length at all seems unnecessary. Also having an option for custom alphanumeric would be nice to see.</li></ul>
+
+
+
+<p><span style="text-decoration: underline;">There is now a &#8216;cloud backup&#8217; option available (for a fee).</span> </p>
+
+
+
+<ul><li><strong>Full disclosure</strong>: I have not investigated this feature as of yet. These opinions are based on generalized concepts that would apply to <strong>any</strong> vault app with such a feature.</li><li>I will say that non-CloudKit (iCloud) based storage for an app like this, for me, is on its own reason enough to exercise extreme caution. This is not a reflection on PPV itself (I have no knowledge of the developer), but I have seen enough abhorrent things with other vault apps with this type of offering to default to alarm bells.</li><li>The patch notes clearly state that the separate &#8216;cloud password&#8217; is never backed up to their server, but even without the password I would have a lot of questions about how strong of a KDF is being used on the password, what are the minimum password strength requirements, etc. Imagine a scenario where their backup server gets breached, and the only thing standing between the attacker and your most sensitive media is 10,000 rounds of PBKDF2-SHA1.</li><li>Beyond outsider threats, what guarantees do we have that people affiliated with PPV aren&#8217;t going to attempt to bruteforce our data? How big is this company, how many people work there, how many of those people have access to this server and what access controls and auditing is in place to monitor that access?</li><li>The fact that a paid subscription is required means that PPV will indirectly have access to a lot more PII of their users than they otherwise would, which could be used to associate media to a specific identity.</li><li>Does PPV have the resources to respond to legal orders, such as warrants or preservation orders? It is only a matter of time before CSAM gets uploaded to their server.</li></ul>
+
+
+
+<hr class="wp-block-separator"/>
+
+
+
+<p><strong>Update 2020/01/29</strong>: I have since done a bit more work with this app and have found a way to bruteforce the PIN without keychain access. I also created a Python based decryptor script (instead of the C# one attached to this post). Rather than make them publicly available, please contact me and I will be happy to share the scripts with you. You can do so on the DFIR Discord or Twitter <a href="https://twitter.com/forensicmike1">@forensicmike1</a>.</p>
+
+
+
+<hr class="wp-block-separator"/>
+
+
+
+<p><strong>Original post</strong>: It&#8217;s been a while since I posted anything, and I suppose that&#8217;s a natural part of having a blog. I decided not to force myself to procure content and instead wait until I had something I really wanted to write about. And so here we are! In this article I&#8217;m going to talk about a process brand new to me until a few days ago. This has been an absolute blast to learn about, although I will admit it was frustrating at times.</p>
+
+
+
+<p>This article focuses more on the outcome of my research, without dwelling too much on exactly how I got there. I am however planning a follow-up post with a whole pile of lessons learned as I think there are a lot of gotchas and overall frustrations that could very possibly be skipped.</p>
+
+
+
+<h3><strong>Why target this app specifically?</strong></h3>
+
+
+
+<p>com.enchantedcloud.photovault or &#8220;<a href="https://3.88.229.156/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/" target="_blank" rel="noreferrer noopener" aria-label="Private Photo Vault (opens in a new tab)">Private Photo Vault</a>&#8221; (hereafter PPV) has been the subject of security research before. In November 2015, <a rel="noreferrer noopener" aria-label="a security assessment (opens in a new tab)" href="https://ioactive.com/breaking-into-and-reverse-engineering/" target="_blank">a detailed breakdown</a> was published by Michael Allen at IOActive and he found that the app didn&#8217;t actually encrypt anything! It&#8217;s security amounted to blocking users from seeing any media inside until the passcode had been entered and this was extremely easy to defeat. I figured revisiting this same app in 2019 could be fun/interesting just to see how far it has or hasn&#8217;t come since then. </p>
+
+
+
+<h3>Key Takeaways</h3>
+
+
+
+<p>Whether you consider this app secure or not depends on what kind of access you&#8217;ve got to various extraction methods. For examiners with filesystem type extractions (GrayKey / Cellebrite CAS / jailbroken devices), the security of PPV <strong>is trivial to defeat</strong> and I will demonstrate how below.  For examiners obtaining logical type extractions (iTunes backup, UFED 4PC, Magnet ACQUIRE, etc.) decryption will be more challenging and further reversing work will be required. I do believe it is possible though.</p>
+
+
+
+<p>PPV uses RNCryptor, an encryption library with implementations available in ObjectiveC, C#, JS etc. RNCryptor is <a rel="noreferrer noopener" aria-label="open source (opens in a new tab)" href="https://github.com/RNCryptor/RNCryptor-objc" target="_blank">open source</a> and we can absolutely use that to our advantage. One thing RNCryptor doesn&#8217;t manage is key storage, and the developer of PPV has apparently decided to rely on the security of the iOS Keychain to store, well, everything we need to perform decryption.</p>
+
+
+
+<p>The master key is stored in the keychain under &#8220;ppv_DateHash&#8221;. The plaintext PIN, which is a maximum 4 digits, is also stored in the keychain as &#8220;ppv_uuidHash1&#8221;. </p>
+
+
+
+<p>Each encrypted media file (found with its original in the app&#8217;s sandbox at /Library/PPV_Pics/) is essentially a container. The first two bytes can be safely ignored, the next 16 bytes are the IV (Initialization Vector), and the remaining bytes are the cipher text with the exception of the last 32 bytes which are related to HMAC and can safely be ignored.</p>
+
+
+
+<p>Once generated, the master encryption key never changes even if you change your PIN. This might seem like a poor design choice, but it&#8217;s actually how your iPhone works too and it can be quite secure as long as the master key is well protected. Secure Enclave makes sure that this key never sees the light of day but this is not true for keychain data. </p>
+
+
+
+<h3>Basic Outline of the Process / Tools Used</h3>
+
+
+
+<ul><li>Locate and jailbreak test iOS device (I used <a rel="noreferrer noopener" href="https://coolstar.org/electra/" target="_blank">Electra root</a> for my test device, an iPhone 6S running iOS 11.2.1).<br></li><li>Installed PPV (target app) by sideloading with <a rel="noreferrer noopener" aria-label="Cydia Impactor (opens in a new tab)" href="http://www.cydiaimpactor.com/" target="_blank">Cydia Impactor</a> (app store works too).<br></li><li>Setup access over USB with <a rel="noreferrer noopener" href="https://github.com/DomT4/iTunnel" target="_blank">ITNL (iTunnel)</a>  and obtained root access to device via SSH. <br></li></ul>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/06/itunnel_ssh.jpg"><img loading="lazy" width="1024" height="442" src="http://3.88.229.156/wp-content/uploads/2019/06/itunnel_ssh-1024x442.jpg" alt="" class="wp-image-320" srcset="/wp-content/uploads/2019/06/itunnel_ssh-1024x442.jpg 1024w, /wp-content/uploads/2019/06/itunnel_ssh-300x130.jpg 300w, /wp-content/uploads/2019/06/itunnel_ssh-768x332.jpg 768w, /wp-content/uploads/2019/06/itunnel_ssh.jpg 1060w" sizes="(max-width: 1024px) 100vw, 1024px" /></a><figcaption>SSH tunnel over USB thanks to itnl.</figcaption></figure>
+
+
+
+<ul><li>Installed and verified operation of <a rel="noreferrer noopener" href="https://frida.re/" target="_blank">frida-server</a> on the device &#8211; I did this using Sileo but should be doable via Cydia as well.<br></li><li>Used <a rel="noreferrer noopener" href="https://github.com/AloneMonkey/frida-ios-dump/tree/3.x" target="_blank">frida-ios-dump</a> by AloneMonkey to obtain decrypted binary of the target app (recommend Python 3.7) <br></li><li>Conducted static analysis of decrypted binary using <a rel="noreferrer noopener" href="https://www.hopperapp.com/" target="_blank">Hopper</a> . I had great success with searching for a value from the plist I believed to be  associated to crypto. This app is not free but the trial is fully functional for 15 minutes &#8211; make sure you hurry! <img src="https://s.w.org/images/core/emoji/13.1.0/72x72/1f642.png" alt="🙂" class="wp-smiley" style="height: 1em; max-height: 1em;" /><br></li></ul>
+
+
+
+<figure class="wp-block-image"><img loading="lazy" width="1024" height="555" src="http://3.88.229.156/wp-content/uploads/2019/06/hopperStatic-1024x555.jpg" alt="" class="wp-image-322" srcset="/wp-content/uploads/2019/06/hopperStatic-1024x555.jpg 1024w, /wp-content/uploads/2019/06/hopperStatic-300x163.jpg 300w, /wp-content/uploads/2019/06/hopperStatic-768x416.jpg 768w, /wp-content/uploads/2019/06/hopperStatic.jpg 1297w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption>Static analysis using Hopper &#8211; this class looks like it might be of use!</figcaption></figure>
+
+
+
+<ul><li>With my newly discovered knowledge I fired up Frida with this little gem:  <a rel="noreferrer noopener" href="https://codeshare.frida.re/@mrmacete/objc-method-observer/" target="_blank">ObjC Method Observer</a>, an awesome codeshare script by mrmacete (<a rel="noreferrer noopener" href="https://twitter.com/bezjaje" target="_blank">@bezjaje</a>) to snoop on iOS method invocations of a specific class on a live device. (I targetted LSLCrypt and RNCryptor classes on PPV)</li></ul>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/06/fridaObserver.png" target="_blank" rel="noreferrer noopener"><img loading="lazy" width="1024" height="296" src="http://3.88.229.156/wp-content/uploads/2019/06/fridaObserver-1024x296.png" alt="" class="wp-image-323" srcset="/wp-content/uploads/2019/06/fridaObserver-1024x296.png 1024w, /wp-content/uploads/2019/06/fridaObserver-300x87.png 300w, /wp-content/uploads/2019/06/fridaObserver-768x222.png 768w, /wp-content/uploads/2019/06/fridaObserver.png 1171w" sizes="(max-width: 1024px) 100vw, 1024px" /></a><figcaption>Note the test passcode of 1234 at the end of the giant SHA256 string.</figcaption></figure>
+
+
+
+<ul><li>Switched back and forth between Hopper and Frida console until I established a good idea of what was going on. The biggest breakthrough here was that the encryption key doesn&#8217;t change when you change the passcode, and that it is stored in keychain.plist</li></ul>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/06/pinchange_keysame.jpg"><img loading="lazy" width="1024" height="576" src="http://3.88.229.156/wp-content/uploads/2019/06/pinchange_keysame-1024x576.jpg" alt="" class="wp-image-318" srcset="/wp-content/uploads/2019/06/pinchange_keysame-1024x576.jpg 1024w, /wp-content/uploads/2019/06/pinchange_keysame-300x169.jpg 300w, /wp-content/uploads/2019/06/pinchange_keysame-768x432.jpg 768w, /wp-content/uploads/2019/06/pinchange_keysame.jpg 1273w" sizes="(max-width: 1024px) 100vw, 1024px" /></a><figcaption>PIN change does not affect our encryption key, which conveniently gets stored in this device&#8217;s keychain.plist</figcaption></figure>
+
+
+
+<ul><li>Studied the <a rel="noreferrer noopener" aria-label="RNCryptor-objc github repo (opens in a new tab)" href="https://github.com/RNCryptor/RNCryptor-objc" target="_blank">RNCryptor-objc github repo</a> to develop an understanding of how this AES wrapper works.<br></li><li>Develop PoC in C# using the amazing <a rel="noreferrer noopener" aria-label="LINQpad (opens in a new tab)" href="https://linqpad.net/" target="_blank">LINQpad</a> to decrypt media in PPV_Photos given the keychain.plist</li></ul>
+
+
+
+<h3>Decryption PoC</h3>
+
+
+
+<p>This script is C# and was written in/for <a rel="noreferrer noopener" aria-label="Linqpad (opens in a new tab)" href="https://linqpad.net/" target="_blank">Linqpad</a>, but could be adapted to a Visual Studio project very easily. It uses only native libraries. You will need to plugin your AES Key as base64 in the &#8220;USER CONFIGURATION REQUIRED&#8221; section <img src="https://s.w.org/images/core/emoji/13.1.0/72x72/1f600.png" alt="😀" class="wp-smiley" style="height: 1em; max-height: 1em;" /> ! I call this a PoC because it does zero error checking and may or may not work for you without tweaking.</p>
+
+
+
+<p>I might throw together a GUI app to do this more easily if people would use it. DM me on Twitter or Discord and let me know if that sounds interesting/useful.</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="csharp" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">void Main()
+{
+	// USER CONFIGURATION REQUIRED --------------------------------->
+	
+		// The input directory should point to the PPV sandbox where all the encrypted media resides
+		var pathToEncryptedFiles = @"c:\ppvtest\335CE0B0-..-B521433DD5D2\Library\PPV_Pics";
+		
+		// Where to spit out the decrypted media
+		var decryptFilesTo = @"c:\ppvtest\out\";
+	
+		// from keychain.plist -- genp with key "ppv_dateHash"
+		var aesKeyb64 = "mUAf0A6QF+DOoo...7tbZuqw2ImuRAkql0mY0zM=";
+
+	// END USER CONFIGURATION REQUIRED !!!
+	
+	Directory.CreateDirectory(decryptFilesTo);
+
+	
+	// Convert to byte[] from base64 string
+	var aesKey = Convert.FromBase64String(aesKeyb64);
+	
+	// Iterate encrypted files in the PPV_Pics folder.
+	foreach (var item in Directory.GetFiles(pathToEncryptedFiles))
+	{
+		var inputData = File.ReadAllBytes(item);
+		// The IV is located at offset 0x2 and is 16 bytes long.
+		var iv = inputData.Skip(2).Take(16).ToArray();
+		
+		// Our header is 18 bytes (0x0 for version, 0x1 for options, and 0x2 for 16 bytes IV)
+		var headerLength = 18;
+		
+		// The cipher text is the rest, minus 32 which is used for HMAC stuff.
+		var cipherText = inputData.Skip(headerLength).Take(inputData.Length - headerLength - 32).ToArray();
+		
+		File.WriteAllBytes(decryptFilesTo + new FileInfo(item).Name, decryptAesCbcPkcs7(cipherText, aesKey, iv));
+	}
+}
+
+// Borrowed from Rob Napier's RNCryptor-cs
+// https://github.com/RNCryptor/RNCryptor-cs
+private byte[] decryptAesCbcPkcs7(byte[] encrypted, byte[] key, byte[] iv)
+{
+	var aes = Aes.Create();
+	aes.Mode = CipherMode.CBC;
+	aes.Padding = PaddingMode.PKCS7;
+	var decryptor = aes.CreateDecryptor(key, iv);
+
+
+	byte[] plainBytes;
+	using (MemoryStream msDecrypt = new MemoryStream())
+	{
+		using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Write))
+		{
+			csDecrypt.Write(encrypted, 0, encrypted.Length);
+			csDecrypt.FlushFinalBlock();
+			plainBytes = msDecrypt.ToArray();
+		}
+	}
+
+	return plainBytes;
+}</pre>
+
+
+
+<h3>Acknowledgements</h3>
+
+
+
+<p>I&#8217;d like to thank the following people for their assistance on this research project:</p>
+
+
+
+<ul><li>Braden Thomas (<a rel="noreferrer noopener" aria-label="@drspringfield (opens in a new tab)" href="https://twitter.com/drspringfield" target="_blank">@drspringfield</a>) at Grayshift for his always spot-on advice and extensive depth of knowledge on all things iOS. </li><li>Ivan Rodriguez (<a rel="noreferrer noopener" aria-label="@ivRodriguezCA (opens in a new tab)" href="https://twitter.com/ivrodriguezca" target="_blank">@ivRodriguezCA</a>) for <a rel="noreferrer noopener" aria-label="his excellent blog (opens in a new tab)" href="https://ivrodriguez.com/reverse-engineer-ios-apps-ios-11-edition-part2/" target="_blank">his excellent blog</a> and great advice. </li><li>@karate on DFIR Discord (Magnus RC3 Sweden) (<a href="https://twitter.com/may_pol17" target="_blank" rel="noreferrer noopener" aria-label="@may_pol17 (opens in a new tab)">@may_pol17</a>) for his excellent guidance and urging to get Frida working.</li><li>Or Begam (<a rel="noreferrer noopener" aria-label="@shloophen (opens in a new tab)" href="https://twitter.com/shloophen" target="_blank">@shloophen</a>) from Cellebrite for reviewing my decryption PoC and spotting that final bug, connecting me with Ivan Rodriguez and generally being awesome.</li></ul>
+<p>The post <a rel="nofollow" href="/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/">Photo Vault app still pwnable in 2021? An adventure in iOS RE</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/feed/</wfw:commentRss>
+			<slash:comments>14</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>A lesson in home network security</title>
+		<link>/2019/05/19/a-lesson-in-home-network-security/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=a-lesson-in-home-network-security</link>
+					<comments>/2019/05/19/a-lesson-in-home-network-security/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Sun, 19 May 2019 21:04:09 +0000</pubDate>
+				<category><![CDATA[InfoSec]]></category>
+		<category><![CDATA[Uncategorized]]></category>
+		<category><![CDATA[infosec]]></category>
+		<category><![CDATA[network]]></category>
+		<category><![CDATA[rdp]]></category>
+		<guid isPermaLink="false">https://3.88.229.156/?p=199</guid>
+
+					<description><![CDATA[<p>There&#8217;s been a lot of buzz about RDP vulnerabilities of late, and one tweet in particular publicly shamed companies who in 2019 were still using port forwarding to remotely access machines on their corporate LANs. I thought, they&#8217;re talking about companies, not regular joes. But the tweet stuck with me and eventually motivated me to [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/2019/05/19/a-lesson-in-home-network-security/">A lesson in home network security</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>There&#8217;s been a lot of buzz about <a rel="noreferrer noopener" aria-label="RDP vulnerabilities (opens in a new tab)" href="https://blogs.technet.microsoft.com/msrc/2019/05/14/prevent-a-worm-by-updating-remote-desktop-services-cve-2019-0708/" target="_blank">RDP vulnerabilities</a> of late, and one tweet in particular publicly shamed companies who in 2019 were still using port forwarding to remotely access machines on their corporate LANs. I thought, they&#8217;re talking about <em>companies, </em>not regular joes. But the tweet stuck with me and eventually motivated me to take a small step towards improved security. I&#8217;ll admit it! I&#8217;ve had a random (non-3389) port forwarded to a machine on my LAN to facilitate RDP connections for some time, really just for the sheer convenience and cost effectiveness of it. I selected a port that isn&#8217;t commonly used for anything, to help prevent it from showing up on Shodan or any common-only type port scans. It gave me a &#8216;security through obscurity&#8217; level of confidence that others probably share about their home LANs. I googled easy ways to improve RDP security and came across <a rel="noreferrer noopener" aria-label="this guide (opens in a new tab)" href="https://www.tenforums.com/tutorials/87609-change-account-lockout-threshold-local-accounts-windows-10-a.html" target="_blank">this guide</a> which walks you through how to set local policy that automatically locks accounts out after so many failed login attempts. I went ahead and set this up on the box I RDP to. On that box, I had only 1 <strong>local</strong> account which was part of the Administrator group. Today, I went to login to the machine and got this (image from Google images):</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/05/AD_Account_Keeps_Locking_Out.jpg"><img loading="lazy" width="474" height="205" src="http://3.88.229.156/wp-content/uploads/2019/05/AD_Account_Keeps_Locking_Out.jpg" alt="" class="wp-image-200" srcset="/wp-content/uploads/2019/05/AD_Account_Keeps_Locking_Out.jpg 474w, /wp-content/uploads/2019/05/AD_Account_Keeps_Locking_Out-300x130.jpg 300w" sizes="(max-width: 474px) 100vw, 474px" /></a></figure>
+
+
+
+<p>OK, I thought, there could be a non-scary explanation for this &#8212; maybe a scheduled task I created with stored credentials and completely forgot about or something? </p>
+
+
+
+<p class="has-small-font-size"><em>Side note &#8212; when you are literally the only user that can login on a machine and get locked out, it&#8217;s a pain in the ass to fix! The login screen won&#8217;t let you login as any other user and even password resets do not unlock it. I booted to recovery and launched a command prompt, but wasn&#8217;t able to see my locked out account from there using net user &#8212; it listed other accounts but not the problem one.</em> <em>The fix I finally used was to replace utilman.exe with cmd.exe in the recovery command prompt and boot normally</em>, <em>then clicked the &#8216;ease of access&#8217; to have an administrator command prompt on a normal boot</em>, <em>which was able to set the user account to active again.</em></p>
+
+
+
+<p>Alright so, we&#8217;re unlocked now and all is back to normal, right? As a forensics guy I really wanted to discover what caused the lockout. I opened up Event viewer and checked out the Security logs. What I observed next stunned me. In the 12 days before all this happened, I had over 14,000 failed attempts to logon via RDP. Further inspection showed that the failed attempts were often coupled with random account names that could only be part of a dictionary attack. I exported the list and wrote a C# script to itemize the names used, and put them in a pastebin <a rel="noreferrer noopener" aria-label="here (opens in a new tab)" href="https://pastebin.com/S64qNi7V" target="_blank">here</a> if anyone is interested. ADMINISTRATOR is the clear winner with over 9611 failed logins.</p>
+
+
+
+<p>This led me on a &#8216;security improvement&#8217; rabbit hole that included:</p>
+
+
+
+<ul><li>Disabling port forwarding altogether on my router</li><li>Running nmap on my machine and finding ports open somehow.</li><li>Discovering that UPnP was enabled on my router and disabling it &#8211; really?</li><li>Going through the ASUS Security Checklist and turning everything green, such as changing my &#8216;admin&#8217; username to something else, disabling WPS, enabling HTTPS-only access to the router, updating router firmware to the latest version, etc.</li></ul>
+
+
+
+<p>While there&#8217;s no evidence at this point of successful access to my machine, I felt like this was an excellent wakeup call. As for remoting, I am going to disable RDP and instead use a third party remoting service &#8212; one which allows me to use 2FA and has &#8216;login attempt from X.X.X.X&#8217; notification emails, etc.</p>
+<p>The post <a rel="nofollow" href="/2019/05/19/a-lesson-in-home-network-security/">A lesson in home network security</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/2019/05/19/a-lesson-in-home-network-security/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>

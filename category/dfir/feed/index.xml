@@ -1,0 +1,704 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>DFIR Archives - forensicmike1</title>
+	<atom:link href="/category/dfir/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.forensicmike1.com/category/dfir/</link>
+	<description>#DFIR &#124; #RE &#124; #OtherGeekThings =&#62; Views expressed are my own.</description>
+	<lastBuildDate>Tue, 25 May 2021 21:56:55 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.8.6</generator>
+	<item>
+		<title>Taking a gander at iOS apps on an M1 Mac</title>
+		<link>/2021/05/25/taking-a-look-at-ios-apps-on-an-m1-mac/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=taking-a-look-at-ios-apps-on-an-m1-mac</link>
+					<comments>/2021/05/25/taking-a-look-at-ios-apps-on-an-m1-mac/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Tue, 25 May 2021 20:47:39 +0000</pubDate>
+				<category><![CDATA[DFIR]]></category>
+		<category><![CDATA[Mac]]></category>
+		<category><![CDATA[Reverse Engineering]]></category>
+		<guid isPermaLink="false">https://3.88.229.156/?p=570</guid>
+
+					<description><![CDATA[<p>I wanted to share some initial research I did over the rainy long weekend. I recently got access to a MacBook Pro with the M1 chip and so naturally I wanted to take a look at how running iOS apps natively on macOS works, where the app data ends up on the HDD, and of [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/2021/05/25/taking-a-look-at-ios-apps-on-an-m1-mac/">Taking a gander at iOS apps on an M1 Mac</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>I wanted to share some initial research I did over the rainy long weekend. I recently got access to a MacBook Pro with the M1 chip and so naturally I wanted to take a look at how running iOS apps natively on macOS works, where the app data ends up on the HDD, and of course, to see if Frida works on it or not. <img src="https://s.w.org/images/core/emoji/13.1.0/72x72/1f642.png" alt="🙂" class="wp-smiley" style="height: 1em; max-height: 1em;" /></p>
+
+
+
+<p>Given the large number of iOS apps that you can presently install via the App Store, it&#8217;s definitely conceivable that we might start seeing instances of this on Mac extractions, so I thought it might be helpful to have a frame of reference for where iOS app data is located.</p>
+
+
+
+<p>For this research, I decided to install Private Photo Vault (which continues to bring a ton of traffic to my site to this day haha), but I suspect the story will be similar for other apps.</p>
+
+
+
+<p>First things first, let&#8217;s find PPV on the App Store. One note is that you need to click on the iPhone &amp; iPad Apps filter, which seems obvious now but didn&#8217;t immediately jump out when I started this before my coffee activated.</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="625" src="http://3.88.229.156/wp-content/uploads/2021/05/image-1024x625.png" alt="" class="wp-image-571" srcset="/wp-content/uploads/2021/05/image-1024x625.png 1024w, /wp-content/uploads/2021/05/image-300x183.png 300w, /wp-content/uploads/2021/05/image-768x469.png 768w, /wp-content/uploads/2021/05/image-1536x938.png 1536w, /wp-content/uploads/2021/05/image-2048x1250.png 2048w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<p>Okay great, it&#8217;s installed. It shows up on the LaunchPad just like any other installed app, neat.</p>
+
+
+
+<figure class="wp-block-image size-large is-resized"><img loading="lazy" src="http://3.88.229.156/wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-1.59.55-PM.png" alt="" class="wp-image-575" width="337" height="222" srcset="/wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-1.59.55-PM.png 718w, /wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-1.59.55-PM-300x198.png 300w" sizes="(max-width: 337px) 100vw, 337px" /></figure>
+
+
+
+<p>OK great, let&#8217;s launch the app and set it up, and take a photo. The app seamlessly integrates with the MBP&#8217;s front facing camera (which still produces pretty awful looking pictures compared to iPhone).</p>
+
+
+
+<p>First I&#8217;ll check if Frida sees the process by running</p>
+
+
+
+<p> <code>frida-ps | grep Vault</code>. </p>
+
+
+
+<p>We see two processes of interest including Photo Vault and Keychain (Photo Vault):</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="297" src="http://3.88.229.156/wp-content/uploads/2021/05/image-2-1024x297.png" alt="" class="wp-image-573" srcset="/wp-content/uploads/2021/05/image-2-1024x297.png 1024w, /wp-content/uploads/2021/05/image-2-300x87.png 300w, /wp-content/uploads/2021/05/image-2-768x223.png 768w, /wp-content/uploads/2021/05/image-2-1536x446.png 1536w, /wp-content/uploads/2021/05/image-2-2048x595.png 2048w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<p>More on my adventures with frida in a moment, but let&#8217;s take a moment to search for the data. With the help of the find command (and knowing by heart at this point what files and folders PPV generally leaves in the filesystem on iDevices), I located the data for the app at:</p>
+
+
+
+<p><code>/Users/(name)/Library/Containers/(Installation GUID)/Data/Library</code></p>
+
+
+
+<p>As seen in the below screenshot, within this folder we have similar contents as PPV on iOS, except with a ton of other folders too!</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="721" src="http://3.88.229.156/wp-content/uploads/2021/05/image-3-1024x721.png" alt="" class="wp-image-574" srcset="/wp-content/uploads/2021/05/image-3-1024x721.png 1024w, /wp-content/uploads/2021/05/image-3-300x211.png 300w, /wp-content/uploads/2021/05/image-3-768x541.png 768w, /wp-content/uploads/2021/05/image-3.png 1142w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<p>So what is going on here? If we do an <code>ls -l</code> it becomes clearer:</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="864" src="http://3.88.229.156/wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-2.05.38-PM-1024x864.png" alt="" class="wp-image-576" srcset="/wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-2.05.38-PM-1024x864.png 1024w, /wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-2.05.38-PM-300x253.png 300w, /wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-2.05.38-PM-768x648.png 768w, /wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-2.05.38-PM.png 1502w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<p>Any of the items starting with <code>l</code> are symlinks! In fact, if we step up a folder to /Data we can see Desktop, Downloads etc. and all of the folders we expect to see in <code>~/</code> for our user, are here again, as symlinks.</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="412" src="http://3.88.229.156/wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-1.59.22-PM-1024x412.png" alt="" class="wp-image-577" srcset="/wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-1.59.22-PM-1024x412.png 1024w, /wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-1.59.22-PM-300x121.png 300w, /wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-1.59.22-PM-768x309.png 768w, /wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-1.59.22-PM-1536x618.png 1536w, /wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-1.59.22-PM.png 1600w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<p>I&#8217;m sure there&#8217;s a good reason for this, but it&#8217;s something to be aware of when traversing these app directories as it can spam us pretty bad when using the <code>find</code> or <code>ls</code> command <img src="https://s.w.org/images/core/emoji/13.1.0/72x72/1f642.png" alt="🙂" class="wp-smiley" style="height: 1em; max-height: 1em;" /></p>
+
+
+
+<p>Fortunately, when we create a tar file with the contents of the Data directory, it does not <strong>fully </strong>traverse the symlinks. Here I did: <code>tar cvf ~/Desktop/ppv_macos.tar .</code></p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="949" height="1024" src="http://3.88.229.156/wp-content/uploads/2021/05/image-4-949x1024.png" alt="" class="wp-image-578" srcset="/wp-content/uploads/2021/05/image-4-949x1024.png 949w, /wp-content/uploads/2021/05/image-4-278x300.png 278w, /wp-content/uploads/2021/05/image-4-768x829.png 768w, /wp-content/uploads/2021/05/image-4.png 1184w" sizes="(max-width: 949px) 100vw, 949px" /></figure>
+
+
+
+<p>And as you can see, the symlinks are still present but listed as ~20 byte files instead of directories.</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="967" height="951" src="http://3.88.229.156/wp-content/uploads/2021/05/image-5.png" alt="" class="wp-image-579" srcset="/wp-content/uploads/2021/05/image-5.png 967w, /wp-content/uploads/2021/05/image-5-300x295.png 300w, /wp-content/uploads/2021/05/image-5-768x755.png 768w" sizes="(max-width: 967px) 100vw, 967px" /></figure>
+
+
+
+<p>And 7-zip considers them <em>dangerous</em> and doesn&#8217;t bother to create them when you do a full extraction:</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="601" height="505" src="http://3.88.229.156/wp-content/uploads/2021/05/image-6.png" alt="" class="wp-image-580" srcset="/wp-content/uploads/2021/05/image-6.png 601w, /wp-content/uploads/2021/05/image-6-300x252.png 300w" sizes="(max-width: 601px) 100vw, 601px" /></figure>
+
+
+
+<h2>Frida</h2>
+
+
+
+<p>I now wanted to see if I could attach with Frida. First attempt, I got an error saying my user account didn&#8217;t have permissions to attach. I remembered seeing this before, and after googling I found it indeed it had to do with <a href="https://developer.apple.com/documentation/security/disabling_and_enabling_system_integrity_protection" target="_blank" rel="noreferrer noopener">SIP</a> (System Integrity Protection) being enabled. To disable, one must shutdown and then restart into recovery. Note that on M1 Macs, instead of holding Cmd+R and booting, you actually just hold down the power button until the boot options screen appears. After booting to recovery a good ol&#8217; <code>csrutil disable</code> from the terminal still does the trick.</p>
+
+
+
+<p>After rebooting, I went to startup PPV again and was met with this sad message:</p>
+
+
+
+<figure class="wp-block-image size-large is-resized"><img loading="lazy" src="http://3.88.229.156/wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-2.00.04-PM.png" alt="" class="wp-image-581" width="310" height="301" srcset="/wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-2.00.04-PM.png 612w, /wp-content/uploads/2021/05/Screen-Shot-2021-05-25-at-2.00.04-PM-300x292.png 300w" sizes="(max-width: 310px) 100vw, 310px" /></figure>
+
+
+
+<p>So, it looks like some additional work will be required in order to deal with this. I did find <a href="https://twitter.com/SparkZheng/status/1334808131981910019" target="_blank" rel="noreferrer noopener">this tweet</a> from <a href="https://twitter.com/SparkZheng" target="_blank" rel="noreferrer noopener">@SparkZheng</a> though, so looks like it is possible with resigning?, but I haven&#8217;t had time to go further just yet.</p>
+
+
+
+<figure class="wp-block-embed is-type-rich is-provider-twitter wp-block-embed-twitter"><div class="wp-block-embed__wrapper">
+<blockquote class="twitter-tweet" data-width="550" data-dnt="true"><p lang="en" dir="ltr">You can use frida or lldb to hook or debug iOS apps on MacBook with M1 chip. hits: disable SIP and resign apps. <a href="https://t.co/JhDmmJ2IUj">pic.twitter.com/JhDmmJ2IUj</a></p>&mdash; Min(Spark) Zheng (@SparkZheng) <a href="https://twitter.com/SparkZheng/status/1334808131981910019?ref_src=twsrc%5Etfw">December 4, 2020</a></blockquote><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div></figure>
+
+
+
+<p>Notwithstanding that, if you don&#8217;t have yourself a test iDevice but do have an M1 Mac and are interested in accessing filesystem artifacts without having to do repeated extractions, this could definitely be a timesaver.</p>
+<p>The post <a rel="nofollow" href="/2021/05/25/taking-a-look-at-ios-apps-on-an-m1-mac/">Taking a gander at iOS apps on an M1 Mac</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/2021/05/25/taking-a-look-at-ios-apps-on-an-m1-mac/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Analysis of the ABTraceTogether app (iOS)</title>
+		<link>/2020/05/01/analysis-of-the-abtracetogether-app-ios/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=analysis-of-the-abtracetogether-app-ios</link>
+					<comments>/2020/05/01/analysis-of-the-abtracetogether-app-ios/#comments</comments>
+		
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Sat, 02 May 2020 03:58:53 +0000</pubDate>
+				<category><![CDATA[DFIR]]></category>
+		<category><![CDATA[Mobile Forensics]]></category>
+		<category><![CDATA[Reverse Engineering]]></category>
+		<guid isPermaLink="false">https://3.88.229.156/?p=495</guid>
+
+					<description><![CDATA[<p>I decided to have a look at the ABTraceTogether contract tracing app released by the Alberta Government today (May 1 2020) and blog about my findings. There&#8217;s potential for conspiracy theories and disinformation to run rampant for an app like this, so I wanted to have a look for myself and see how it actually [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/2020/05/01/analysis-of-the-abtracetogether-app-ios/">Analysis of the ABTraceTogether app (iOS)</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>I decided to have a look at the ABTraceTogether contract tracing app released by the Alberta Government today (May 1 2020) and blog about my findings. </p>
+
+
+
+<p>There&#8217;s potential for conspiracy theories and disinformation to run rampant for an app like this, so I wanted to have a look for myself and see how it actually works.</p>
+
+
+
+<p>I was also curious to see if there might be any forensically valuable information found in the app&#8217;s databases and files.</p>
+
+
+
+<p>I&#8217;ll start with my general observations and provide a more detailed explanation afterwards.</p>
+
+
+
+<p class="has-text-color has-vivid-green-cyan-color">As I&#8217;ve added a couple of updates today (May 2) &#8211; any new info is marked in green.</p>
+
+
+
+<h3>Observations</h3>
+
+
+
+<p>The registration process does not prompt you for your name, email, or any other PII (personally identifiable information) except for one: you must register using valid phone number, which will be used to contact you in the event you come into contact with someone who contracted the virus.</p>
+
+
+
+<p>The app is built on <a rel="noreferrer noopener" aria-label="BlueTrace (opens in a new tab)" href="https://bluetrace.io/" target="_blank">BlueTrace</a>/<a rel="noreferrer noopener" aria-label="OpenTrace (opens in a new tab)" href="https://github.com/opentrace-community/opentrace-ios" target="_blank">OpenTrace</a>, which is open source and has published <a rel="noreferrer noopener" aria-label="a whitepaper (opens in a new tab)" href="https://bluetrace.io/static/bluetrace_whitepaper-938063656596c104632def383eb33b3c.pdf" target="_blank">a whitepaper</a> that explains its methodology in great detail. It was first used in the <a rel="noreferrer noopener" aria-label="TraceTogether (opens in a new tab)" href="https://www.tracetogether.gov.sg/" target="_blank">TraceTogether</a> app in Singapore beginning in March 2020. <br><br>Encounters between devices are only tracked locally and must be uploaded to AHS manually (and <em>voluntarily</em>) if they contact you and request you to do so. In my tests the app did not communicate with the server any more than necessary (such as to retrieve encrypted forward-dated Temp IDs).<br><br>Analysis of the tracing database did not net any information of significant forensic value. Encounters between devices are logged however the only information available is: 1) the other device&#8217;s make and model, 2) the host device&#8217;s make and model, 3) the time of the interaction, 4) indicators of how close the device came such as received signal strength indicator (RSSI). The remaining data is encrypted and not accessible without keys that AHS maintains.</p>
+
+
+
+<p>In the BlueTrace design, the server (and its security) is of utmost importance. While out of scope for this article, I think it is worth noting that given all encryption keys, IDs, tempIDs, and registered phone numbers are stored on the server, any sort of poorly configured or insecure endpoints could pose the largest risk (such as in the event of a data breach).</p>
+
+
+
+<p>Overall, the app appears to deliver on its privacy promises. I did not find much of potential forensic value in artifacts from the app&#8217;s sandbox.  The app&#8217;s biggest failing, I think, is the requirement (iOS only) to keep the phone <strong>unlocked with the screen active </strong>at all times. I just can&#8217;t see people doing  this &#8211; they will be on their phones, which will mean this app isn&#8217;t in  the foreground and thus not working. I do acknowledge this limitation is not the fault of the developer, but rather the restrictiveness of iOS. Hopefully future development, such as with the recently released Apple/Google <a rel="noreferrer noopener" aria-label="contact tracing API (opens in a new tab)" href="https://www.apple.com/covid19/contacttracing" target="_blank">contact tracing API</a>, the need for leaving the device unlocked can be eliminated.</p>
+
+
+
+<p class="has-text-color has-vivid-green-cyan-color"><strong>UPDATE 2020-05-02</strong>: As pointed out by user Chris Thompson (@yegct), another curiosity is that the OpenTrace project seems to be using a GPL license, which would be potentially problematic as this license dictates anything it ships with be licensed under GPL as well. I found <a rel="noreferrer noopener" aria-label="this github issue (opens in a new tab)" href="https://github.com/opentrace-community/opentrace-ios/issues/2" target="_blank">this github issue</a> on the repo also questioning the same.</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/05/image-4.png"><img loading="lazy" width="988" height="246" src="http://3.88.229.156/wp-content/uploads/2020/05/image-4.png" alt="" class="wp-image-538" srcset="/wp-content/uploads/2020/05/image-4.png 988w, /wp-content/uploads/2020/05/image-4-300x75.png 300w, /wp-content/uploads/2020/05/image-4-768x191.png 768w" sizes="(max-width: 988px) 100vw, 988px" /></a></figure>
+
+
+
+<h3>Static analysis</h3>
+
+
+
+<p>I obtained a copy of the app (version 1.0.0) on my test iPhone 6S running iOS 13.2.2. I used <a rel="noreferrer noopener" aria-label="frida  (opens in a new tab)" href="https://www.frida.re/" target="_blank">frida </a>to obtain a copy of the IPA with a decrypted app binary and then used Hopper (macOS) to examine it. </p>
+
+
+
+<p>It appears to be a small, straightforward app with not a lot of code to examine. It&#8217;s written in Swift which makes the static analysis a bit less intuitive.</p>
+
+
+
+<p>The app uses a library called <a rel="noreferrer noopener" aria-label="OpenTrace (opens in a new tab)" href="https://github.com/opentrace-community/opentrace-ios" target="_blank">OpenTrace</a> (which is an implementation of <a rel="noreferrer noopener" aria-label="BlueTrace (opens in a new tab)" href="https://bluetrace.io/" target="_blank">BlueTrace</a>). BlueTrace has published <a rel="noreferrer noopener" aria-label="a whitepaper (opens in a new tab)" href="https://bluetrace.io/static/bluetrace_whitepaper-938063656596c104632def383eb33b3c.pdf" target="_blank">a whitepaper</a> explaining the technical methodology and, I feel gives very solid explanations for why things are the way they are. </p>
+
+
+
+<p class="has-text-color has-vivid-green-cyan-color"><strong>UPDATE 2020-05-02</strong>: Just a minor clarification on the above paragraph &#8211; rather than consuming any pre-compiled library or framework, it appears that the OpenTrace code has been integrated directly with the ABTraceTogether codebase under the ABTraceTogether class. This does not mean there aren&#8217;t variations. However, I did test several strings from debug messages found in the OpenTrace code and located all of them unmodified in the ABTraceTogetherApp binary.</p>
+
+
+
+<p><strong><span style="text-decoration: underline;">Info.plist</span></strong></p>
+
+
+
+<p>The app&#8217;s Info.plist contains some interesting info, such as developer specified descriptions for permissions potentially requested.</p>
+
+
+
+<p><strong>NSBluetoothAlwaysUsageDescription &#8211; </strong>ABTraceTogether exchanges Bluetooth signals with nearby phones running the same app. These signals contain an anonymised ID, which is encrypted and changes continually to ensure your privacy. </p>
+
+
+
+<p><strong>NSCameraUsageDescription</strong> &#8211; Grant ABTraceTogether permissions to access your camera if you would like to upload a photo as part of a support request</p>
+
+
+
+<p><strong>NSPhotoLibraryUsageDescription</strong> &#8211; Grant ABTraceTogether permissions to access your photo library if you would like to upload a photo as part of a support request</p>
+
+
+
+<p>The plist also specifies that at a minimum, iOS 13 is required. This requirement was interesting to me because the app does not use the new Apple/Google API. It could limit the ability for people using older hardware that can&#8217;t run iOS 13 to access it. </p>
+
+
+
+<p>Overall, nothing super surprising here. The camera/photo gallery permissions didn&#8217;t come up in any of my tests.</p>
+
+
+
+<hr class="wp-block-separator"/>
+
+
+
+<p>Nothing else of note resulting from static analysis. Future research -&gt; to obtain a copy of the Android version and review it as well.</p>
+
+
+
+<h3>Forensic value of filesystem artifacts</h3>
+
+
+
+<p>The database tracer.sqlite, located in Library/Application Support/, and specifically the table ZENCOUNTER is where interactions between nearby devices are logged. </p>
+
+
+
+<p>To generate a test encounter, I installed the app on my own iPhone (in addition to my research phone), and with the app open, brought the devices fairly close together.</p>
+
+
+
+<p>This test showed up in table ZENCOUNTER as follows:</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/05/image-1.png"><img loading="lazy" width="1024" height="174" src="http://3.88.229.156/wp-content/uploads/2020/05/image-1-1024x174.png" alt="" class="wp-image-498" srcset="/wp-content/uploads/2020/05/image-1-1024x174.png 1024w, /wp-content/uploads/2020/05/image-1-300x51.png 300w, /wp-content/uploads/2020/05/image-1-768x130.png 768w, /wp-content/uploads/2020/05/image-1.png 1095w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<figure class="wp-block-table"><table><thead><tr><th class="has-text-align-center" data-align="center">Column</th><th>Description</th></tr></thead><tbody><tr><td class="has-text-align-center" data-align="center">ZV</td><td>The version of BlueTrace protocol the other device is using (currently 2)</td></tr><tr><td class="has-text-align-center" data-align="center">ZRSSI</td><td>The received signal strength indicator (RSSI) &#8211; can be used to assess how close the devices actually got. </td></tr><tr><td class="has-text-align-center" data-align="center">ZTIMESTAMP</td><td>When the encounter took place.</td></tr><tr><td class="has-text-align-center" data-align="center">ZTXPOWER</td><td>Transmission power? Always 0.0, 7.0 or NULL in my database so far. </td></tr><tr><td class="has-text-align-center" data-align="center">ZMODELC</td><td>A device make and model. Can be the other device or our device. C is believed to refer to &#8220;Central&#8221;. See <a rel="noreferrer noopener" aria-label="this link (opens in a new tab)" href="https://github.com/opentrace-community/opentrace-ios/blob/473b436a7287fffb9884f81ed00cbd738dbcbbcd/OpenTrace/Bluetrace/Structs/EncounterRecord.swift#L25" target="_blank">this link</a> for more on the OpenTrace github for Encounter Record.</td></tr><tr><td class="has-text-align-center" data-align="center">ZMODELP</td><td> A device make and model. Can be the other device or our device. C is believed to refer to &#8220;Peripheral&#8221;.  See <a rel="noreferrer noopener" aria-label="this link (opens in a new tab)" href="https://github.com/opentrace-community/opentrace-ios/blob/473b436a7287fffb9884f81ed00cbd738dbcbbcd/OpenTrace/Bluetrace/Structs/EncounterRecord.swift#L25" target="_blank">this link</a>  for more on the OpenTrace github for Encounter Record .</td></tr><tr><td class="has-text-align-center" data-align="center">ZMSG</td><td>An encrypted payload, base 64 encoded including IV/Auth Tag. (84 bytes)</td></tr><tr><td class="has-text-align-center" data-align="center">ZORG</td><td>The organization code indicating the country / health authority with which the peripheral is enrolled.</td></tr></tbody></table></figure>
+
+
+
+<p>The ZMSG structure is described in the whitepaper as follows:</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/05/image-2.png"><img loading="lazy" width="645" height="247" src="http://3.88.229.156/wp-content/uploads/2020/05/image-2.png" alt="" class="wp-image-499" srcset="/wp-content/uploads/2020/05/image-2.png 645w, /wp-content/uploads/2020/05/image-2-300x115.png 300w" sizes="(max-width: 645px) 100vw, 645px" /></a></figure>
+
+
+
+<p>(Note the typo of AED which should read AES).</p>
+
+
+
+<p>The forward-dated tempIDs were found in a file under Library\Caches\ca.ab.gov.ahs.contacttracing\fsCachedData\{GUID} . The contents of the file is shown here but redacted slightly to not show the full tokens:</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/05/image-3.png"><img loading="lazy" width="1024" height="640" src="http://3.88.229.156/wp-content/uploads/2020/05/image-3-1024x640.png" alt="" class="wp-image-500" srcset="/wp-content/uploads/2020/05/image-3-1024x640.png 1024w, /wp-content/uploads/2020/05/image-3-300x188.png 300w, /wp-content/uploads/2020/05/image-3-768x480.png 768w, /wp-content/uploads/2020/05/image-3.png 1140w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<h3>Future work</h3>
+
+
+
+<p>One remaining bit of work on iOS is to examine the iOS keychain &#8211; there&#8217;s a bunch of entries in there and I&#8217;m curious what they could be used for given temp ID token generation takes place serverside.</p>
+<p>The post <a rel="nofollow" href="/2020/05/01/analysis-of-the-abtracetogether-app-ios/">Analysis of the ABTraceTogether app (iOS)</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/2020/05/01/analysis-of-the-abtracetogether-app-ios/feed/</wfw:commentRss>
+			<slash:comments>6</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Examiner-coder-types: Learnin&#8217;git can make you a better developer</title>
+		<link>/2020/02/29/examiner-coder-types-learningit-can-make-you-a-better-developer/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=examiner-coder-types-learningit-can-make-you-a-better-developer</link>
+					<comments>/2020/02/29/examiner-coder-types-learningit-can-make-you-a-better-developer/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Sat, 29 Feb 2020 18:37:46 +0000</pubDate>
+				<category><![CDATA[DFIR]]></category>
+		<category><![CDATA[Forensic Coding]]></category>
+		<category><![CDATA[Git Good]]></category>
+		<guid isPermaLink="false">https://3.88.229.156/?p=444</guid>
+
+					<description><![CDATA[<p>I decided to write an article about Git and Github. Why? I&#8217;ve been exposed to Git a lot since I started working for a software company. Now, I&#8217;m wishing I could go back in time and have used it a lot more&#8230; even for projects I had no intention of ever releasing to the public [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/2020/02/29/examiner-coder-types-learningit-can-make-you-a-better-developer/">Examiner-coder-types: Learnin&#8217;git can make you a better developer</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>I decided to write an article about Git and Github. Why? I&#8217;ve been exposed to Git a lot since I started working for a software company. Now, I&#8217;m wishing I could go back in time and have used it a lot more&#8230; even for projects I had no intention of ever releasing to the public (e.g. most of them!). This article is meant to speak directly to those just like &#8220;pre-software company me&#8221; &#8212; who might be missing out on the significant advantages of using Git. Ask yourself the following:</p>
+
+
+
+<ul><li>Are you self-taught in most of the programming you know?</li><li>Have you ever made a change to your project and subsequently wished you could undo said change as it created unforeseen bug(s)?</li><li>Have you tried to use git before and been frustrated with some of the very first steps you need to take, such as setting up a new repo from an existing project?</li><li>Do you keep all of your code in a cloud drive like Dropbox or Google Drive to ensure you have consistent code backups?</li><li>Have you ever struggled to work collaboratively with another developer on a project?</li><li>Are you aware of git, and the fact that it is popular and supposedly useful, but been overwhelmed by the initial learning curve?</li></ul>
+
+
+
+<p>If you identified with any of the above, this article might help you. If you already know why Git / Github are amazing, you could still benefit from some of the tips below. This article isn&#8217;t so much a &#8220;git 101&#8221; as there are <a href="https://www.learnenough.com/git-tutorial/getting_started" target="_blank" rel="noreferrer noopener" aria-label="lots of great resources (opens in a new tab)">lots of great resources</a> out there for that. I may write more on this subject in future though!</p>
+
+
+
+<h2>Disclaimer</h2>
+
+
+
+<p>I am not a git master. I am a git neophyte, and that&#8217;s okay. You don&#8217;t need mastery to reap the benefits. Since I started working at a software company, I&#8217;ve met some true git wizards, and have benefited greatly from their willingness to impart wisdom. </p>
+
+
+
+<p>I&#8217;m only just getting started in my Git-learning journey, and I do mean journey &#8212; it&#8217;s a slough that can honestly be pretty frustrating. (Out of those times of frustration often come some of the biggest Git-epiphanies). </p>
+
+
+
+<p>Despite my relative newness, I feel strongly enough about the benefits to write a post because I think there are a lot of folks out there that stand to benefit greatly from beginning to use this technology.</p>
+
+
+
+<p>If you disagree with any of the advice I&#8217;ve laid out, think I should add to this article, or just want to chat Git &#8211; feel free to drop a comment or connect with me on Twitter/Discord.</p>
+
+
+
+<h2>Just /some/ of the advantages&#8230;</h2>
+
+
+
+<ul><li>Redundant, cloud-based backups of <span style="text-decoration: underline;">JUST YOUR SOURCE CODE</span>. Github now offers private repositories for free. This is SO much better than storing your entire code folder on Dropbox / GDrive / etc.</li><li>The ability to selectively roll-back changes or track specific changes over time.</li><li>Makes collaborative coding much easier if it ends up being a project that involves multiple developers.</li><li>Increases the likelihood of people trying out your product (vs. downloading an installer from a random website authored by someone they don&#8217;t know or trust)</li><li>If you have future aspirations of working at a software company, particularly in any kind of development role, pre-existing fluency in Git will be a huge asset.</li></ul>
+
+
+
+<p>While it does take time to learn, and is a skill that must be maintained, you will benefit greatly as a developer by learning it, and you don&#8217;t need to be a master to use it right away.</p>
+
+
+
+<h2>Setup a repo from an already existing project</h2>
+
+
+
+<p>If you&#8217;re like me, you may find that you have often already begun writing code before it ever occurred to you to setup a github repo. There are in-built features in Visual Studio, but I&#8217;ve always struggled to make them work with a project that already has code in it. All is not lost. </p>
+
+
+
+<p>There&#8217;s a pretty good write-up here:  <a rel="noreferrer noopener" aria-label="https://help.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line  (opens in a new tab)" href="https://help.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line" target="_blank">https://help.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line </a></p>
+
+
+
+<p>But if the inner-millennial in you can&#8217;t bear to read the above tutorial start-to-finish, please at a minimum keep in mind the following KEY POINT:</p>
+
+
+
+<p>When creating your repo on Github, <strong>DO NOT create a readme</strong> <strong>or set a license</strong>. You want an entirely empty repo. E.g.</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="762" height="682" src="http://3.88.229.156/wp-content/uploads/2020/02/image-3.png" alt="" class="wp-image-454" srcset="/wp-content/uploads/2020/02/image-3.png 762w, /wp-content/uploads/2020/02/image-3-300x269.png 300w" sizes="(max-width: 762px) 100vw, 762px" /></figure>
+
+
+
+<p>As long as you do that, things will go smoothly in the tutorial. I&#8217;d also recommend running a &#8220;git status&#8221; command before you proceed with your first commit, and ensure you don&#8217;t see &#8220;bin/&#8221; or other such folders. If you do, read the next section first.</p>
+
+
+
+<h2>Before doing your initial commit, create a .gitignore</h2>
+
+
+
+<p>.gitignore is a file that lists off what should and shouldn&#8217;t go into your commit. In general, it is considered bad practice to include stuff that gets generated by your compiler in your commits. Another no-no would be including dependencies like NuGet packages as this will massively inflate the size of your repository unnecessarily.</p>
+
+
+
+<p>Of course, you are welcome to research what a good .gitignore looks like, but I would personally recommend checking out <a rel="noreferrer noopener" aria-label="Gitignore.io (opens in a new tab)" href="https://gitignore.io/" target="_blank">Gitignore.io</a> . This site provides templates depending on the type of project you&#8217;re working on. For instance, if you are working on a C# project you can search for CSharp and get yourself a ready to go .gitignore:</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/02/image-2.png"><img loading="lazy" width="1024" height="466" src="http://3.88.229.156/wp-content/uploads/2020/02/image-2-1024x466.png" alt="" class="wp-image-452" srcset="/wp-content/uploads/2020/02/image-2-1024x466.png 1024w, /wp-content/uploads/2020/02/image-2-300x137.png 300w, /wp-content/uploads/2020/02/image-2-768x349.png 768w, /wp-content/uploads/2020/02/image-2.png 1090w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<p>You can then save this as .gitignore in the root of your repository and the next time you run &#8220;git status&#8221; you&#8217;ll see that folders like:<br>bin/<br>obj/<br>.vs/<br>packages/</p>
+
+
+
+<p>Are all absent from the change list. This means you will only be committing the important stuff to github and any would-be repo cloners will be pleased with you.</p>
+
+
+
+<h2>Make a nice readme.md</h2>
+
+
+
+<p>Readme.md is a critical piece of any good git repo. It is one of your only &#8216;sell me&#8217; pitches that will help your potential user decide whether or not to going to use this repo. It&#8217;s a great place to include things like:</p>
+
+
+
+<ul><li>Explain what the product is today and where it came from. Also where you envision it in future. (Current &amp; Future features / roadmap)</li><li>Give direction on how you would like potential issues reported, or whether you are open to others submitting pull requests to your repository.</li><li>Provide links to pre-compiled binaries, if you decide to provide them.</li><li>Shout out any third party libraries you are using in your project.</li></ul>
+
+
+
+<p>If your goal is to increase exposure, consider adding one or more screenshots to show off your product.</p>
+
+
+
+<p>The &#8220;md&#8221; in readme.md stands for Markdown. Generous (but not gratuitous) use of markdown-based formatting will add polish to your repo. If you aren&#8217;t sure how to start with markdown, check out Github&#8217;s help page on the subject: <a rel="noreferrer noopener" aria-label="https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax (opens in a new tab)" href="https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax" target="_blank">https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax</a></p>
+
+
+
+<p>Tip: If you have setup your repo without a read me (such as when you are creating a repo from an existing project) you can add a readme off your main repo page:</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/02/image-4.png"><img loading="lazy" width="1013" height="70" src="http://3.88.229.156/wp-content/uploads/2020/02/image-4.png" alt="" class="wp-image-455" srcset="/wp-content/uploads/2020/02/image-4.png 1013w, /wp-content/uploads/2020/02/image-4-300x21.png 300w, /wp-content/uploads/2020/02/image-4-768x53.png 768w" sizes="(max-width: 1013px) 100vw, 1013px" /></a><figcaption>Click the green button</figcaption></figure>
+
+
+
+<h2>Choose the right license</h2>
+
+
+
+<p>If you&#8217;re planning to make your repo public at any point, it is important to not only specify a license, but also understand the implications of the license you ultimately select. Github has made this process easier by providing summaries of what each license can do. You might wonder which license is &#8220;the best&#8221; &#8211; and the truth is this really depends on what your project is intended to do.</p>
+
+
+
+<p>I&#8217;m not an expert in OSS licensing by any stretch, but I definitely see the value in learning the differences between them depending on how widespread of use you anticipate your project seeing.</p>
+
+
+
+<p>For example, if you are writing a new filesystem, codec, parser or algorithm which you envision software companies to potentially adopt the use of your code in the future. GPL licenses are designed to force anyone who uses the code to have their code be open source as well.</p>
+
+
+
+<p>If on the other hand, you are writing a full fledged app and you&#8217;d like to avoid having your stuff plagiarized, GPL might be the perfect solution.</p>
+
+
+
+<p>For additional reading on licenses, I recommend the following resources:</p>
+
+
+
+<ul><li><a rel="noreferrer noopener" aria-label=" https://choosealicense.com/  (opens in a new tab)" href="https://choosealicense.com/" target="_blank">https://choosealicense.com/</a> (An objective resource from Github themselves)</li><li><a rel="noreferrer noopener" aria-label="https://www.freecodecamp.org/news/how-open-source-licenses-work-and-how-to-add-them-to-your-projects-34310c3cf94/ (opens in a new tab)" href="https://www.freecodecamp.org/news/how-open-source-licenses-work-and-how-to-add-them-to-your-projects-34310c3cf94/" target="_blank">https://www.freecodecamp.org/news/how-open-source-licenses-work-and-how-to-add-them-to-your-projects-34310c3cf94/</a></li></ul>
+
+
+
+<h3>How to add a license after the repo is already setup</h3>
+
+
+
+<p>You&#8217;ve setup your repo but now you need to add a license. How do we do this?</p>
+
+
+
+<p>From your repository&#8217;s homepage on Github, click &#8220;Create New File&#8221;. As soon as you type in the word <em>license</em> you will see a button appear called &#8216;Choose a license template&#8217; &#8211; Click it!</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/02/image.png"><img loading="lazy" width="895" height="54" src="http://3.88.229.156/wp-content/uploads/2020/02/image.png" alt="" class="wp-image-446" srcset="/wp-content/uploads/2020/02/image.png 895w, /wp-content/uploads/2020/02/image-300x18.png 300w, /wp-content/uploads/2020/02/image-768x46.png 768w" sizes="(max-width: 895px) 100vw, 895px" /></a></figure>
+
+
+
+<p>From here, you can select different licenses (the popular ones like Apache, GPL, and MIT are listed at the top) and review their differences. Once ready, click &#8216;Review and submit&#8217;.</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/02/image-1.png"><img loading="lazy" width="1024" height="200" src="http://3.88.229.156/wp-content/uploads/2020/02/image-1-1024x200.png" alt="" class="wp-image-447" srcset="/wp-content/uploads/2020/02/image-1-1024x200.png 1024w, /wp-content/uploads/2020/02/image-1-300x59.png 300w, /wp-content/uploads/2020/02/image-1-768x150.png 768w, /wp-content/uploads/2020/02/image-1-1536x300.png 1536w, /wp-content/uploads/2020/02/image-1.png 1891w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<h2>Finish every coding session with a commit or PR</h2>
+
+
+
+<p>There are lots of different considerations here, such as whether your repo is public or private, whether you are collaborating with others, etc. The easiest of all is to just commit directly to master, which might be fine if it&#8217;s a private repo and you&#8217;re the only one contributing.</p>
+
+
+
+<p>The point is, in order to maximize the &#8216;redundant backup&#8217; benefit, you need to make sure that any code you write exists somewhere other than your local machine. Don&#8217;t make the mistake of thinking that you should wait until you&#8217;ve finished an entire topic worth of code changes to push them. If you&#8217;ve made any code changes at all you wouldn&#8217;t want to have to re-write, make sure you propagate those changes to Github somehow. Remember: git commit isn&#8217;t git push. Running &#8220;git commit&#8221; won&#8217;t actually backup your changes to Github. Keep an eye on the output of your git commands as it&#8217;s usually pretty clear when your code has gone out to the internet:</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="240" src="http://3.88.229.156/wp-content/uploads/2020/02/image-5-1024x240.png" alt="" class="wp-image-461" srcset="/wp-content/uploads/2020/02/image-5-1024x240.png 1024w, /wp-content/uploads/2020/02/image-5-300x70.png 300w, /wp-content/uploads/2020/02/image-5-768x180.png 768w, /wp-content/uploads/2020/02/image-5.png 1031w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<h2>Conclusion</h2>
+
+
+
+<p>Git has a learning curve, and isn&#8217;t something you can master in a week. But the sooner you start getting exposed to it the better.</p>
+<p>The post <a rel="nofollow" href="/2020/02/29/examiner-coder-types-learningit-can-make-you-a-better-developer/">Examiner-coder-types: Learnin&#8217;git can make you a better developer</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/2020/02/29/examiner-coder-types-learningit-can-make-you-a-better-developer/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>KnowledgeC: Now Playing entries</title>
+		<link>/2019/10/07/knowledgec-now-playing-entries/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=knowledgec-now-playing-entries</link>
+					<comments>/2019/10/07/knowledgec-now-playing-entries/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Mon, 07 Oct 2019 18:57:12 +0000</pubDate>
+				<category><![CDATA[DFIR]]></category>
+		<category><![CDATA[Mobile Forensics]]></category>
+		<category><![CDATA[Uncategorized]]></category>
+		<category><![CDATA[apollo]]></category>
+		<category><![CDATA[iOS]]></category>
+		<category><![CDATA[KnowledgeC]]></category>
+		<guid isPermaLink="false">https://3.88.229.156/?p=375</guid>
+
+					<description><![CDATA[<p>I know it&#8217;s been ages since I&#8217;ve posted! I have been settling in with Magnet Forensics and have to say &#8211; it&#8217;s been an incredible experience so far. I continue to be amazed and inspired by the dedication and skill of the folks who work tirelessly to make Magnet AXIOM and countless other products the [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/2019/10/07/knowledgec-now-playing-entries/">KnowledgeC: Now Playing entries</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>I know it&#8217;s been ages since I&#8217;ve posted! I have been settling in with Magnet Forensics and have to say &#8211; it&#8217;s been an incredible experience so far. I continue to be amazed and inspired by the dedication and skill of the folks who work tirelessly to make <a rel="noreferrer noopener" aria-label="Magnet AXIOM (opens in a new tab)" href="https://www.magnetforensics.com/products/magnet-axiom/" target="_blank">Magnet AXIOM</a> and countless other products the absolute best they can be.</p>
+
+
+
+<p>I was recently helping out a customer with a question about an iPhone he was examining. He wanted to corroborate the device owner&#8217;s story &#8212; allegedly he had watched some videos on the device at a certain date and time.</p>
+
+
+
+<p>I suggested KnowledgeC &#8220;Now Playing&#8221; as a reference point and this led down a rabbit hole, namely:</p>
+
+
+
+<ul><li>Does clearing Safari history impact KnowledgeC.db?</li><li>Does private browsing affect input into KnowledgeC.db?</li></ul>
+
+
+
+<p>Answering these questions should be easy enough with the help of a jailbroken device (which I always keep near these days). I wanted to share my findings with the #DFIR community as there are some interesting things I observed along the way. Sarah Edwards herself noted in her blog series about KnowledgeC that there is more work to be done in terms of validating that the data is as it appears to be. I would say this work today follows down that path.</p>
+
+
+
+<p>One other thing to note. My jailbroken device is running iOS 11.4.1 and at the time of writing we are at iOS 13.1.2, so there could be a difference  between this and the latest/greatest iOS version. First things first, I went into Safari and visited the first video that popped up on YouTube (do not have the YouTube app installed so it played in browser).</p>
+
+
+
+<figure class="wp-block-image is-resized"><a href="https://cdn.shopify.com/s/files/1/2794/3840/articles/Screen_Shot_2018-05-11_at_10.48.03_AM_800x.png?v=1526061025"><img loading="lazy" src="https://cdn.shopify.com/s/files/1/2794/3840/articles/Screen_Shot_2018-05-11_at_10.48.03_AM_800x.png?v=1526061025" alt="Image result for blippi" width="278" height="278"/></a><figcaption>I had no idea what &#8216;Blippi&#8217; was until clicking the first random video that came up on YouTube.com as trending. Lesson learned.</figcaption></figure>
+
+
+
+<p>Next, using SFTP I collected KnowledgeC.db from /private/var/mobile/Library/CoreDuet/Knowledge, including shm and wal, and opened DB Browser for SQLite. Next I ran <a rel="noreferrer noopener" aria-label="Sarah Edward's Now Playing script (opens in a new tab)" href="https://github.com/mac4n6/APOLLO/blob/master/modules/knowledge_audio_media_nowplaying.txt" target="_blank">Sarah Edwards&#8217; Now Playing script</a> (APOLLO) and here is what I observed:</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/10/image.png"><img loading="lazy" width="1024" height="97" src="http://3.88.229.156/wp-content/uploads/2019/10/image-1024x97.png" alt="" class="wp-image-377" srcset="/wp-content/uploads/2019/10/image-1024x97.png 1024w, /wp-content/uploads/2019/10/image-300x28.png 300w, /wp-content/uploads/2019/10/image-768x72.png 768w, /wp-content/uploads/2019/10/image.png 2003w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<p>So far so good. I&#8217;d concur with the data here that I made it through an ad and about 3 seconds of the Blippi video before feeling immense regret end hitting the home button to stop that madness.. By the way, <em>Oct Edge Pre Roll</em> is an Ad, which at some point I skipped&#8230; but I&#8217;d say 15 seconds is conceivable for how long that all took.</p>
+
+
+
+<p>Next, I went back to my JB device and cleared all history through Settings &gt; Safari. I then pulled KnowledgeC and ran the query again. Nothing changed- it was exactly the same as before.</p>
+
+
+
+<p>Now things start to take a turn for the weird- I went to another video on Youtube within Safari and once again pulled my KnowledgeC db out:</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/10/image-1.png"><img loading="lazy" width="1024" height="116" src="http://3.88.229.156/wp-content/uploads/2019/10/image-1-1024x116.png" alt="" class="wp-image-378" srcset="/wp-content/uploads/2019/10/image-1-1024x116.png 1024w, /wp-content/uploads/2019/10/image-1-300x34.png 300w, /wp-content/uploads/2019/10/image-1-768x87.png 768w, /wp-content/uploads/2019/10/image-1.png 2019w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<figure class="wp-block-image is-resized"><img loading="lazy" src="https://cdn.drawception.com/images/panels/2018/1-5/Z5hGZATTmp-14.png" alt="Image result for hmmm emote" width="135" height="113"/></figure>
+
+
+
+<p>So&#8230;..the new video is missing altogether, but even more strangely there is an <strong>additional </strong>entry of Blippi (note the entry creation is about 5 minutes after the fact) stating a &#8216;Usage in Seconds&#8217; of <span style="text-decoration: underline;">319</span>.  (Note that the Usage in Seconds column is actually a computation of ZENDDATE &#8211; ZSTARTDATE that Sarah has provided for us.)</p>
+
+
+
+<p>A few things we might surmise from this:</p>
+
+
+
+<ul><li>Even with Safari suspended and history cleared, if I were to lock my screen I suspect it would show my &#8220;Now Playing&#8221; of the Blippi video. It wasn&#8217;t until I went to a different video that it got changed.<br></li><li>KnowledgeC writes are not guaranteed to be immediate and definitely do not on their own reflect active viewing time.</li></ul>
+
+
+
+<p>I then watched the same video again and once again pulled my KnowledgeC. This time, I got the new entry as expected:</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/10/image-2.png"><img loading="lazy" width="1024" height="156" src="http://3.88.229.156/wp-content/uploads/2019/10/image-2-1024x156.png" alt="" class="wp-image-379" srcset="/wp-content/uploads/2019/10/image-2-1024x156.png 1024w, /wp-content/uploads/2019/10/image-2-300x46.png 300w, /wp-content/uploads/2019/10/image-2-768x117.png 768w, /wp-content/uploads/2019/10/image-2.png 2016w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<p>To answer the other question, as to whether or not private browsing makes a difference with respect to KnowledgeC Now Playing records. I then visited more YouTube videos in &#8216;Private Mode&#8217; on Safari:</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/10/image-3.png"><img loading="lazy" width="1024" height="200" src="http://3.88.229.156/wp-content/uploads/2019/10/image-3-1024x200.png" alt="" class="wp-image-380" srcset="/wp-content/uploads/2019/10/image-3-1024x200.png 1024w, /wp-content/uploads/2019/10/image-3-300x59.png 300w, /wp-content/uploads/2019/10/image-3-768x150.png 768w, /wp-content/uploads/2019/10/image-3.png 2027w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<p>They showed up just the same.</p>
+
+
+
+<p>One last note. After all of this I did a KnowledgeC-wide query to see what kind of imprint I left beyond the Now Playing results:</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/10/image-4.png"><img loading="lazy" width="815" height="912" src="http://3.88.229.156/wp-content/uploads/2019/10/image-4.png" alt="" class="wp-image-381" srcset="/wp-content/uploads/2019/10/image-4.png 815w, /wp-content/uploads/2019/10/image-4-268x300.png 268w, /wp-content/uploads/2019/10/image-4-768x859.png 768w" sizes="(max-width: 815px) 100vw, 815px" /></a></figure>
+
+
+
+<p>And there you have it. I think with /app/inFocus rows it is a much clearer picture of the fact that I did not in fact spend a lot of time watching any one video. The moral of the story here is that KnowledgeC data is indeed amazing, but not without its nuances. You must build your story based on the totality of ALL relevant KnowledgeC records, and avoid dwelling solely on the information derived from a single log type or row.</p>
+<p>The post <a rel="nofollow" href="/2019/10/07/knowledgec-now-playing-entries/">KnowledgeC: Now Playing entries</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/2019/10/07/knowledgec-now-playing-entries/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>

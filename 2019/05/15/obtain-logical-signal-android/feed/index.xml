@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>
+	Comments on: Obtain a logical dump of Signal data on Android with signal-back	</title>
+	<atom:link href="/2019/05/15/obtain-logical-signal-android/feed/" rel="self" type="application/rss+xml" />
+	<link>/2019/05/15/obtain-logical-signal-android/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=obtain-logical-signal-android</link>
+	<description>#DFIR &#124; #RE &#124; #OtherGeekThings =&#62; Views expressed are my own.</description>
+	<lastBuildDate>Sat, 06 Feb 2021 15:37:33 +0000</lastBuildDate>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.8.6</generator>
+	<item>
+		<title>
+		By: Mike Williamson		</title>
+		<link>/2019/05/15/obtain-logical-signal-android/#comment-403</link>
+
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Sat, 06 Feb 2021 15:37:33 +0000</pubDate>
+		<guid isPermaLink="false">https://3.88.229.156/?p=173#comment-403</guid>
+
+					<description><![CDATA[In reply to &lt;a href=&quot;/2019/05/15/obtain-logical-signal-android/#comment-362&quot;&gt;Retired Hacker&lt;/a&gt;.
+
+You are correct! Good news though if you have access AXIOM, we are able to decrypt the backups directly now.]]></description>
+			<content:encoded><![CDATA[<p>In reply to <a href="/2019/05/15/obtain-logical-signal-android/#comment-362">Retired Hacker</a>.</p>
+<p>You are correct! Good news though if you have access AXIOM, we are able to decrypt the backups directly now.</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Retired Hacker		</title>
+		<link>/2019/05/15/obtain-logical-signal-android/#comment-362</link>
+
+		<dc:creator><![CDATA[Retired Hacker]]></dc:creator>
+		<pubDate>Thu, 12 Nov 2020 02:26:01 +0000</pubDate>
+		<guid isPermaLink="false">https://3.88.229.156/?p=173#comment-362</guid>
+
+					<description><![CDATA[It no longer works, and the development seems to be abandoned on it as there are no activity]]></description>
+			<content:encoded><![CDATA[<p>It no longer works, and the development seems to be abandoned on it as there are no activity</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: D Kraan		</title>
+		<link>/2019/05/15/obtain-logical-signal-android/#comment-13</link>
+
+		<dc:creator><![CDATA[D Kraan]]></dc:creator>
+		<pubDate>Mon, 03 Jun 2019 15:50:38 +0000</pubDate>
+		<guid isPermaLink="false">https://3.88.229.156/?p=173#comment-13</guid>
+
+					<description><![CDATA[Nice walkthrough Mike. Will likely come in handy at some point]]></description>
+			<content:encoded><![CDATA[<p>Nice walkthrough Mike. Will likely come in handy at some point</p>
+]]></content:encoded>
+		
+			</item>
+	</channel>
+</rss>

@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+		<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
+	
+	<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
+	<!-- This site is optimized with the Yoast SEO plugin v19.4 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>MPT - LG&#039;s incognito version of KnowledgeC - forensicmike1</title>
+	<link rel="canonical" href="https://www.forensicmike1.com/2019/04/27/mpt-lgs-incognito-version-of-knowledgec/">
+	<meta property="og:locale" content="en_US">
+	<meta property="og:type" content="article">
+	<meta property="og:title" content="MPT - LG&#039;s incognito version of KnowledgeC - forensicmike1">
+	<meta property="og:description" content="Learn how LG has been tracking its users for years, and how devices are not purging this data on a factory reset.">
+	<meta property="og:url" content="https://www.forensicmike1.com/2019/04/27/mpt-lgs-incognito-version-of-knowledgec/">
+	<meta property="og:site_name" content="forensicmike1">
+	<meta property="article:published_time" content="2019-04-27T20:38:49+00:00">
+	<meta property="article:modified_time" content="2019-05-20T01:49:25+00:00">
+	<meta property="og:image" content="http://3.88.229.156/wp-content/uploads/2019/04/LGScreen.png">
+	<meta name="author" content="Mike Williamson">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:creator" content="@forensicmike1">
+	<meta name="twitter:label1" content="Written by">
+	<meta name="twitter:data1" content="Mike Williamson">
+	<meta name="twitter:label2" content="Est. reading time">
+	<meta name="twitter:data2" content="5 minutes">
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"httpswww.forensicmike1.com/#website","url":"httpswww.forensicmike1.com/","name":"forensicmike1","description":"#DFIR | #RE | #OtherGeekThings => Views expressed are my own.","potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"httpswww.forensicmike1.com/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"ImageObject","inLanguage":"en-US","@id":"https://www.forensicmike1.com/2019/04/27/mpt-lgs-incognito-version-of-knowledgec/#primaryimage","url":"http://3.88.229.156/wp-content/uploads/2019/04/LGScreen.png","contentUrl":"http://3.88.229.156/wp-content/uploads/2019/04/LGScreen.png"},{"@type":"WebPage","@id":"https://www.forensicmike1.com/2019/04/27/mpt-lgs-incognito-version-of-knowledgec/","url":"https://www.forensicmike1.com/2019/04/27/mpt-lgs-incognito-version-of-knowledgec/","name":"MPT - LG's incognito version of KnowledgeC - forensicmike1","isPartOf":{"@id":"httpswww.forensicmike1.com/#website"},"primaryImageOfPage":{"@id":"https://www.forensicmike1.com/2019/04/27/mpt-lgs-incognito-version-of-knowledgec/#primaryimage"},"image":{"@id":"https://www.forensicmike1.com/2019/04/27/mpt-lgs-incognito-version-of-knowledgec/#primaryimage"},"thumbnailUrl":"http://3.88.229.156/wp-content/uploads/2019/04/LGScreen.png","datePublished":"2019-04-27T20:38:49+00:00","dateModified":"2019-05-20T01:49:25+00:00","author":{"@id":"httpswww.forensicmike1.com/#/schema/person/9452bbb839546322f3705877143ce492"},"breadcrumb":{"@id":"https://www.forensicmike1.com/2019/04/27/mpt-lgs-incognito-version-of-knowledgec/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://www.forensicmike1.com/2019/04/27/mpt-lgs-incognito-version-of-knowledgec/"]}]},{"@type":"BreadcrumbList","@id":"https://www.forensicmike1.com/2019/04/27/mpt-lgs-incognito-version-of-knowledgec/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"httpswww.forensicmike1.com/"},{"@type":"ListItem","position":2,"name":"MPT – LG’s incognito version of KnowledgeC"}]},{"@type":"Person","@id":"httpswww.forensicmike1.com/#/schema/person/9452bbb839546322f3705877143ce492","name":"Mike Williamson","image":{"@type":"ImageObject","inLanguage":"en-US","@id":"httpswww.forensicmike1.com/#/schema/person/image/","url":"http://2.gravatar.com/avatar/540f47dd0fb41a572604e4bf8594c723?s=96&d=mm&r=g","contentUrl":"http://2.gravatar.com/avatar/540f47dd0fb41a572604e4bf8594c723?s=96&d=mm&r=g","caption":"Mike Williamson"},"sameAs":["https://3.88.229.156","https://twitter.com/forensicmike1"],"url":"httpswww.forensicmike1.com/author/forensicmike/"}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="dns-prefetch" href="//s.w.org">
+<link rel="alternate" type="application/rss+xml" title="forensicmike1 &raquo; Feed" href="/feed/">
+<link rel="alternate" type="application/rss+xml" title="forensicmike1 &raquo; Comments Feed" href="/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="forensicmike1 &raquo; MPT &#8211; LG&#8217;s incognito version of KnowledgeC Comments Feed" href="/2019/04/27/mpt-lgs-incognito-version-of-knowledgec/feed/">
+		<!-- This site uses the Google Analytics by MonsterInsights plugin v8.9.1 - Using Analytics tracking - https://www.monsterinsights.com/ -->
+							<script src="//www.googletagmanager.com/gtag/js?id=UA-139204696-1" data-cfasync="false" data-wpfc-render="false" type="text/javascript" async></script>
+			<script data-cfasync="false" data-wpfc-render="false" type="text/javascript">
+				var mi_version = '8.9.1';
+				var mi_track_user = true;
+				var mi_no_track_reason = '';
+				
+								var disableStrs = [
+															'ga-disable-UA-139204696-1',
+									];
+
+				/* Function to detect opted out users */
+				function __gtagTrackerIsOptedOut() {
+					for (var index = 0; index < disableStrs.length; index++) {
+						if (document.cookie.indexOf(disableStrs[index] + '=true') > -1) {
+							return true;
+						}
+					}
+
+					return false;
+				}
+
+				/* Disable tracking if the opt-out cookie exists. */
+				if (__gtagTrackerIsOptedOut()) {
+					for (var index = 0; index < disableStrs.length; index++) {
+						window[disableStrs[index]] = true;
+					}
+				}
+
+				/* Opt-out function */
+				function __gtagTrackerOptout() {
+					for (var index = 0; index < disableStrs.length; index++) {
+						document.cookie = disableStrs[index] + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
+						window[disableStrs[index]] = true;
+					}
+				}
+
+				if ('undefined' === typeof gaOptout) {
+					function gaOptout() {
+						__gtagTrackerOptout();
+					}
+				}
+								window.dataLayer = window.dataLayer || [];
+
+				window.MonsterInsightsDualTracker = {
+					helpers: {},
+					trackers: {},
+				};
+				if (mi_track_user) {
+					function __gtagDataLayer() {
+						dataLayer.push(arguments);
+					}
+
+					function __gtagTracker(type, name, parameters) {
+						if (!parameters) {
+							parameters = {};
+						}
+
+						if (parameters.send_to) {
+							__gtagDataLayer.apply(null, arguments);
+							return;
+						}
+
+						if (type === 'event') {
+							
+														parameters.send_to = monsterinsights_frontend.ua;
+							__gtagDataLayer(type, name, parameters);
+													} else {
+							__gtagDataLayer.apply(null, arguments);
+						}
+					}
+
+					__gtagTracker('js', new Date());
+					__gtagTracker('set', {
+						'developer_id.dZGIzZG': true,
+											});
+															__gtagTracker('config', 'UA-139204696-1', {"forceSSL":"true","link_attribution":"true"} );
+										window.gtag = __gtagTracker;										(function () {
+						/* https://developers.google.com/analytics/devguides/collection/analyticsjs/ */
+						/* ga and __gaTracker compatibility shim. */
+						var noopfn = function () {
+							return null;
+						};
+						var newtracker = function () {
+							return new Tracker();
+						};
+						var Tracker = function () {
+							return null;
+						};
+						var p = Tracker.prototype;
+						p.get = noopfn;
+						p.set = noopfn;
+						p.send = function () {
+							var args = Array.prototype.slice.call(arguments);
+							args.unshift('send');
+							__gaTracker.apply(null, args);
+						};
+						var __gaTracker = function () {
+							var len = arguments.length;
+							if (len === 0) {
+								return;
+							}
+							var f = arguments[len - 1];
+							if (typeof f !== 'object' || f === null || typeof f.hitCallback !== 'function') {
+								if ('send' === arguments[0]) {
+									var hitConverted, hitObject = false, action;
+									if ('event' === arguments[1]) {
+										if ('undefined' !== typeof arguments[3]) {
+											hitObject = {
+												'eventAction': arguments[3],
+												'eventCategory': arguments[2],
+												'eventLabel': arguments[4],
+												'value': arguments[5] ? arguments[5] : 1,
+											}
+										}
+									}
+									if ('pageview' === arguments[1]) {
+										if ('undefined' !== typeof arguments[2]) {
+											hitObject = {
+												'eventAction': 'page_view',
+												'page_path': arguments[2],
+											}
+										}
+									}
+									if (typeof arguments[2] === 'object') {
+										hitObject = arguments[2];
+									}
+									if (typeof arguments[5] === 'object') {
+										Object.assign(hitObject, arguments[5]);
+									}
+									if ('undefined' !== typeof arguments[1].hitType) {
+										hitObject = arguments[1];
+										if ('pageview' === hitObject.hitType) {
+											hitObject.eventAction = 'page_view';
+										}
+									}
+									if (hitObject) {
+										action = 'timing' === arguments[1].hitType ? 'timing_complete' : hitObject.eventAction;
+										hitConverted = mapArgs(hitObject);
+										__gtagTracker('event', action, hitConverted);
+									}
+								}
+								return;
+							}
+
+							function mapArgs(args) {
+								var arg, hit = {};
+								var gaMap = {
+									'eventCategory': 'event_category',
+									'eventAction': 'event_action',
+									'eventLabel': 'event_label',
+									'eventValue': 'event_value',
+									'nonInteraction': 'non_interaction',
+									'timingCategory': 'event_category',
+									'timingVar': 'name',
+									'timingValue': 'value',
+									'timingLabel': 'event_label',
+									'page': 'page_path',
+									'location': 'page_location',
+									'title': 'page_title',
+								};
+								for (arg in args) {
+																		if (!(!args.hasOwnProperty(arg) || !gaMap.hasOwnProperty(arg))) {
+										hit[gaMap[arg]] = args[arg];
+									} else {
+										hit[arg] = args[arg];
+									}
+								}
+								return hit;
+							}
+
+							try {
+								f.hitCallback();
+							} catch (ex) {
+							}
+						};
+						__gaTracker.create = newtracker;
+						__gaTracker.getByName = newtracker;
+						__gaTracker.getAll = function () {
+							return [];
+						};
+						__gaTracker.remove = noopfn;
+						__gaTracker.loaded = true;
+						window['__gaTracker'] = __gaTracker;
+					})();
+									} else {
+										console.log("");
+					(function () {
+						function __gtagTracker() {
+							return null;
+						}
+
+						window['__gtagTracker'] = __gtagTracker;
+						window['gtag'] = __gtagTracker;
+					})();
+									}
+			</script>
+				<!-- / Google Analytics by MonsterInsights -->
+				<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.1.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.1.0\/svg\/","svgExt":".svg","source":{"concatemoji":"httpswww.forensicmike1.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.8.6"}};
+			!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode;p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0);e=i.toDataURL();return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(!p||!p.fillText)return!1;switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([10084,65039,8205,55357,56613],[10084,65039,8203,55357,56613])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(n=t.source||{}).concatemoji?c(n.concatemoji):n.wpemoji&&n.twemoji&&(c(n.twemoji),c(n.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}</style>
+	<link rel="stylesheet" id="sgr-css" href="/wp-content/plugins/simple-google-recaptcha/sgr.css?ver=1664546415" type="text/css" media="all">
+<link rel="stylesheet" id="wp-block-library-css" href="/wp-includes/css/dist/block-library/style.min.css?ver=5.8.6" type="text/css" media="all">
+<link rel="stylesheet" id="power_magazine-google-fonts-css" href="https://fonts.googleapis.com/css?family=Montserrat%3A100%2C100i%2C200%2C200i%2C300%2C300i%2C400%2C400i%2C500%2C500i%2C600%2C600i%2C700%2C700i%2C800%2C800i%2C900%2C900i&#038;subset=latin%2Clatin-ext" type="text/css" media="all">
+<link rel="stylesheet" id="fontawesome-css" href="/wp-content/themes/power-magazine/assets/css/font-awesome.min.css?ver=5.8.6" type="text/css" media="all">
+<link rel="stylesheet" id="meanmenu-css" href="/wp-content/themes/power-magazine/assets/css/meanmenu.css?ver=5.8.6" type="text/css" media="all">
+<link rel="stylesheet" id="magnific-popup-css-css" href="/wp-content/themes/power-magazine/assets/css/magnific-popup.css?ver=5.8.6" type="text/css" media="all">
+<link rel="stylesheet" id="slick-css" href="/wp-content/themes/power-magazine/assets/css/slick.css?ver=5.8.6" type="text/css" media="all">
+<link rel="stylesheet" id="slick-theme-css" href="/wp-content/themes/power-magazine/assets/css/slick-theme.css?ver=5.8.6" type="text/css" media="all">
+<link rel="stylesheet" id="power-magazine-style-css" href="/wp-content/themes/power-magazine/style.css?ver=5.8.6" type="text/css" media="all">
+<style id="power-magazine-style-inline-css" type="text/css">.site-title a, .site-description {
+			color: #000000;			
+		}img.custom-logo{
+		max-width: 100px;
+
+	}.site-header .search-toggle, 
+					.site-header .search-section form input[type=submit],
+					button, 
+					input[type="button"], 
+					input[type="reset"], input[type="submit"], 
+					a.button{
+						background-color: #ee3232;
+	}button, 
+	input[type="button"], 
+	input[type="reset"],
+	input[type="submit"], 
+	a.button{
+		border-color: #ee3232;
+	} button:hover, 
+	input[type="button"]:hover, 
+	input[type="reset"]:hover, 
+	input[type="submit"]:hover, 
+	a.button:hover,
+	.entry-meta > div, 
+	.entry-meta > div a,
+	.author-info-wrap .author-info a{
+		color: #ee3232;
+	}</style>
+<link rel="stylesheet" id="power-magazine-responsive-css" href="/wp-content/themes/power-magazine/assets/css/responsive.css?ver=5.8.6" type="text/css" media="all">
+<link rel="stylesheet" id="enlighterjs-css" href="/wp-content/plugins/enlighter/cache/enlighterjs.min.css?ver=tebjVoJSSILa+Co" type="text/css" media="all">
+<script type="text/javascript" id="sgr-js-extra">
+/* <![CDATA[ */
+var sgr = {"sgr_site_key":"6Lfmn8cUAAAAAEFkKYR0a70gA7BMfcVqABBSYyDX"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/plugins/simple-google-recaptcha/sgr.js?ver=1664546415" id="sgr-js"></script>
+<script type="text/javascript" src="/wp-content/plugins/google-analytics-for-wordpress/assets/js/frontend-gtag.js?ver=8.9.1" id="monsterinsights-frontend-script-js"></script>
+<script data-cfasync="false" data-wpfc-render="false" type="text/javascript" id="monsterinsights-frontend-script-js-extra">/* <![CDATA[ */
+var monsterinsights_frontend = {"js_events_tracking":"true","download_extensions":"doc,pdf,ppt,zip,xls,docx,pptx,xlsx","inbound_paths":"[{\"path\":\"\\\/go\\\/\",\"label\":\"affiliate\"},{\"path\":\"\\\/recommend\\\/\",\"label\":\"affiliate\"}]","home_url":"httpswww.forensicmike1.com","hash_tracking":"false","ua":"UA-139204696-1","v4_id":""};/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js?ver=3.6.0" id="jquery-core-js"></script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2" id="jquery-migrate-js"></script>
+<link rel="https://api.w.org/" href="/wp-json/">
+<link rel="alternate" type="application/json" href="/wp-json/wp/v2/posts/7">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 5.8.6">
+<link rel="shortlink" href="/?p=7">
+<link rel="alternate" type="application/json+oembed" href="/wp-json/oembed/1.0/embed?url=http%3A%2F%2F%2F2019%2F04%2F27%2Fmpt-lgs-incognito-version-of-knowledgec%2F">
+<link rel="alternate" type="text/xml+oembed" href="/wp-json/oembed/1.0/embed?url=http%3A%2F%2F%2F2019%2F04%2F27%2Fmpt-lgs-incognito-version-of-knowledgec%2F&#038;format=xml">
+<link rel="pingback" href="/xmlrpc.php">
+</head>
+
+<body class="post-template-default single single-post postid-7 single-format-standard right-sidebar full-layout boxed-layout">
+		    <div id="page" class="site">
+    	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+    	<header id="masthead" class="site-header"><!-- header starting from here --><div class="hgroup-wrap">
+<!-- hrgroup wrapper -->        <div class="site-header-middle">
+            <div class="container ">
+                <div class="row ">
+                    <div class="custom-col-5">
+								<section class="site-branding">
+	    	
+													<p class="site-title"><a href="/" rel="home">forensicmike1</a></p>
+											<p class="site-description">#DFIR | #RE | #OtherGeekThings =&gt; Views expressed are my own.</p>
+										</section><!-- .site-branding -->	
+		                    </div>
+                    <div class="custom-col-7">
+						                    </div>
+                </div>
+            </div>
+        </div>
+
+	
+        <div id="navbar" class="navbar">        	
+            <div class="container">
+                <nav id="site-navigation" class="navigation main-navigation">
+                                            <div class="home-icon">
+                            <a href="/" rel="home"> <i class="fa fa-home"> </i> </a>
+                        </div>
+                    					<div class="menu-main-container"><ul id="primary-menu" class="menu">
+<li id="menu-item-557" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-557"><a href="https://www.forensicmike1.com/">Home</a></li>
+<li id="menu-item-555" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-555"><a href="https://twitter.com/forensicmike1">Twitter</a></li>
+<li id="menu-item-556" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-556"><a href="https://github.com/forensicmike">Github</a></li>
+</ul></div>                </nav><!-- main-navigation ends here -->
+            </div>            
+            	            <div class="search-section">
+	                <a href="javascript:void(0)" class="search-toggle"><i class="fa fa-search" aria-hidden="true"></i></a>
+	                <form role="search" method="get" class="search-form" action="http://172.31.17.250/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s">
+				</label>
+				<input type="submit" class="search-submit" value="Search">
+			</form>	            </div>
+<!-- .search-section -->
+                    </div>
+<!-- navbar ends here -->
+	</div>
+<!-- hrgroup wrapper ends here --></header><!-- header ends here --><div id="content" class="site-content">
+<div class="container">
+	<div class="row">
+		<div id="primary" class="content-area">
+			<main id="main" class="site-main">
+
+				<article id="post-7" class="featured-post post-7 post type-post status-publish format-standard hentry category-mobile-forensics category-uncategorized tag-android tag-artifact-exchange tag-lg tag-magnet-forensics tag-mpt">
+        <div class="post-content">
+        <header class="entry-header">
+            <h4 class="entry-title">
+                MPT &#8211; LG&#8217;s incognito version of KnowledgeC            </h4>
+        </header>
+        <div class="entry-meta">
+            <div class="posted-on"><a href="/2019/04/27/mpt-lgs-incognito-version-of-knowledgec/" rel="bookmark"><time class="entry-date published" datetime="2019-04-27T20:38:49-07:00">April 27, 2019</time><time class="updated" datetime="2019-05-19T18:49:25-07:00">May 19, 2019</time></a></div>
+<div class="post-author"> by <span class="author vcard"><a class="url fn n" href="/author/forensicmike/">Mike Williamson</a></span>
+</div>           
+        </div>        
+        <div class="entry-content">
+            
+<p>My first post ought to be about a subject I spent years working on. Little did I know what I expected to be a straightforward forensic examination of a wiped LG phone would result in so much &#8212; becoming a pivotal piece of evidence that contradicted the suspect&#8217;s alibi, my first real foray into reverse engineering Android APKs, the subject of several presentations, and even getting published in a technical op-ed in the INTERPOL Digital Forensics e-Newsletter.</p>
+
+
+
+<p>In recent times, location tracking data from iOS has come to the forefront with the work of people like Sarah Edwards (<a href="http://www.twitter.com/iamevltwin">@iamevltwin</a>), Phill Moore (<a href="http://www.twitter.com/phillmoore">@phillmoore</a>) and Alexis Brignoni (<a href="http://www.twitter.com/alexisbrignoni">@alexisbrignoni</a>). Turns out, LG&#8217;s tracking us too &#8211; except they&#8217;re trying to be sneaky by obfuscating the data that&#8217;s tracked with numeric column and table names. In reality, I think it&#8217;s likely that <strong>all </strong>the mobile vendors are doing this &#8216;diagnostic&#8217; tracking and it&#8217;s just a matter of time (and forensic examinations) before that data gets uncovered.  LG does give an explicit warning that this is going to happen regardless, but most people decline to actually read this stuff. </p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter"><a href="http://3.88.229.156/wp-content/uploads/2019/04/LGScreen.png"><img loading="lazy" width="539" height="749" src="http://3.88.229.156/wp-content/uploads/2019/04/LGScreen.png" alt="" class="wp-image-50" srcset="/wp-content/uploads/2019/04/LGScreen.png 539w, /wp-content/uploads/2019/04/LGScreen-216x300.png 216w" sizes="(max-width: 539px) 100vw, 539px"></a></figure></div>
+
+
+
+<p>Like many other forensic examiners, I get so focused on completing each examination that it often feels insurmountable to then go on to share my findings with the community, or that the work I did for a file today may be useful in countless other files out there. But with enough years of doing this, and enough opportunities to network with other seasoned forensicators across the globe, it has become clear that we are often trapped in a perpetual state of unnecessary wheel re-invention.</p>
+
+
+
+<p>Enter the <a href="https://www.magnetforensics.com/artifact-exchange/">Magnet Artifact Exchange</a>, a ridiculously needed sharing piece in the digital forensics community, which I only came to know about in the last couple of months. Since learning about it, I&#8217;ve had a strong desire to start developing custom artifacts for it, and so today I officially submitted my first of them.</p>
+
+
+
+<p>So let&#8217;s get down to business. What is LG MPT? It&#8217;s a background service that is mostly invisible to the user that runs on LG-Android devices since atleast Android 4.4.2, and as recent as Android 8. It resides on it&#8217;s own partition (cleverly named &#8216;mpt&#8217;) and is enabled by default and difficult to disable. On the tiny island of a partition there&#8217;s a database or two, the biggest being &#8216;LDB_MainData.db&#8217;, with a LOT of tables with unhelpful names like &#8216;t301&#8217; and so on. As you can see from the screenshot below, the columns aren&#8217;t much better, each one starting with &#8216;f001&#8217;, &#8216;f002&#8217;, and so on.</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/04/mptTables.png"><img loading="lazy" width="1024" height="496" src="http://3.87.228.100/wp-content/uploads/2019/04/mptTables-1024x496.png" alt="" class="wp-image-8" srcset="/wp-content/uploads/2019/04/mptTables-1024x496.png 1024w, /wp-content/uploads/2019/04/mptTables-300x145.png 300w, /wp-content/uploads/2019/04/mptTables-768x372.png 768w, /wp-content/uploads/2019/04/mptTables.png 1053w" sizes="(max-width: 1024px) 100vw, 1024px"></a></figure>
+
+
+
+<p>If you start browsing the data you come across some extremely data-packed tables such as t312:</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/04/mptData-1.png"><img loading="lazy" width="745" height="523" src="http://3.88.229.156/wp-content/uploads/2019/04/mptData-1.png" alt="" class="wp-image-108" srcset="/wp-content/uploads/2019/04/mptData-1.png 745w, /wp-content/uploads/2019/04/mptData-1-300x211.png 300w" sizes="(max-width: 745px) 100vw, 745px"></a><figcaption><strong>14000 rows in t312 alone 🙂</strong></figcaption></figure>
+
+
+
+<p>So where do we go next? Sure, f002 looks like a timestamp. Sure, f006 and f007 looks like MCC/MNC, but are we willing to get up on the stand and point the finger based on what we THINK data might be? Of course, we need to flesh this out much further. One of the easiest things to do here is a trick Paul Sanderson (<a href="https://twitter.com/sandersonforens">@sandersonforens</a>) taught me and that is check for TRIGGERS in our database. Sure enough &#8211; descriptive words &#8211; hooray! </p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/04/tableDescriptions.png"><img loading="lazy" width="1024" height="376" src="http://3.87.228.100/wp-content/uploads/2019/04/tableDescriptions-1024x376.png" alt="" class="wp-image-10" srcset="/wp-content/uploads/2019/04/tableDescriptions-1024x376.png 1024w, /wp-content/uploads/2019/04/tableDescriptions-300x110.png 300w, /wp-content/uploads/2019/04/tableDescriptions-768x282.png 768w, /wp-content/uploads/2019/04/tableDescriptions.png 1096w" sizes="(max-width: 1024px) 100vw, 1024px"></a><figcaption><strong>Note &#8211; the &#8216;limit&#8217; in the wording here is describing the trigger, it&#8217;s not part of the table description</strong><br></figcaption></figure>
+
+
+
+<p>Keep in mind, the word &#8216;limit&#8217; on the end of each of these is describing the <strong>trigger</strong> whose purpose is to hard-cap the amount of rows in each table. But the former pertains to the table as well.  You can&#8217;t see t312 in the above list, but it&#8217;s <em>gsm_cell_info</em>.  Even with size limits, these are obviously data intensive logs. This trigger ensures that it automatically purges content once it hits a certain size. But let&#8217;s be honest, it still tracks A LOT. And does not get wiped when you wipe your phone. Makes you think twice about selling an old LG phone doesn&#8217;t it?</p>
+
+
+
+<p>To determine the purpose of each field, one must do some reverse engineering work. You can use the tool of your choice, and this post isn&#8217;t going to go so in depth as to explain the entire spectrum of APK decompilers, but I will say this from experience &#8212; don&#8217;t think that APKTOOL / learning SMALI (think of it as an Android equivalent of ASM) is the only way to do this. There are some incredible APK -&gt; Java tools out there that make it so much easier that I wish I had known about way back when.</p>
+
+
+
+<p>Instead, I am going to link my research paper which details the process I went through to discover the purpose of each table. Keep in mind, my research was for MPT as it existed back in Android 4.4.2. It&#8217;s changed since then &#8212; mostly in the sense of adding more tables. A LOT more tables in fact. But the premise is the same if you&#8217;re looking to prove what certain data is.</p>
+
+
+
+<p>One golden rule when dealing with MPT is that F001 is always ROWID, and F002 is always a Unix MS timestamp, no matter what. After that, things diverge for each table. Some of them are very self explanatory (like the ones that show the current Android version and fingerprint, etc) while others are as subtle as saying a single number which is representative of an enum that you can generally lookup on the Android Developer Documentation.</p>
+
+
+
+<p>Anyhow, here is the research paper, I hope you find it useful. The most helpful information is in the first few pages, after that I get into a table-by-table look at what each means. I&#8217;ve submitted one artifact for t312 (mappable cell tower data), to Magnet Artifact Exchange as of today, and I&#8217;ll be adding more as time permits.</p>
+
+
+
+<div class="wp-block-file">
+<a href="http://3.87.228.100/wp-content/uploads/2019/04/MLT_Paper.pdf">MLT Research Paper</a><a href="http://3.87.228.100/wp-content/uploads/2019/04/MLT_Paper.pdf" class="wp-block-file__button" download>Download</a>
+</div>
+
+
+
+<p>Finally, a sneak peek at the result &#8212; reviewing MPT logs directly in-app with <a href="https://www.magnetforensics.com/products/magnet-axiom/">Magnet AXIOM</a>. Coming to an app near you!</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/04/axiom.png"><img loading="lazy" width="1024" height="775" src="http://3.88.229.156/wp-content/uploads/2019/04/axiom-1024x775.png" alt="" class="wp-image-41" srcset="/wp-content/uploads/2019/04/axiom-1024x775.png 1024w, /wp-content/uploads/2019/04/axiom-300x227.png 300w, /wp-content/uploads/2019/04/axiom-768x581.png 768w, /wp-content/uploads/2019/04/axiom.png 1285w" sizes="(max-width: 1024px) 100vw, 1024px"></a></figure>
+                    </div>
+    </div>
+</article><!-- #post-7 -->
+
+
+	<nav class="navigation post-navigation" role="navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-next"><a href="/2019/04/28/aggregating-ios-powerlog-data-using-c-part-1/" rel="next">Aggregating iOS PowerLog data using C# &#8211; Part 1</a></div></div>
+	</nav>
+        <aside class="widget widget-post-author">
+            <figure class="avatar"><img alt="" src="http://2.gravatar.com/avatar/540f47dd0fb41a572604e4bf8594c723?s=96&#038;d=mm&#038;r=g" class="avatar avatar-96 photo" height="96" width="96" loading="lazy"></figure>
+            <div class="author-details">
+                <h3>Mike Williamson</h3>
+                <p></p>
+                <div class="author-info-wrap">
+                    <div class="author-info">
+                        VIEW ALL POSTS BY <span class="author vcard"><a class="url fn n" href="/author/forensicmike/">Mike Williamson</a></span>                    </div>
+                </div>
+            </div>
+        </aside> 
+    
+<div id="comments" class="comments-area">
+
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2019/04/27/mpt-lgs-incognito-version-of-knowledgec/#respond" style="display:none;">Cancel reply</a></small>
+</h3>
+<form action="http://172.31.17.250/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate>
+<p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span></p>
+<p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required="required"></textarea></p>
+<p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" required="required"></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" required="required"></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200"></p>
+<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"> <label for="wp-comment-cookies-consent">Save my name, email, and website in this browser for the next time I comment.</label></p>
+<div class="sgr-main"></div>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment"> <input type="hidden" name="comment_post_ID" value="7" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p>
+</form>	</div>
+<!-- #respond -->
+	
+</div>
+<!-- #comments -->
+<section class="related-post-section">
+      
+                    <div class="heading">
+                <header class="entry-header">
+                    <h3 class="entry-title">Releated</h3>
+                </header>
+            </div>
+                      
+        <div class="related-post-wrap">
+                            <article class="featured-post post hentry">
+                    
+			<figure class="post-thumbnail">
+				<img width="944" height="254" src="/wp-content/uploads/2020/05/banner.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" loading="lazy" srcset="/wp-content/uploads/2020/05/banner.png 944w, /wp-content/uploads/2020/05/banner-300x81.png 300w, /wp-content/uploads/2020/05/banner-768x207.png 768w" sizes="(max-width: 944px) 100vw, 944px">			</figure><!-- .post-thumbnail -->
+
+		                    <div class="post-content">
+                        <header class="entry-header">
+                            <h4 class="entry-title">
+                                <a href="/2020/05/01/analysis-of-the-abtracetogether-app-ios/">Analysis of the ABTraceTogether app (iOS)</a>
+                            </h4>
+                        </header>
+                        <div class="entry-content">
+                            <p>I decided to have a look at the ABTraceTogether contract tracing app released by the Alberta Government today (May 1 2020) and blog about my findings. There&#8217;s potential for conspiracy theories and disinformation to run rampant for an app like this, so I wanted to have a look for myself and see how it actually [&hellip;]</p>
+                        </div>
+                        <div class="entry-meta">
+                            <div class="posted-on"><a href="/2020/05/01/analysis-of-the-abtracetogether-app-ios/" rel="bookmark"><time class="entry-date published" datetime="2020-05-01T20:58:53-07:00">May 1, 2020</time><time class="updated" datetime="2020-05-04T12:43:39-07:00">May 4, 2020</time></a></div>
+<div class="post-author"> by <span class="author vcard"><a class="url fn n" href="/author/forensicmike/">Mike Williamson</a></span>
+</div>                                                    </div>
+                    </div>
+                </article>
+                            <article class="featured-post post hentry">
+                    
+			<figure class="post-thumbnail">
+				<img width="558" height="274" src="/wp-content/uploads/2020/01/image-8.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" loading="lazy" srcset="/wp-content/uploads/2020/01/image-8.png 558w, /wp-content/uploads/2020/01/image-8-300x147.png 300w" sizes="(max-width: 558px) 100vw, 558px">			</figure><!-- .post-thumbnail -->
+
+		                    <div class="post-content">
+                        <header class="entry-header">
+                            <h4 class="entry-title">
+                                <a href="/2020/01/03/spice-up-your-forensic-web-reports-with-ui-frameworks/">Spice up your forensic web reports with UI Frameworks</a>
+                            </h4>
+                        </header>
+                        <div class="entry-content">
+                            <p>I wanted to blog about a subject that&#8217;s come up in a number of converations recently- that is the idea of spicing up web reports spit out by scripts by making use of UI frameworks (which are generally free but may also have paid options if things get serious!). Like many examiners, I had some [&hellip;]</p>
+                        </div>
+                        <div class="entry-meta">
+                            <div class="posted-on"><a href="/2020/01/03/spice-up-your-forensic-web-reports-with-ui-frameworks/" rel="bookmark"><time class="entry-date published updated" datetime="2020-01-03T12:07:21-07:00">January 3, 2020</time></a></div>
+<div class="post-author"> by <span class="author vcard"><a class="url fn n" href="/author/forensicmike/">Mike Williamson</a></span>
+</div>                                                    </div>
+                    </div>
+                </article>
+                    </div>
+        
+      
+</section>
+			</main><!-- #main -->
+		</div>
+<!-- #primary -->
+		
+<aside id="secondary" class="widget-area">
+    <section id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="http://172.31.17.250/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s">
+				</label>
+				<input type="submit" class="search-submit" value="Search">
+			</form></section>
+		<section id="recent-posts-2" class="widget widget_recent_entries">
+		<h3 class="widget-title"><span>Recent Posts</span></h3>
+		<ul>
+											<li>
+					<a href="/2021/05/25/taking-a-look-at-ios-apps-on-an-m1-mac/">Taking a gander at iOS apps on an M1 Mac</a>
+									</li>
+											<li>
+					<a href="/2020/05/01/analysis-of-the-abtracetogether-app-ios/">Analysis of the ABTraceTogether app (iOS)</a>
+									</li>
+											<li>
+					<a href="/2020/02/29/examiner-coder-types-learningit-can-make-you-a-better-developer/">Examiner-coder-types: Learnin&#8217;git can make you a better developer</a>
+									</li>
+											<li>
+					<a href="/2020/01/03/spice-up-your-forensic-web-reports-with-ui-frameworks/">Spice up your forensic web reports with UI Frameworks</a>
+									</li>
+											<li>
+					<a href="/2019/10/07/knowledgec-now-playing-entries/">KnowledgeC: Now Playing entries</a>
+									</li>
+					</ul>
+
+		</section><section id="categories-3" class="widget widget_categories"><h3 class="widget-title"><span>Categories</span></h3>
+			<ul>
+					<li class="cat-item cat-item-33">
+<a href="/category/dfir/">DFIR</a>
+</li>
+	<li class="cat-item cat-item-27">
+<a href="/category/forensic-coding/">Forensic Coding</a>
+</li>
+	<li class="cat-item cat-item-35">
+<a href="/category/git-good/">Git Good</a>
+</li>
+	<li class="cat-item cat-item-28">
+<a href="/category/guest-blog/">Guest Blog</a>
+</li>
+	<li class="cat-item cat-item-25">
+<a href="/category/infosec/">InfoSec</a>
+</li>
+	<li class="cat-item cat-item-37">
+<a href="/category/mac/">Mac</a>
+</li>
+	<li class="cat-item cat-item-26">
+<a href="/category/mobile-forensics/">Mobile Forensics</a>
+</li>
+	<li class="cat-item cat-item-30">
+<a href="/category/reverse-engineering/">Reverse Engineering</a>
+</li>
+	<li class="cat-item cat-item-1">
+<a href="/category/uncategorized/">Uncategorized</a>
+</li>
+			</ul>
+
+			</section><section id="archives-2" class="widget widget_archive"><h3 class="widget-title"><span>Archives</span></h3>
+			<ul>
+					<li><a href="/2021/05/">May 2021</a></li>
+	<li><a href="/2020/05/">May 2020</a></li>
+	<li><a href="/2020/02/">February 2020</a></li>
+	<li><a href="/2020/01/">January 2020</a></li>
+	<li><a href="/2019/10/">October 2019</a></li>
+	<li><a href="/2019/06/">June 2019</a></li>
+	<li><a href="/2019/05/">May 2019</a></li>
+	<li><a href="/2019/04/">April 2019</a></li>
+			</ul>
+
+			</section><section id="custom_html-3" class="widget_text widget widget_custom_html"><h3 class="widget-title"><span>Contact</span></h3>
+<div class="textwidget custom-html-widget">Twitter: <a href="http://twitter.com/forensicmike1/">@forensicmike1</a><br>
+Discord: forensicmike#6426</div></section></aside><!-- #secondary -->	</div>
+</div>
+</div>
+<!-- #content --><footer id="colophon" class="site-footer"> <!-- footer starting from here --> 
+	        <div class="site-generator">
+            <div class="container">
+                <div class="row">
+                    <div class="custom-col-6">
+                        <div class="copy-right">
+											
+							Theme of <a target="_blank" rel="designer" href="https://theme404.com/">Theme404</a>&nbsp;
+							                        </div>
+                    </div>
+                    <div class="custom-col-6">
+                        <div class="footer-menu">
+							                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</footer><!-- #colophon -->            <!-- footer ends here -->
+            <div class="back-to-top">
+                <a href="#masthead" title="Go to Top" class="fa-angle-up"></a>
+            </div>
+            </div>
+<!-- #page -->
+<script type="text/javascript" src="/wp-content/themes/power-magazine/assets/js/isotope.min.js?ver=v3.0.6" id="isotope-js"></script>
+<script type="text/javascript" src="/wp-includes/js/imagesloaded.min.js?ver=4.1.4" id="imagesloaded-js"></script>
+<script type="text/javascript" src="/wp-content/themes/power-magazine/assets/js/slick.min.js?ver=1.9.0" id="slick-js"></script>
+<script type="text/javascript" src="/wp-content/themes/power-magazine/assets/js/jquery.meanmenu.js?ver=v2.0.8" id="jquery-meanenu-js-js"></script>
+<script type="text/javascript" src="/wp-content/themes/power-magazine/assets/js/ResizeSensor.js?ver=v2.0.8" id="ResizeSensor-js-js"></script>
+<script type="text/javascript" src="/wp-content/themes/power-magazine/assets/js/theia-sticky-sidebar.js?ver=v1.7.0" id="theia-sticky-sidebar-js-js"></script>
+<script type="text/javascript" src="/wp-content/themes/power-magazine/assets/js/jquery.magnific-popup.js?ver=v1.1.0" id="jquery.magnific-popup.js-js"></script>
+<script type="text/javascript" src="/wp-content/themes/power-magazine/assets/js/navigation.js?ver=20151215" id="power-magazine-navigation-js"></script>
+<script type="text/javascript" src="/wp-content/themes/power-magazine/assets/js/skip-link-focus-fix.js?ver=20151215" id="power-magazine-skip-link-focus-fix-js"></script>
+<script type="text/javascript" src="/wp-includes/js/comment-reply.min.js?ver=5.8.6" id="comment-reply-js"></script>
+<script type="text/javascript" src="/wp-content/themes/power-magazine/assets/js/custom.js?ver=1.0.0" id="power_magazine-custom-js"></script>
+<script type="text/javascript" src="/wp-content/plugins/enlighter/cache/enlighterjs.min.js?ver=tebjVoJSSILa+Co" id="enlighterjs-js"></script>
+<script type="text/javascript" id="enlighterjs-js-after">!function(e,n){if("undefined"!=typeof EnlighterJS){var o={"selectors":{"block":"pre.EnlighterJSRAW","inline":"code.EnlighterJSRAW"},"options":{"indent":2,"ampersandCleanup":true,"linehover":true,"rawcodeDbclick":false,"textOverflow":"break","linenumbers":false,"theme":"droide","language":"csharp","retainCssClasses":false,"collapse":false,"toolbarOuter":"","toolbarTop":"{BTN_RAW}{BTN_COPY}{BTN_WINDOW}{BTN_WEBSITE}","toolbarBottom":""}};(e.EnlighterJSINIT=function(){EnlighterJS.init(o.selectors.block,o.selectors.inline,o.options)})()}else{(n&&(n.error||n.log)||function(){})("Error: EnlighterJS resources not loaded yet!")}}(window,console);</script>
+<script type="text/javascript" src="/wp-includes/js/wp-embed.min.js?ver=5.8.6" id="wp-embed-js"></script>
+<script type="text/javascript" src="https://www.recaptcha.net/recaptcha/api.js?hl=en_US&#038;onload=sgr_2&#038;render=explicit&#038;ver=1666185631" id="sgr_recaptcha-js"></script>
+
+</body>
+</html>

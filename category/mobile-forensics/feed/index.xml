@@ -1,0 +1,1218 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Mobile Forensics Archives - forensicmike1</title>
+	<atom:link href="/category/mobile-forensics/feed/" rel="self" type="application/rss+xml" />
+	<link>https://forensicmike1.com/category/mobile-forensics/</link>
+	<description>#DFIR &#124; #RE &#124; #OtherGeekThings =&#62; Views expressed are my own.</description>
+	<lastBuildDate>Sun, 22 Aug 2021 14:40:21 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.8.6</generator>
+	<item>
+		<title>Analysis of the ABTraceTogether app (iOS)</title>
+		<link>/2020/05/01/analysis-of-the-abtracetogether-app-ios/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=analysis-of-the-abtracetogether-app-ios</link>
+					<comments>/2020/05/01/analysis-of-the-abtracetogether-app-ios/#comments</comments>
+		
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Sat, 02 May 2020 03:58:53 +0000</pubDate>
+				<category><![CDATA[DFIR]]></category>
+		<category><![CDATA[Mobile Forensics]]></category>
+		<category><![CDATA[Reverse Engineering]]></category>
+		<guid isPermaLink="false">https://3.88.229.156/?p=495</guid>
+
+					<description><![CDATA[<p>I decided to have a look at the ABTraceTogether contract tracing app released by the Alberta Government today (May 1 2020) and blog about my findings. There&#8217;s potential for conspiracy theories and disinformation to run rampant for an app like this, so I wanted to have a look for myself and see how it actually [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/2020/05/01/analysis-of-the-abtracetogether-app-ios/">Analysis of the ABTraceTogether app (iOS)</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>I decided to have a look at the ABTraceTogether contract tracing app released by the Alberta Government today (May 1 2020) and blog about my findings. </p>
+
+
+
+<p>There&#8217;s potential for conspiracy theories and disinformation to run rampant for an app like this, so I wanted to have a look for myself and see how it actually works.</p>
+
+
+
+<p>I was also curious to see if there might be any forensically valuable information found in the app&#8217;s databases and files.</p>
+
+
+
+<p>I&#8217;ll start with my general observations and provide a more detailed explanation afterwards.</p>
+
+
+
+<p class="has-text-color has-vivid-green-cyan-color">As I&#8217;ve added a couple of updates today (May 2) &#8211; any new info is marked in green.</p>
+
+
+
+<h3>Observations</h3>
+
+
+
+<p>The registration process does not prompt you for your name, email, or any other PII (personally identifiable information) except for one: you must register using valid phone number, which will be used to contact you in the event you come into contact with someone who contracted the virus.</p>
+
+
+
+<p>The app is built on <a rel="noreferrer noopener" aria-label="BlueTrace (opens in a new tab)" href="https://bluetrace.io/" target="_blank">BlueTrace</a>/<a rel="noreferrer noopener" aria-label="OpenTrace (opens in a new tab)" href="https://github.com/opentrace-community/opentrace-ios" target="_blank">OpenTrace</a>, which is open source and has published <a rel="noreferrer noopener" aria-label="a whitepaper (opens in a new tab)" href="https://bluetrace.io/static/bluetrace_whitepaper-938063656596c104632def383eb33b3c.pdf" target="_blank">a whitepaper</a> that explains its methodology in great detail. It was first used in the <a rel="noreferrer noopener" aria-label="TraceTogether (opens in a new tab)" href="https://www.tracetogether.gov.sg/" target="_blank">TraceTogether</a> app in Singapore beginning in March 2020. <br><br>Encounters between devices are only tracked locally and must be uploaded to AHS manually (and <em>voluntarily</em>) if they contact you and request you to do so. In my tests the app did not communicate with the server any more than necessary (such as to retrieve encrypted forward-dated Temp IDs).<br><br>Analysis of the tracing database did not net any information of significant forensic value. Encounters between devices are logged however the only information available is: 1) the other device&#8217;s make and model, 2) the host device&#8217;s make and model, 3) the time of the interaction, 4) indicators of how close the device came such as received signal strength indicator (RSSI). The remaining data is encrypted and not accessible without keys that AHS maintains.</p>
+
+
+
+<p>In the BlueTrace design, the server (and its security) is of utmost importance. While out of scope for this article, I think it is worth noting that given all encryption keys, IDs, tempIDs, and registered phone numbers are stored on the server, any sort of poorly configured or insecure endpoints could pose the largest risk (such as in the event of a data breach).</p>
+
+
+
+<p>Overall, the app appears to deliver on its privacy promises. I did not find much of potential forensic value in artifacts from the app&#8217;s sandbox.  The app&#8217;s biggest failing, I think, is the requirement (iOS only) to keep the phone <strong>unlocked with the screen active </strong>at all times. I just can&#8217;t see people doing  this &#8211; they will be on their phones, which will mean this app isn&#8217;t in  the foreground and thus not working. I do acknowledge this limitation is not the fault of the developer, but rather the restrictiveness of iOS. Hopefully future development, such as with the recently released Apple/Google <a rel="noreferrer noopener" aria-label="contact tracing API (opens in a new tab)" href="https://www.apple.com/covid19/contacttracing" target="_blank">contact tracing API</a>, the need for leaving the device unlocked can be eliminated.</p>
+
+
+
+<p class="has-text-color has-vivid-green-cyan-color"><strong>UPDATE 2020-05-02</strong>: As pointed out by user Chris Thompson (@yegct), another curiosity is that the OpenTrace project seems to be using a GPL license, which would be potentially problematic as this license dictates anything it ships with be licensed under GPL as well. I found <a rel="noreferrer noopener" aria-label="this github issue (opens in a new tab)" href="https://github.com/opentrace-community/opentrace-ios/issues/2" target="_blank">this github issue</a> on the repo also questioning the same.</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/05/image-4.png"><img loading="lazy" width="988" height="246" src="http://3.88.229.156/wp-content/uploads/2020/05/image-4.png" alt="" class="wp-image-538" srcset="/wp-content/uploads/2020/05/image-4.png 988w, /wp-content/uploads/2020/05/image-4-300x75.png 300w, /wp-content/uploads/2020/05/image-4-768x191.png 768w" sizes="(max-width: 988px) 100vw, 988px" /></a></figure>
+
+
+
+<h3>Static analysis</h3>
+
+
+
+<p>I obtained a copy of the app (version 1.0.0) on my test iPhone 6S running iOS 13.2.2. I used <a rel="noreferrer noopener" aria-label="frida  (opens in a new tab)" href="https://www.frida.re/" target="_blank">frida </a>to obtain a copy of the IPA with a decrypted app binary and then used Hopper (macOS) to examine it. </p>
+
+
+
+<p>It appears to be a small, straightforward app with not a lot of code to examine. It&#8217;s written in Swift which makes the static analysis a bit less intuitive.</p>
+
+
+
+<p>The app uses a library called <a rel="noreferrer noopener" aria-label="OpenTrace (opens in a new tab)" href="https://github.com/opentrace-community/opentrace-ios" target="_blank">OpenTrace</a> (which is an implementation of <a rel="noreferrer noopener" aria-label="BlueTrace (opens in a new tab)" href="https://bluetrace.io/" target="_blank">BlueTrace</a>). BlueTrace has published <a rel="noreferrer noopener" aria-label="a whitepaper (opens in a new tab)" href="https://bluetrace.io/static/bluetrace_whitepaper-938063656596c104632def383eb33b3c.pdf" target="_blank">a whitepaper</a> explaining the technical methodology and, I feel gives very solid explanations for why things are the way they are. </p>
+
+
+
+<p class="has-text-color has-vivid-green-cyan-color"><strong>UPDATE 2020-05-02</strong>: Just a minor clarification on the above paragraph &#8211; rather than consuming any pre-compiled library or framework, it appears that the OpenTrace code has been integrated directly with the ABTraceTogether codebase under the ABTraceTogether class. This does not mean there aren&#8217;t variations. However, I did test several strings from debug messages found in the OpenTrace code and located all of them unmodified in the ABTraceTogetherApp binary.</p>
+
+
+
+<p><strong><span style="text-decoration: underline;">Info.plist</span></strong></p>
+
+
+
+<p>The app&#8217;s Info.plist contains some interesting info, such as developer specified descriptions for permissions potentially requested.</p>
+
+
+
+<p><strong>NSBluetoothAlwaysUsageDescription &#8211; </strong>ABTraceTogether exchanges Bluetooth signals with nearby phones running the same app. These signals contain an anonymised ID, which is encrypted and changes continually to ensure your privacy. </p>
+
+
+
+<p><strong>NSCameraUsageDescription</strong> &#8211; Grant ABTraceTogether permissions to access your camera if you would like to upload a photo as part of a support request</p>
+
+
+
+<p><strong>NSPhotoLibraryUsageDescription</strong> &#8211; Grant ABTraceTogether permissions to access your photo library if you would like to upload a photo as part of a support request</p>
+
+
+
+<p>The plist also specifies that at a minimum, iOS 13 is required. This requirement was interesting to me because the app does not use the new Apple/Google API. It could limit the ability for people using older hardware that can&#8217;t run iOS 13 to access it. </p>
+
+
+
+<p>Overall, nothing super surprising here. The camera/photo gallery permissions didn&#8217;t come up in any of my tests.</p>
+
+
+
+<hr class="wp-block-separator"/>
+
+
+
+<p>Nothing else of note resulting from static analysis. Future research -&gt; to obtain a copy of the Android version and review it as well.</p>
+
+
+
+<h3>Forensic value of filesystem artifacts</h3>
+
+
+
+<p>The database tracer.sqlite, located in Library/Application Support/, and specifically the table ZENCOUNTER is where interactions between nearby devices are logged. </p>
+
+
+
+<p>To generate a test encounter, I installed the app on my own iPhone (in addition to my research phone), and with the app open, brought the devices fairly close together.</p>
+
+
+
+<p>This test showed up in table ZENCOUNTER as follows:</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/05/image-1.png"><img loading="lazy" width="1024" height="174" src="http://3.88.229.156/wp-content/uploads/2020/05/image-1-1024x174.png" alt="" class="wp-image-498" srcset="/wp-content/uploads/2020/05/image-1-1024x174.png 1024w, /wp-content/uploads/2020/05/image-1-300x51.png 300w, /wp-content/uploads/2020/05/image-1-768x130.png 768w, /wp-content/uploads/2020/05/image-1.png 1095w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<figure class="wp-block-table"><table><thead><tr><th class="has-text-align-center" data-align="center">Column</th><th>Description</th></tr></thead><tbody><tr><td class="has-text-align-center" data-align="center">ZV</td><td>The version of BlueTrace protocol the other device is using (currently 2)</td></tr><tr><td class="has-text-align-center" data-align="center">ZRSSI</td><td>The received signal strength indicator (RSSI) &#8211; can be used to assess how close the devices actually got. </td></tr><tr><td class="has-text-align-center" data-align="center">ZTIMESTAMP</td><td>When the encounter took place.</td></tr><tr><td class="has-text-align-center" data-align="center">ZTXPOWER</td><td>Transmission power? Always 0.0, 7.0 or NULL in my database so far. </td></tr><tr><td class="has-text-align-center" data-align="center">ZMODELC</td><td>A device make and model. Can be the other device or our device. C is believed to refer to &#8220;Central&#8221;. See <a rel="noreferrer noopener" aria-label="this link (opens in a new tab)" href="https://github.com/opentrace-community/opentrace-ios/blob/473b436a7287fffb9884f81ed00cbd738dbcbbcd/OpenTrace/Bluetrace/Structs/EncounterRecord.swift#L25" target="_blank">this link</a> for more on the OpenTrace github for Encounter Record.</td></tr><tr><td class="has-text-align-center" data-align="center">ZMODELP</td><td> A device make and model. Can be the other device or our device. C is believed to refer to &#8220;Peripheral&#8221;.  See <a rel="noreferrer noopener" aria-label="this link (opens in a new tab)" href="https://github.com/opentrace-community/opentrace-ios/blob/473b436a7287fffb9884f81ed00cbd738dbcbbcd/OpenTrace/Bluetrace/Structs/EncounterRecord.swift#L25" target="_blank">this link</a>  for more on the OpenTrace github for Encounter Record .</td></tr><tr><td class="has-text-align-center" data-align="center">ZMSG</td><td>An encrypted payload, base 64 encoded including IV/Auth Tag. (84 bytes)</td></tr><tr><td class="has-text-align-center" data-align="center">ZORG</td><td>The organization code indicating the country / health authority with which the peripheral is enrolled.</td></tr></tbody></table></figure>
+
+
+
+<p>The ZMSG structure is described in the whitepaper as follows:</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/05/image-2.png"><img loading="lazy" width="645" height="247" src="http://3.88.229.156/wp-content/uploads/2020/05/image-2.png" alt="" class="wp-image-499" srcset="/wp-content/uploads/2020/05/image-2.png 645w, /wp-content/uploads/2020/05/image-2-300x115.png 300w" sizes="(max-width: 645px) 100vw, 645px" /></a></figure>
+
+
+
+<p>(Note the typo of AED which should read AES).</p>
+
+
+
+<p>The forward-dated tempIDs were found in a file under Library\Caches\ca.ab.gov.ahs.contacttracing\fsCachedData\{GUID} . The contents of the file is shown here but redacted slightly to not show the full tokens:</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="http://3.88.229.156/wp-content/uploads/2020/05/image-3.png"><img loading="lazy" width="1024" height="640" src="http://3.88.229.156/wp-content/uploads/2020/05/image-3-1024x640.png" alt="" class="wp-image-500" srcset="/wp-content/uploads/2020/05/image-3-1024x640.png 1024w, /wp-content/uploads/2020/05/image-3-300x188.png 300w, /wp-content/uploads/2020/05/image-3-768x480.png 768w, /wp-content/uploads/2020/05/image-3.png 1140w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<h3>Future work</h3>
+
+
+
+<p>One remaining bit of work on iOS is to examine the iOS keychain &#8211; there&#8217;s a bunch of entries in there and I&#8217;m curious what they could be used for given temp ID token generation takes place serverside.</p>
+<p>The post <a rel="nofollow" href="/2020/05/01/analysis-of-the-abtracetogether-app-ios/">Analysis of the ABTraceTogether app (iOS)</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/2020/05/01/analysis-of-the-abtracetogether-app-ios/feed/</wfw:commentRss>
+			<slash:comments>6</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>KnowledgeC: Now Playing entries</title>
+		<link>/2019/10/07/knowledgec-now-playing-entries/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=knowledgec-now-playing-entries</link>
+					<comments>/2019/10/07/knowledgec-now-playing-entries/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Mon, 07 Oct 2019 18:57:12 +0000</pubDate>
+				<category><![CDATA[DFIR]]></category>
+		<category><![CDATA[Mobile Forensics]]></category>
+		<category><![CDATA[Uncategorized]]></category>
+		<category><![CDATA[apollo]]></category>
+		<category><![CDATA[iOS]]></category>
+		<category><![CDATA[KnowledgeC]]></category>
+		<guid isPermaLink="false">https://3.88.229.156/?p=375</guid>
+
+					<description><![CDATA[<p>I know it&#8217;s been ages since I&#8217;ve posted! I have been settling in with Magnet Forensics and have to say &#8211; it&#8217;s been an incredible experience so far. I continue to be amazed and inspired by the dedication and skill of the folks who work tirelessly to make Magnet AXIOM and countless other products the [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/2019/10/07/knowledgec-now-playing-entries/">KnowledgeC: Now Playing entries</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>I know it&#8217;s been ages since I&#8217;ve posted! I have been settling in with Magnet Forensics and have to say &#8211; it&#8217;s been an incredible experience so far. I continue to be amazed and inspired by the dedication and skill of the folks who work tirelessly to make <a rel="noreferrer noopener" aria-label="Magnet AXIOM (opens in a new tab)" href="https://www.magnetforensics.com/products/magnet-axiom/" target="_blank">Magnet AXIOM</a> and countless other products the absolute best they can be.</p>
+
+
+
+<p>I was recently helping out a customer with a question about an iPhone he was examining. He wanted to corroborate the device owner&#8217;s story &#8212; allegedly he had watched some videos on the device at a certain date and time.</p>
+
+
+
+<p>I suggested KnowledgeC &#8220;Now Playing&#8221; as a reference point and this led down a rabbit hole, namely:</p>
+
+
+
+<ul><li>Does clearing Safari history impact KnowledgeC.db?</li><li>Does private browsing affect input into KnowledgeC.db?</li></ul>
+
+
+
+<p>Answering these questions should be easy enough with the help of a jailbroken device (which I always keep near these days). I wanted to share my findings with the #DFIR community as there are some interesting things I observed along the way. Sarah Edwards herself noted in her blog series about KnowledgeC that there is more work to be done in terms of validating that the data is as it appears to be. I would say this work today follows down that path.</p>
+
+
+
+<p>One other thing to note. My jailbroken device is running iOS 11.4.1 and at the time of writing we are at iOS 13.1.2, so there could be a difference  between this and the latest/greatest iOS version. First things first, I went into Safari and visited the first video that popped up on YouTube (do not have the YouTube app installed so it played in browser).</p>
+
+
+
+<figure class="wp-block-image is-resized"><a href="https://cdn.shopify.com/s/files/1/2794/3840/articles/Screen_Shot_2018-05-11_at_10.48.03_AM_800x.png?v=1526061025"><img loading="lazy" src="https://cdn.shopify.com/s/files/1/2794/3840/articles/Screen_Shot_2018-05-11_at_10.48.03_AM_800x.png?v=1526061025" alt="Image result for blippi" width="278" height="278"/></a><figcaption>I had no idea what &#8216;Blippi&#8217; was until clicking the first random video that came up on YouTube.com as trending. Lesson learned.</figcaption></figure>
+
+
+
+<p>Next, using SFTP I collected KnowledgeC.db from /private/var/mobile/Library/CoreDuet/Knowledge, including shm and wal, and opened DB Browser for SQLite. Next I ran <a rel="noreferrer noopener" aria-label="Sarah Edward's Now Playing script (opens in a new tab)" href="https://github.com/mac4n6/APOLLO/blob/master/modules/knowledge_audio_media_nowplaying.txt" target="_blank">Sarah Edwards&#8217; Now Playing script</a> (APOLLO) and here is what I observed:</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/10/image.png"><img loading="lazy" width="1024" height="97" src="http://3.88.229.156/wp-content/uploads/2019/10/image-1024x97.png" alt="" class="wp-image-377" srcset="/wp-content/uploads/2019/10/image-1024x97.png 1024w, /wp-content/uploads/2019/10/image-300x28.png 300w, /wp-content/uploads/2019/10/image-768x72.png 768w, /wp-content/uploads/2019/10/image.png 2003w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<p>So far so good. I&#8217;d concur with the data here that I made it through an ad and about 3 seconds of the Blippi video before feeling immense regret end hitting the home button to stop that madness.. By the way, <em>Oct Edge Pre Roll</em> is an Ad, which at some point I skipped&#8230; but I&#8217;d say 15 seconds is conceivable for how long that all took.</p>
+
+
+
+<p>Next, I went back to my JB device and cleared all history through Settings &gt; Safari. I then pulled KnowledgeC and ran the query again. Nothing changed- it was exactly the same as before.</p>
+
+
+
+<p>Now things start to take a turn for the weird- I went to another video on Youtube within Safari and once again pulled my KnowledgeC db out:</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/10/image-1.png"><img loading="lazy" width="1024" height="116" src="http://3.88.229.156/wp-content/uploads/2019/10/image-1-1024x116.png" alt="" class="wp-image-378" srcset="/wp-content/uploads/2019/10/image-1-1024x116.png 1024w, /wp-content/uploads/2019/10/image-1-300x34.png 300w, /wp-content/uploads/2019/10/image-1-768x87.png 768w, /wp-content/uploads/2019/10/image-1.png 2019w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<figure class="wp-block-image is-resized"><img loading="lazy" src="https://cdn.drawception.com/images/panels/2018/1-5/Z5hGZATTmp-14.png" alt="Image result for hmmm emote" width="135" height="113"/></figure>
+
+
+
+<p>So&#8230;..the new video is missing altogether, but even more strangely there is an <strong>additional </strong>entry of Blippi (note the entry creation is about 5 minutes after the fact) stating a &#8216;Usage in Seconds&#8217; of <span style="text-decoration: underline;">319</span>.  (Note that the Usage in Seconds column is actually a computation of ZENDDATE &#8211; ZSTARTDATE that Sarah has provided for us.)</p>
+
+
+
+<p>A few things we might surmise from this:</p>
+
+
+
+<ul><li>Even with Safari suspended and history cleared, if I were to lock my screen I suspect it would show my &#8220;Now Playing&#8221; of the Blippi video. It wasn&#8217;t until I went to a different video that it got changed.<br></li><li>KnowledgeC writes are not guaranteed to be immediate and definitely do not on their own reflect active viewing time.</li></ul>
+
+
+
+<p>I then watched the same video again and once again pulled my KnowledgeC. This time, I got the new entry as expected:</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/10/image-2.png"><img loading="lazy" width="1024" height="156" src="http://3.88.229.156/wp-content/uploads/2019/10/image-2-1024x156.png" alt="" class="wp-image-379" srcset="/wp-content/uploads/2019/10/image-2-1024x156.png 1024w, /wp-content/uploads/2019/10/image-2-300x46.png 300w, /wp-content/uploads/2019/10/image-2-768x117.png 768w, /wp-content/uploads/2019/10/image-2.png 2016w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<p>To answer the other question, as to whether or not private browsing makes a difference with respect to KnowledgeC Now Playing records. I then visited more YouTube videos in &#8216;Private Mode&#8217; on Safari:</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/10/image-3.png"><img loading="lazy" width="1024" height="200" src="http://3.88.229.156/wp-content/uploads/2019/10/image-3-1024x200.png" alt="" class="wp-image-380" srcset="/wp-content/uploads/2019/10/image-3-1024x200.png 1024w, /wp-content/uploads/2019/10/image-3-300x59.png 300w, /wp-content/uploads/2019/10/image-3-768x150.png 768w, /wp-content/uploads/2019/10/image-3.png 2027w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<p>They showed up just the same.</p>
+
+
+
+<p>One last note. After all of this I did a KnowledgeC-wide query to see what kind of imprint I left beyond the Now Playing results:</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/10/image-4.png"><img loading="lazy" width="815" height="912" src="http://3.88.229.156/wp-content/uploads/2019/10/image-4.png" alt="" class="wp-image-381" srcset="/wp-content/uploads/2019/10/image-4.png 815w, /wp-content/uploads/2019/10/image-4-268x300.png 268w, /wp-content/uploads/2019/10/image-4-768x859.png 768w" sizes="(max-width: 815px) 100vw, 815px" /></a></figure>
+
+
+
+<p>And there you have it. I think with /app/inFocus rows it is a much clearer picture of the fact that I did not in fact spend a lot of time watching any one video. The moral of the story here is that KnowledgeC data is indeed amazing, but not without its nuances. You must build your story based on the totality of ALL relevant KnowledgeC records, and avoid dwelling solely on the information derived from a single log type or row.</p>
+<p>The post <a rel="nofollow" href="/2019/10/07/knowledgec-now-playing-entries/">KnowledgeC: Now Playing entries</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/2019/10/07/knowledgec-now-playing-entries/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Photo Vault app still pwnable in 2021? An adventure in iOS RE</title>
+		<link>/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=ios-photo-vault-app-still-pwnable-in-2019</link>
+					<comments>/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/#comments</comments>
+		
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Wed, 26 Jun 2019 19:40:46 +0000</pubDate>
+				<category><![CDATA[InfoSec]]></category>
+		<category><![CDATA[Mobile Forensics]]></category>
+		<category><![CDATA[Reverse Engineering]]></category>
+		<category><![CDATA[FRIDA]]></category>
+		<category><![CDATA[iOS]]></category>
+		<guid isPermaLink="false">https://3.88.229.156/?p=288</guid>
+
+					<description><![CDATA[<p>Update 2021/08/22: Thanks to a tip from a reader, it was brought to my attention that PPV iOS made some pretty big changes in a recent update (early August 2021 &#8211; version 11.9). In reading the release notes, as well as doing some of my own tests, I&#8217;ve discovered some stuff and wanted to touch [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/">Photo Vault app still pwnable in 2021? An adventure in iOS RE</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p><strong>Update 2021/08/22</strong>: Thanks to a tip from a reader, it was brought to my attention that PPV iOS made some pretty big changes in a recent update (early August 2021 &#8211; version 11.9). In reading the release notes, as well as doing some of my own tests, I&#8217;ve discovered some stuff and wanted to touch on their impact. </p>
+
+
+
+<p><span style="text-decoration: underline;">Summary</span></p>
+
+
+
+<ul><li>Happy to say that across the board, almost all the changes <strong>improve</strong> security for PPV users. The only source of apprehension for me is the cloud based backup which I will discuss in more detail later in the post.</li><li>Bruteforcing the PIN is still possible although the time it takes to do so has increased, due to a larger keyspace.</li><li>With some effort put into reversing, it is still possible to decrypt the media, especially if you know the PIN or have access to the decrypted keychain.</li><li>For users who were using PPV before this version, my suspicion is that the app will continue to use the old way, in order to avoid re-encrypting all media. So don&#8217;t assume if you have data from 11.9 that it will be subject to the new approach.</li></ul>
+
+
+
+<p><span style="text-decoration: underline;">Database location has changed, and is now encrypted.</span></p>
+
+
+
+<ul><li>The database can be found a directory up from its previous location, with the extension &#8216;.ecd&#8217; (short for Encrypted Core Data). Despite this, it is fully compatible with SQLCipher viewing tools like DB Browser for SQLCipher.</li><li>This is a solid security upgrade to PPV as previously one could glean a lot of information about what the encrypted media might be by simply looking at the database (and observing things like album titles).</li></ul>
+
+
+
+<p><span style="text-decoration: underline;">Media items are now protected using a unique key per item.</span></p>
+
+
+
+<ul><li>Formerly, once you had derived the &#8216;media key&#8217;, you were good to go for decrypting all data if you knew the structure of the cryptographic media container.</li><li>From a security perspective, this doesn&#8217;t change things a whole lot because of the fact that you still only need 1 key (the SQLCipher key) to get to the database. It does add extra steps though, and falls more in line with what some of the larger apps are doing (e.g. Snapchat).</li></ul>
+
+
+
+<p><span style="text-decoration: underline;">Numeric passcodes can now be *up to* 8 digits long.</span></p>
+
+
+
+<ul><li>This is a long overdue increase of security for the app. 4 digit numeric keyspaces, even ones with a reasonably strong KDF backing them, are pretty much always going to be susceptible to bruteforce.</li><li>The &#8216;up to&#8217; is significant as well. Instead of having a known length (4 digit) PIN (keyspace of 10^4), we now have any length from 4-8, e.g. (10^4+10^5+10^6+10^7+10^8)</li><li>Still, having any cap on the length at all seems unnecessary. Also having an option for custom alphanumeric would be nice to see.</li></ul>
+
+
+
+<p><span style="text-decoration: underline;">There is now a &#8216;cloud backup&#8217; option available (for a fee).</span> </p>
+
+
+
+<ul><li><strong>Full disclosure</strong>: I have not investigated this feature as of yet. These opinions are based on generalized concepts that would apply to <strong>any</strong> vault app with such a feature.</li><li>I will say that non-CloudKit (iCloud) based storage for an app like this, for me, is on its own reason enough to exercise extreme caution. This is not a reflection on PPV itself (I have no knowledge of the developer), but I have seen enough abhorrent things with other vault apps with this type of offering to default to alarm bells.</li><li>The patch notes clearly state that the separate &#8216;cloud password&#8217; is never backed up to their server, but even without the password I would have a lot of questions about how strong of a KDF is being used on the password, what are the minimum password strength requirements, etc. Imagine a scenario where their backup server gets breached, and the only thing standing between the attacker and your most sensitive media is 10,000 rounds of PBKDF2-SHA1.</li><li>Beyond outsider threats, what guarantees do we have that people affiliated with PPV aren&#8217;t going to attempt to bruteforce our data? How big is this company, how many people work there, how many of those people have access to this server and what access controls and auditing is in place to monitor that access?</li><li>The fact that a paid subscription is required means that PPV will indirectly have access to a lot more PII of their users than they otherwise would, which could be used to associate media to a specific identity.</li><li>Does PPV have the resources to respond to legal orders, such as warrants or preservation orders? It is only a matter of time before CSAM gets uploaded to their server.</li></ul>
+
+
+
+<hr class="wp-block-separator"/>
+
+
+
+<p><strong>Update 2020/01/29</strong>: I have since done a bit more work with this app and have found a way to bruteforce the PIN without keychain access. I also created a Python based decryptor script (instead of the C# one attached to this post). Rather than make them publicly available, please contact me and I will be happy to share the scripts with you. You can do so on the DFIR Discord or Twitter <a href="https://twitter.com/forensicmike1">@forensicmike1</a>.</p>
+
+
+
+<hr class="wp-block-separator"/>
+
+
+
+<p><strong>Original post</strong>: It&#8217;s been a while since I posted anything, and I suppose that&#8217;s a natural part of having a blog. I decided not to force myself to procure content and instead wait until I had something I really wanted to write about. And so here we are! In this article I&#8217;m going to talk about a process brand new to me until a few days ago. This has been an absolute blast to learn about, although I will admit it was frustrating at times.</p>
+
+
+
+<p>This article focuses more on the outcome of my research, without dwelling too much on exactly how I got there. I am however planning a follow-up post with a whole pile of lessons learned as I think there are a lot of gotchas and overall frustrations that could very possibly be skipped.</p>
+
+
+
+<h3><strong>Why target this app specifically?</strong></h3>
+
+
+
+<p>com.enchantedcloud.photovault or &#8220;<a href="https://3.88.229.156/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/" target="_blank" rel="noreferrer noopener" aria-label="Private Photo Vault (opens in a new tab)">Private Photo Vault</a>&#8221; (hereafter PPV) has been the subject of security research before. In November 2015, <a rel="noreferrer noopener" aria-label="a security assessment (opens in a new tab)" href="https://ioactive.com/breaking-into-and-reverse-engineering/" target="_blank">a detailed breakdown</a> was published by Michael Allen at IOActive and he found that the app didn&#8217;t actually encrypt anything! It&#8217;s security amounted to blocking users from seeing any media inside until the passcode had been entered and this was extremely easy to defeat. I figured revisiting this same app in 2019 could be fun/interesting just to see how far it has or hasn&#8217;t come since then. </p>
+
+
+
+<h3>Key Takeaways</h3>
+
+
+
+<p>Whether you consider this app secure or not depends on what kind of access you&#8217;ve got to various extraction methods. For examiners with filesystem type extractions (GrayKey / Cellebrite CAS / jailbroken devices), the security of PPV <strong>is trivial to defeat</strong> and I will demonstrate how below.  For examiners obtaining logical type extractions (iTunes backup, UFED 4PC, Magnet ACQUIRE, etc.) decryption will be more challenging and further reversing work will be required. I do believe it is possible though.</p>
+
+
+
+<p>PPV uses RNCryptor, an encryption library with implementations available in ObjectiveC, C#, JS etc. RNCryptor is <a rel="noreferrer noopener" aria-label="open source (opens in a new tab)" href="https://github.com/RNCryptor/RNCryptor-objc" target="_blank">open source</a> and we can absolutely use that to our advantage. One thing RNCryptor doesn&#8217;t manage is key storage, and the developer of PPV has apparently decided to rely on the security of the iOS Keychain to store, well, everything we need to perform decryption.</p>
+
+
+
+<p>The master key is stored in the keychain under &#8220;ppv_DateHash&#8221;. The plaintext PIN, which is a maximum 4 digits, is also stored in the keychain as &#8220;ppv_uuidHash1&#8221;. </p>
+
+
+
+<p>Each encrypted media file (found with its original in the app&#8217;s sandbox at /Library/PPV_Pics/) is essentially a container. The first two bytes can be safely ignored, the next 16 bytes are the IV (Initialization Vector), and the remaining bytes are the cipher text with the exception of the last 32 bytes which are related to HMAC and can safely be ignored.</p>
+
+
+
+<p>Once generated, the master encryption key never changes even if you change your PIN. This might seem like a poor design choice, but it&#8217;s actually how your iPhone works too and it can be quite secure as long as the master key is well protected. Secure Enclave makes sure that this key never sees the light of day but this is not true for keychain data. </p>
+
+
+
+<h3>Basic Outline of the Process / Tools Used</h3>
+
+
+
+<ul><li>Locate and jailbreak test iOS device (I used <a rel="noreferrer noopener" href="https://coolstar.org/electra/" target="_blank">Electra root</a> for my test device, an iPhone 6S running iOS 11.2.1).<br></li><li>Installed PPV (target app) by sideloading with <a rel="noreferrer noopener" aria-label="Cydia Impactor (opens in a new tab)" href="http://www.cydiaimpactor.com/" target="_blank">Cydia Impactor</a> (app store works too).<br></li><li>Setup access over USB with <a rel="noreferrer noopener" href="https://github.com/DomT4/iTunnel" target="_blank">ITNL (iTunnel)</a>  and obtained root access to device via SSH. <br></li></ul>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/06/itunnel_ssh.jpg"><img loading="lazy" width="1024" height="442" src="http://3.88.229.156/wp-content/uploads/2019/06/itunnel_ssh-1024x442.jpg" alt="" class="wp-image-320" srcset="/wp-content/uploads/2019/06/itunnel_ssh-1024x442.jpg 1024w, /wp-content/uploads/2019/06/itunnel_ssh-300x130.jpg 300w, /wp-content/uploads/2019/06/itunnel_ssh-768x332.jpg 768w, /wp-content/uploads/2019/06/itunnel_ssh.jpg 1060w" sizes="(max-width: 1024px) 100vw, 1024px" /></a><figcaption>SSH tunnel over USB thanks to itnl.</figcaption></figure>
+
+
+
+<ul><li>Installed and verified operation of <a rel="noreferrer noopener" href="https://frida.re/" target="_blank">frida-server</a> on the device &#8211; I did this using Sileo but should be doable via Cydia as well.<br></li><li>Used <a rel="noreferrer noopener" href="https://github.com/AloneMonkey/frida-ios-dump/tree/3.x" target="_blank">frida-ios-dump</a> by AloneMonkey to obtain decrypted binary of the target app (recommend Python 3.7) <br></li><li>Conducted static analysis of decrypted binary using <a rel="noreferrer noopener" href="https://www.hopperapp.com/" target="_blank">Hopper</a> . I had great success with searching for a value from the plist I believed to be  associated to crypto. This app is not free but the trial is fully functional for 15 minutes &#8211; make sure you hurry! <img src="https://s.w.org/images/core/emoji/13.1.0/72x72/1f642.png" alt="🙂" class="wp-smiley" style="height: 1em; max-height: 1em;" /><br></li></ul>
+
+
+
+<figure class="wp-block-image"><img loading="lazy" width="1024" height="555" src="http://3.88.229.156/wp-content/uploads/2019/06/hopperStatic-1024x555.jpg" alt="" class="wp-image-322" srcset="/wp-content/uploads/2019/06/hopperStatic-1024x555.jpg 1024w, /wp-content/uploads/2019/06/hopperStatic-300x163.jpg 300w, /wp-content/uploads/2019/06/hopperStatic-768x416.jpg 768w, /wp-content/uploads/2019/06/hopperStatic.jpg 1297w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption>Static analysis using Hopper &#8211; this class looks like it might be of use!</figcaption></figure>
+
+
+
+<ul><li>With my newly discovered knowledge I fired up Frida with this little gem:  <a rel="noreferrer noopener" href="https://codeshare.frida.re/@mrmacete/objc-method-observer/" target="_blank">ObjC Method Observer</a>, an awesome codeshare script by mrmacete (<a rel="noreferrer noopener" href="https://twitter.com/bezjaje" target="_blank">@bezjaje</a>) to snoop on iOS method invocations of a specific class on a live device. (I targetted LSLCrypt and RNCryptor classes on PPV)</li></ul>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/06/fridaObserver.png" target="_blank" rel="noreferrer noopener"><img loading="lazy" width="1024" height="296" src="http://3.88.229.156/wp-content/uploads/2019/06/fridaObserver-1024x296.png" alt="" class="wp-image-323" srcset="/wp-content/uploads/2019/06/fridaObserver-1024x296.png 1024w, /wp-content/uploads/2019/06/fridaObserver-300x87.png 300w, /wp-content/uploads/2019/06/fridaObserver-768x222.png 768w, /wp-content/uploads/2019/06/fridaObserver.png 1171w" sizes="(max-width: 1024px) 100vw, 1024px" /></a><figcaption>Note the test passcode of 1234 at the end of the giant SHA256 string.</figcaption></figure>
+
+
+
+<ul><li>Switched back and forth between Hopper and Frida console until I established a good idea of what was going on. The biggest breakthrough here was that the encryption key doesn&#8217;t change when you change the passcode, and that it is stored in keychain.plist</li></ul>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/06/pinchange_keysame.jpg"><img loading="lazy" width="1024" height="576" src="http://3.88.229.156/wp-content/uploads/2019/06/pinchange_keysame-1024x576.jpg" alt="" class="wp-image-318" srcset="/wp-content/uploads/2019/06/pinchange_keysame-1024x576.jpg 1024w, /wp-content/uploads/2019/06/pinchange_keysame-300x169.jpg 300w, /wp-content/uploads/2019/06/pinchange_keysame-768x432.jpg 768w, /wp-content/uploads/2019/06/pinchange_keysame.jpg 1273w" sizes="(max-width: 1024px) 100vw, 1024px" /></a><figcaption>PIN change does not affect our encryption key, which conveniently gets stored in this device&#8217;s keychain.plist</figcaption></figure>
+
+
+
+<ul><li>Studied the <a rel="noreferrer noopener" aria-label="RNCryptor-objc github repo (opens in a new tab)" href="https://github.com/RNCryptor/RNCryptor-objc" target="_blank">RNCryptor-objc github repo</a> to develop an understanding of how this AES wrapper works.<br></li><li>Develop PoC in C# using the amazing <a rel="noreferrer noopener" aria-label="LINQpad (opens in a new tab)" href="https://linqpad.net/" target="_blank">LINQpad</a> to decrypt media in PPV_Photos given the keychain.plist</li></ul>
+
+
+
+<h3>Decryption PoC</h3>
+
+
+
+<p>This script is C# and was written in/for <a rel="noreferrer noopener" aria-label="Linqpad (opens in a new tab)" href="https://linqpad.net/" target="_blank">Linqpad</a>, but could be adapted to a Visual Studio project very easily. It uses only native libraries. You will need to plugin your AES Key as base64 in the &#8220;USER CONFIGURATION REQUIRED&#8221; section <img src="https://s.w.org/images/core/emoji/13.1.0/72x72/1f600.png" alt="😀" class="wp-smiley" style="height: 1em; max-height: 1em;" /> ! I call this a PoC because it does zero error checking and may or may not work for you without tweaking.</p>
+
+
+
+<p>I might throw together a GUI app to do this more easily if people would use it. DM me on Twitter or Discord and let me know if that sounds interesting/useful.</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="csharp" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">void Main()
+{
+	// USER CONFIGURATION REQUIRED --------------------------------->
+	
+		// The input directory should point to the PPV sandbox where all the encrypted media resides
+		var pathToEncryptedFiles = @"c:\ppvtest\335CE0B0-..-B521433DD5D2\Library\PPV_Pics";
+		
+		// Where to spit out the decrypted media
+		var decryptFilesTo = @"c:\ppvtest\out\";
+	
+		// from keychain.plist -- genp with key "ppv_dateHash"
+		var aesKeyb64 = "mUAf0A6QF+DOoo...7tbZuqw2ImuRAkql0mY0zM=";
+
+	// END USER CONFIGURATION REQUIRED !!!
+	
+	Directory.CreateDirectory(decryptFilesTo);
+
+	
+	// Convert to byte[] from base64 string
+	var aesKey = Convert.FromBase64String(aesKeyb64);
+	
+	// Iterate encrypted files in the PPV_Pics folder.
+	foreach (var item in Directory.GetFiles(pathToEncryptedFiles))
+	{
+		var inputData = File.ReadAllBytes(item);
+		// The IV is located at offset 0x2 and is 16 bytes long.
+		var iv = inputData.Skip(2).Take(16).ToArray();
+		
+		// Our header is 18 bytes (0x0 for version, 0x1 for options, and 0x2 for 16 bytes IV)
+		var headerLength = 18;
+		
+		// The cipher text is the rest, minus 32 which is used for HMAC stuff.
+		var cipherText = inputData.Skip(headerLength).Take(inputData.Length - headerLength - 32).ToArray();
+		
+		File.WriteAllBytes(decryptFilesTo + new FileInfo(item).Name, decryptAesCbcPkcs7(cipherText, aesKey, iv));
+	}
+}
+
+// Borrowed from Rob Napier's RNCryptor-cs
+// https://github.com/RNCryptor/RNCryptor-cs
+private byte[] decryptAesCbcPkcs7(byte[] encrypted, byte[] key, byte[] iv)
+{
+	var aes = Aes.Create();
+	aes.Mode = CipherMode.CBC;
+	aes.Padding = PaddingMode.PKCS7;
+	var decryptor = aes.CreateDecryptor(key, iv);
+
+
+	byte[] plainBytes;
+	using (MemoryStream msDecrypt = new MemoryStream())
+	{
+		using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Write))
+		{
+			csDecrypt.Write(encrypted, 0, encrypted.Length);
+			csDecrypt.FlushFinalBlock();
+			plainBytes = msDecrypt.ToArray();
+		}
+	}
+
+	return plainBytes;
+}</pre>
+
+
+
+<h3>Acknowledgements</h3>
+
+
+
+<p>I&#8217;d like to thank the following people for their assistance on this research project:</p>
+
+
+
+<ul><li>Braden Thomas (<a rel="noreferrer noopener" aria-label="@drspringfield (opens in a new tab)" href="https://twitter.com/drspringfield" target="_blank">@drspringfield</a>) at Grayshift for his always spot-on advice and extensive depth of knowledge on all things iOS. </li><li>Ivan Rodriguez (<a rel="noreferrer noopener" aria-label="@ivRodriguezCA (opens in a new tab)" href="https://twitter.com/ivrodriguezca" target="_blank">@ivRodriguezCA</a>) for <a rel="noreferrer noopener" aria-label="his excellent blog (opens in a new tab)" href="https://ivrodriguez.com/reverse-engineer-ios-apps-ios-11-edition-part2/" target="_blank">his excellent blog</a> and great advice. </li><li>@karate on DFIR Discord (Magnus RC3 Sweden) (<a href="https://twitter.com/may_pol17" target="_blank" rel="noreferrer noopener" aria-label="@may_pol17 (opens in a new tab)">@may_pol17</a>) for his excellent guidance and urging to get Frida working.</li><li>Or Begam (<a rel="noreferrer noopener" aria-label="@shloophen (opens in a new tab)" href="https://twitter.com/shloophen" target="_blank">@shloophen</a>) from Cellebrite for reviewing my decryption PoC and spotting that final bug, connecting me with Ivan Rodriguez and generally being awesome.</li></ul>
+<p>The post <a rel="nofollow" href="/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/">Photo Vault app still pwnable in 2021? An adventure in iOS RE</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/2019/06/26/ios-photo-vault-app-still-pwnable-in-2019/feed/</wfw:commentRss>
+			<slash:comments>14</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Obtain a logical dump of Signal data on Android with signal-back</title>
+		<link>/2019/05/15/obtain-logical-signal-android/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=obtain-logical-signal-android</link>
+					<comments>/2019/05/15/obtain-logical-signal-android/#comments</comments>
+		
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Wed, 15 May 2019 20:11:38 +0000</pubDate>
+				<category><![CDATA[Mobile Forensics]]></category>
+		<category><![CDATA[Uncategorized]]></category>
+		<category><![CDATA[android]]></category>
+		<category><![CDATA[signal]]></category>
+		<guid isPermaLink="false">https://3.88.229.156/?p=173</guid>
+
+					<description><![CDATA[<p>I&#8217;ve had a number of people asking for a walkthrough on this process so thought I&#8217;d make it into this week&#8217;s blog entry. It&#8217;s not a particularly technical process and I&#8217;m the first to admit doesn&#8217;t adhere to strict forensic fundamentals either. I recognize this and agree! This approach is certainly one of the last [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/2019/05/15/obtain-logical-signal-android/">Obtain a logical dump of Signal data on Android with signal-back</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>I&#8217;ve had a number of people asking for a walkthrough on this process so thought I&#8217;d make it into this week&#8217;s blog entry. It&#8217;s not a particularly technical process and I&#8217;m the first to admit doesn&#8217;t adhere to strict forensic fundamentals either. I recognize this and agree! This approach is certainly one of the last things to do on an Android device &#8211; once you&#8217;ve completed all other acquisition techniques &#8211; including potentially taking photos of the screen. You should also consider any potential repercussions of manipulating the device directly and be willing to speak to this down the road otherwise don&#8217;t do it! </p>
+
+
+
+<p>We&#8217;ve slowly been forced to make concessions as forensic examiners as the technology evolves and with it, an increased difficulty in obtaining that pristine unaltered dataset we get with a write-blocked mechanical hard drive. As long as you&#8217;ve followed sound forensic processes and obtained as much data as possible without making any changes, I think it&#8217;s a great ability to possess &#8212; being able to export Signal data this way &#8212; given time is not always abundant and message data can be unpredictably supermassive. We&#8217;ve all had the experience of having to capture screen photos one by one, and let&#8217;s face it &#8211; it sucks. Worse, the data you get from screen photos is often less precise&#8230; perhaps times are rounded to the nearest minute, relative to the time of the moment it is being viewed, or not visible at all.</p>
+
+
+
+<h3>Enough with the disclaimer, where do we start?</h3>
+
+
+
+<p>First, remove any SD card in the device, place it in a bag or tape it to something with a label, and set it aside. Locate a blank SD card. We&#8217;ll use this temporary SD card to transfer off our backup data once it is prepared. I generally wait to insert the SD card until after the backup has been created.</p>
+
+
+
+<p>Open the Signal application on the device. Go to settings via the &#8216;&#8230;&#8217; button at the top right of the home screen. From here look for &#8216;Chats and Media&#8217; and tap on that.</p>
+
+
+
+<figure class="wp-block-image is-resized"><a href="http://3.88.229.156/wp-content/uploads/2019/05/1-2.png"><img loading="lazy" src="http://3.88.229.156/wp-content/uploads/2019/05/1-2.png" alt="" class="wp-image-174" width="180" height="263" srcset="/wp-content/uploads/2019/05/1-2.png 652w, /wp-content/uploads/2019/05/1-2-205x300.png 205w" sizes="(max-width: 180px) 100vw, 180px" /></a></figure>
+
+
+
+<p>On the next screen, click the slider switch to enable Chat Backups. If it is already enabled, switch it off and back on. A new password is generated each time. <em>NOTE: You may wish to turn this OFF after completing an extraction.</em></p>
+
+
+
+<figure class="wp-block-image is-resized"><a href="http://3.88.229.156/wp-content/uploads/2019/05/2-1.png"><img loading="lazy" src="http://3.88.229.156/wp-content/uploads/2019/05/2-1.png" alt="" class="wp-image-175" width="239" height="230" srcset="/wp-content/uploads/2019/05/2-1.png 936w, /wp-content/uploads/2019/05/2-1-300x290.png 300w, /wp-content/uploads/2019/05/2-1-768x743.png 768w" sizes="(max-width: 239px) 100vw, 239px" /></a></figure>
+
+
+
+<p>Enabling the slider switch will trigger a dialog with a numeric password on it. The passphrase is read from left to right, row by row, as if there were no spaces in it. Check the box. <strong>HIGHLY RECOMMEND TAKING A PHOTO</strong> vs. writing it down.</p>
+
+
+
+<figure class="wp-block-image is-resized"><a href="http://3.88.229.156/wp-content/uploads/2019/05/3-1.png"><img loading="lazy" src="http://3.88.229.156/wp-content/uploads/2019/05/3-1.png" alt="" class="wp-image-176" width="261" height="261" srcset="/wp-content/uploads/2019/05/3-1.png 970w, /wp-content/uploads/2019/05/3-1-150x150.png 150w, /wp-content/uploads/2019/05/3-1-768x772.png 768w" sizes="(max-width: 261px) 100vw, 261px" /></a></figure>
+
+
+
+<p>After the program has run, the original screen will update with a new last backup date. Go back to the Home screen and locate File Manager app. On the device root (not the SD card), locate the folder called Signal. It will be empty aside from your newly generated backup. Now put in your blank SD card. Assuming all goes well and it gets mounted, long hold on the Signal folder and then chose &#8216;Move To&#8217; from the context menu. </p>
+
+
+
+<figure class="wp-block-image is-resized"><a href="http://3.88.229.156/wp-content/uploads/2019/05/4-1.png"><img loading="lazy" src="http://3.88.229.156/wp-content/uploads/2019/05/4-1.png" alt="" class="wp-image-178" width="216" height="242" srcset="/wp-content/uploads/2019/05/4-1.png 797w, /wp-content/uploads/2019/05/4-1-267x300.png 267w, /wp-content/uploads/2019/05/4-1-768x861.png 768w" sizes="(max-width: 216px) 100vw, 216px" /></a></figure>
+
+
+
+<figure class="wp-block-image is-resized"><a href="http://3.88.229.156/wp-content/uploads/2019/05/6-1.png"><img loading="lazy" src="http://3.88.229.156/wp-content/uploads/2019/05/6-1-874x1024.png" alt="" class="wp-image-179" width="205" height="239" srcset="/wp-content/uploads/2019/05/6-1-874x1024.png 874w, /wp-content/uploads/2019/05/6-1-256x300.png 256w, /wp-content/uploads/2019/05/6-1-768x900.png 768w, /wp-content/uploads/2019/05/6-1.png 908w" sizes="(max-width: 205px) 100vw, 205px" /></a></figure>
+
+
+
+<p>I usually choose to <em>move</em> it to the blank SD card, so it isn&#8217;t left behind on the device. Transfer this to your examination machine and copy it out. If you were to look at this in hex, you&#8217;ll see what you expected to see &#8211; an encrypted container file.</p>
+
+
+
+<figure class="wp-block-image is-resized"><a href="http://3.88.229.156/wp-content/uploads/2019/05/hxd.png"><img loading="lazy" src="http://3.88.229.156/wp-content/uploads/2019/05/hxd.png" alt="" class="wp-image-180" width="342" height="495" srcset="/wp-content/uploads/2019/05/hxd.png 634w, /wp-content/uploads/2019/05/hxd-207x300.png 207w" sizes="(max-width: 342px) 100vw, 342px" /></a></figure>
+
+
+
+<p>Now we need to use signal-back. This app is written in Go, and open source,  but has been conveniently bundled into an executable that you can download off it&#8217;s Github page at <a rel="noreferrer noopener" aria-label=" (opens in a new tab)" href="https://github.com/xeals/signal-back" target="_blank">xeals/signal-back</a>. I&#8217;ve got this executable in a folder that&#8217;s in my PATH environment variable but you could copy it into the casefolder if you like. The command syntax is:</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="msdos" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">signal-back.exe format signal-2019-01-01-01-30-22.backup > signalMessages.xml</pre>
+
+
+
+<p>After this you will be prompted for the password which is not echoed to the screen. If you get a long error or anything to do with a parsing error you may have a password issue &#8211; try again. Alternatively if everything was successful you now have an XML file that is compatible with SMS Backup and Restore.</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/05/notepad.png"><img loading="lazy" width="1024" height="600" src="http://3.88.229.156/wp-content/uploads/2019/05/notepad-1024x600.png" alt="" class="wp-image-181" srcset="/wp-content/uploads/2019/05/notepad-1024x600.png 1024w, /wp-content/uploads/2019/05/notepad-300x176.png 300w, /wp-content/uploads/2019/05/notepad-768x450.png 768w, /wp-content/uploads/2019/05/notepad.png 1455w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<p>Throw this data into a compatible tool and presto! Signal data! One last note, contact names aren&#8217;t present in the XML. I don&#8217;t know if the Signal backup database includes it or not, but the way I deal with this is by exporting all Native contacts using a forensic tool and apply it to the XML based on phone numbers. You could also do this manually. </p>
+
+
+
+<figure class="wp-block-image is-resized"><a href="http://3.88.229.156/wp-content/uploads/2019/05/7-1.png"><img loading="lazy" src="http://3.88.229.156/wp-content/uploads/2019/05/7-1.png" alt="" class="wp-image-182" width="206" height="344" srcset="/wp-content/uploads/2019/05/7-1.png 544w, /wp-content/uploads/2019/05/7-1-180x300.png 180w" sizes="(max-width: 206px) 100vw, 206px" /></a></figure>
+<p>The post <a rel="nofollow" href="/2019/05/15/obtain-logical-signal-android/">Obtain a logical dump of Signal data on Android with signal-back</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/2019/05/15/obtain-logical-signal-android/feed/</wfw:commentRss>
+			<slash:comments>3</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>forensicBlend: Designing a scalable community plugin API</title>
+		<link>/2019/05/11/forensicblend-designing-a-scalable-community-plugin-api/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=forensicblend-designing-a-scalable-community-plugin-api</link>
+					<comments>/2019/05/11/forensicblend-designing-a-scalable-community-plugin-api/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Sat, 11 May 2019 14:09:10 +0000</pubDate>
+				<category><![CDATA[Forensic Coding]]></category>
+		<category><![CDATA[Mobile Forensics]]></category>
+		<category><![CDATA[Uncategorized]]></category>
+		<category><![CDATA[.NET]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[c#]]></category>
+		<category><![CDATA[forensicBlend]]></category>
+		<guid isPermaLink="false">https://3.88.229.156/?p=149</guid>
+
+					<description><![CDATA[<p>I decided to start writing this series to document my work on forensicBlend, a project I previewed on Twitter yesterday that takes device logs and translates them into a modern report format that can be searched, filtered, and exported. One of my fundamental design goals is to provide a high level of extensibility and allow [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/2019/05/11/forensicblend-designing-a-scalable-community-plugin-api/">forensicBlend: Designing a scalable community plugin API</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>I decided to start writing this series to document my work on forensicBlend, a project I <a rel="noreferrer noopener" aria-label=" (opens in a new tab)" href="https://twitter.com/forensicmike1/status/1126989265420730368?s=20" target="_blank">previewed on Twitter yesterday</a> that takes device logs and translates them into a modern report format that can be searched, filtered, and exported. One of my fundamental design goals is to provide a high level of extensibility and allow community developers to contribute. That is, I want for people who know how to script to be able to contribute their own custom logic and see it work in my apps (and ultimately, result in a better timeline tool). This is something <a rel="noreferrer noopener" aria-label="Eric Zimmerman (opens in a new tab)" href="https://ericzimmerman.github.io/#!index.md" target="_blank">Eric Zimmerman</a> touched on <a rel="noreferrer noopener" aria-label=" (opens in a new tab)" href="https://3.88.229.156/2019/05/06/chatting-net-with-eric-zimmerman/" target="_blank">in our interview</a> last week.</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/05/1-1.png"><img loading="lazy" width="1000" height="650" src="http://3.88.229.156/wp-content/uploads/2019/05/1-1.png" alt="" class="wp-image-150" srcset="/wp-content/uploads/2019/05/1-1.png 1000w, /wp-content/uploads/2019/05/1-1-300x195.png 300w, /wp-content/uploads/2019/05/1-1-768x499.png 768w" sizes="(max-width: 1000px) 100vw, 1000px" /></a></figure>
+
+
+
+<p>I scaffolded some of the UX (above) based roughly on how I want this to work. Essentially- list the currently installed plugins, prompt for updates where available, and provide a way to browse the online repository to download additional plugins.</p>
+
+
+
+<p><em>Side note</em>:<em> I&#8217;ve had some questions regarding what UI framework I am using. The above is a WPF app which uses the excellent <a rel="noreferrer noopener" aria-label=" (opens in a new tab)" href="https://github.com/MahApps/MahApps.Metro" target="_blank">MahApps.Metro</a> and <a href="https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit" target="_blank" rel="noreferrer noopener" aria-label=" (opens in a new tab)">Material Design in XAML</a> libraries. These are </em><u><em>free</em></u><em> offerings that you can use in your own WPF project to elevate your UI to the next level.</em></p>
+
+
+
+<h3><u>Requirements</u></h3>
+
+
+
+<p>There are really two areas of work here to think about: the plugin API itself (what to do with the packages once they are installed), and package hosting/redistribution. Here are a few overall design considerations and requirements I came up with:</p>
+
+
+
+<ul><li>As a lone developer, time and cost savings are a priority. If there are any wheels that have already been invented, don&#8217;t invent new ones unless the need be great.</li><li>It&#8217;s 2019 and it&#8217;s therefore important we take time to consider things like security. Packages containing plugins may have DLLs (more on this later) with code that will ultimately be executed by our app. This could (and should) be considered a potential attack surface.  We can mitigate this with some of the following:<ul><li>Packages should be signed and verified at every step of the way.</li><li>Community created plugins and updates will undergo a thorough, manual code review and testing before they are posted to the package library (think Apple&#8217;s App Store).</li></ul></li><li>Plugin packages should have versioning capabilities and upgrading to the latest version should be as seamless as possible, being cognizant that not all users will have internet access.</li><li>Community created plugins will be managed centrally and approved prior to being posted to the online package library (think Apple App Store).</li></ul>
+
+
+
+<h3><u>Hosting and Package Distribution</u></h3>
+
+
+
+<p>I knew going into a project like this that I wanted to use Amazon AWS. The cost effectiveness, sheer scalability, and all-around cool factor of using AWS made this an easy design decision. Off the top of my head, I expect to be using the following AWS components:</p>
+
+
+
+<ul><li>API Gateway <ul><li>Create and administer web endpoints for the app.</li></ul></li><li>Certificate Manager<ul><li>Free SSL certificate!</li></ul></li><li>CloudFront<ul><li>Content Delivery Network (CDN) to ensure low latency, high speed access to data from anywhere in the world</li></ul></li><li>Cognito<ul><li>Complete User Account Management and Authentication</li></ul></li><li>EC2 (Elastic Compute Cloud)<ul><li>Host microinstance of some sort of RDBMS. Or perhaps we will try out a NoSQL solution DynamoDB for science / learning &#8212; and because DynamoDB has a permanent free tier option.</li></ul></li><li>Elastic Load Balancing<ul><li>Distribute incoming application traffic across multiple targets across several Availability zones.</li></ul></li><li>Lambda<ul><li>Provide the business logic for serving our REST API to answer questions like &#8220;What are all the plugins currently available and what is the latest version?&#8221;</li><li>Provide the business logic for facilitating and monitoring package downloads (users like to see download counts), potentially provide a &#8216;thumbs up / thumbs down&#8217; interaction or possibly even comment</li></ul></li><li>Route 53<ul><li>DNS Registration</li></ul></li><li>S3<ul><li>Secure, encrypted, redundant hosting of the compiled packages themselves</li><li>Web front-end for users who choose to browse it this way.</li></ul></li></ul>
+
+
+
+<p>Let&#8217;s keep in mind I&#8217;ve touched on less than 10 of the things AWS can do for you, whereas the actual list of things it can do is much, much longer. For most of us, the usage involved will be in or around the Free Tier, so basically what I&#8217;m saying is you can get all of the things above for NO COST. If you are reading this and going, &#8220;Why am I still renting web space like I did in 2005?&#8221; this is an excellent question. You may wanna migrate! There is also an irreplaceable feeling you get when you realize you are using the same exact same serverless environment as some of the largest of corporate juggernauts out there. </p>
+
+
+
+<h3><u>Packaging Technologies</u></h3>
+
+
+
+<p>Earlier I mentioned leveraging as many existing technologies as possible. Most every .NET programmer out there is familiar with the idea of <a href="https://www.nuget.org/" target="_blank" rel="noreferrer noopener" aria-label=" (opens in a new tab)">NuGet</a>. From NuGet themselves:  </p>
+
+
+
+<p style="text-align:right"><em>NuGet is the package manager for .NET. The NuGet client tools provide the ability to produce and consume packages. The NuGet Gallery is the central package repository used by all package authors and consumers.  </em></p>
+
+
+
+<p></p>
+
+
+
+<p>So if I&#8217;m writing an app, and I want to bring in code from a library to perform a specific function, I can open the NuGet Package Manager in my development environment (Visual Studio shown below) and perform a search for the function I need. Then it&#8217;s one click to install and be off.</p>
+
+
+
+<figure class="wp-block-image"><img loading="lazy" width="1024" height="562" src="http://3.88.229.156/wp-content/uploads/2019/05/nuget-1024x562.png" alt="" class="wp-image-152" srcset="/wp-content/uploads/2019/05/nuget-1024x562.png 1024w, /wp-content/uploads/2019/05/nuget-300x165.png 300w, /wp-content/uploads/2019/05/nuget-768x421.png 768w, /wp-content/uploads/2019/05/nuget.png 1320w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<p>It goes even further by providing strong versioning, licensing, dependency tracking, and more. Behind the scenes, NuGet uses .NUPKG files which are containers that bake alot of this functionality in for us, and provide desirable things like package signing.</p>
+
+
+
+<p>Since NuGet already does everything we need and then some, for free, why would we design our own solution from scratch? Seeing the recurring theme here?</p>
+
+
+
+<h3><u>Next steps</u></h3>
+
+
+
+<p>So we know we&#8217;re going to use NuGet as a package management solution, and we know we&#8217;re going to use AWS for community hosting and package distribution, but what about the actual code to load said plugins? This could be the most entertaining part, but also the most time intensive. For the purposes of development, I will need to look at how to extract and use content from a NuGet package <u>at runtime</u>.</p>
+
+
+
+<p>I&#8217;m going to have to weigh the advantages of dynamic code compilation (source code compilation at runtime) vs. distributing pre-compiled binaries (DLLs) and simply loading them.</p>
+
+
+
+<p>Stay tuned for the next article in the series where we will get coding!</p>
+<p>The post <a rel="nofollow" href="/2019/05/11/forensicblend-designing-a-scalable-community-plugin-api/">forensicBlend: Designing a scalable community plugin API</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/2019/05/11/forensicblend-designing-a-scalable-community-plugin-api/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>iOS Photos.sqlite Forensics</title>
+		<link>/2019/05/02/ios-photos-sqlite-forensics/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=ios-photos-sqlite-forensics</link>
+					<comments>/2019/05/02/ios-photos-sqlite-forensics/#comments</comments>
+		
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Thu, 02 May 2019 12:28:45 +0000</pubDate>
+				<category><![CDATA[Guest Blog]]></category>
+		<category><![CDATA[Mobile Forensics]]></category>
+		<category><![CDATA[Uncategorized]]></category>
+		<category><![CDATA[guest blog]]></category>
+		<category><![CDATA[iOS]]></category>
+		<category><![CDATA[shafik punja]]></category>
+		<category><![CDATA[sqlite]]></category>
+		<guid isPermaLink="false">https://3.88.229.156/?p=120</guid>
+
+					<description><![CDATA[<p>Discussing with Shafik the correlation of photo albums to pictures on iOS using Photos.sqlite.</p>
+<p>The post <a rel="nofollow" href="/2019/05/02/ios-photos-sqlite-forensics/">iOS Photos.sqlite Forensics</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Photos.sqlite, the iOS elephant in the room of mobile forensic vendors that is absolutely chock full of interesting information yet is completely ignored. Why is this? One possible reason is that the database can be hard to work with due to table names that vary from device to device.</p>
+
+
+
+<p>To answer this question, I&#8217;m bringing out the big guns &#8211; colleague and friend <a href="https://twitter.com/qubytelogic">Shafik G. Punja</a> &#8211; who has been working in the digital forensics field for the last 15 years and counting. Shafik&#8217;s meticulous nature and extensive knowledge and experience is unmatched and so is the perfect person to ask about this subject.</p>
+
+
+
+<p><strong><em>Forensicmike</em>: What prompted you to investigate Photos.sqlite?</strong></p>
+
+
+
+<p><em>Shafik</em>: I was working on an already acquired iPhone 8 on iOS 12.1.2 where the device owner had placed the images of interest in an album called &#8220;Evidence&#8221;. The guy who did the acquisition, a blogger who shall not be directly named but rhymes with forensicbike, did not check before releasing the device itself. For most if not all major forensic tools, there is no way to tell which camera roll items belong to an album. This means there is a possibility that for every single instance of a video or photo on the file system there may be membership to one or more albums. Some albums are user created while others are automatically created by iOS such as &#8216;Screenshots&#8217; or even third party applications.</p>
+
+
+
+<p><strong><em>Forensicmike</em>: I don&#8217;t know who you could be referring to! So&#8230; could you summarize the purpose of Photos.sqlite?</strong></p>
+
+
+
+<p><em>Shafik</em>: This SQLite database file contains information about videos and photos stored on an iOS device. Photos.sqlite contains everything from album ownership, to internal photo analysis and GPS and much more. At the time of writing, this database must be manually examined in order to identify the existence of albums which can contain photos or videos.</p>
+
+
+
+<p><strong><em>Forensicmike</em>: Shaf&#8230; there&#8217;s nearly 70 tables in this beast. Which of them are actually needed?</strong></p>
+
+
+
+<p><em>Shafik</em>: All of them! Just kidding. The primary ones you need to focus on for the purpose of album identification and media correlation are ZGENERICALBUM, the mystery Z_##ASSETS table, and the ZGENERICASSET table. There are a handful of other interesting ones that I&#8217;ll provide a list for at the end but those are the main ones. The mystery number is the oddest and seems to vary from device to device. It is also probably the number one reason the forensic tools are staying far away from this otherwise easy target of a database. Keep in mind this is for iOS 12.1 and could be different in future/previous versions.</p>
+
+
+
+<p><strong><em>Forensicmike</em>: Okay, so where do we start?</strong></p>
+
+
+
+<p><em>Shafik</em>: If you know the album you&#8217;re interested in as I did in my case, start with ZGENERICALBUM. The ZTITLE column is where you&#8217;re headed. You can also note the ZCACHEDPHOTOSCOUNT and ZCACHEDVIDEOSCOUNT for a photo/video count &#8211; handy!</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/05/1.png"><img loading="lazy" width="624" height="213" src="http://3.88.229.156/wp-content/uploads/2019/05/1.png" alt="" class="wp-image-123" srcset="/wp-content/uploads/2019/05/1.png 624w, /wp-content/uploads/2019/05/1-300x102.png 300w" sizes="(max-width: 624px) 100vw, 624px" /></a></figure>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/05/2.png"><img loading="lazy" width="596" height="62" src="http://3.88.229.156/wp-content/uploads/2019/05/2.png" alt="" class="wp-image-124" srcset="/wp-content/uploads/2019/05/2.png 596w, /wp-content/uploads/2019/05/2-300x31.png 300w" sizes="(max-width: 596px) 100vw, 596px" /></a></figure>
+
+
+
+<p>So in this case we can see there are 4 items anticipated all of which are photos. At this point you should also note the Z_PK &#8212; in this case it was 47 &#8212; as this is our primary key that we will cross reference in table number 2 &#8211; the mystery number table. On this device, it was Z23_ASSETS. So, step 2 is to check Z23_ASSETS (or Z##_ASSETS) for your Z_PK of interest.</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/05/4.png"><img loading="lazy" width="624" height="201" src="http://3.88.229.156/wp-content/uploads/2019/05/3.png" alt="" class="wp-image-126" srcset="/wp-content/uploads/2019/05/3.png 624w, /wp-content/uploads/2019/05/3-300x97.png 300w" sizes="(max-width: 624px) 100vw, 624px" /></a></figure>
+
+
+
+<p>So we can see there are four items of interest in the Z_23ASSETS table if we filter by Z_23ALBUMS=47 (the Z_PK from ZGENERICALBUM), specifically 4490, 4491, 4492, 4493.</p>
+
+
+
+<p>Now we have one final table to bring into the mix&#8230; ZGENERICASSET. Take your values of interest and search for them as either RowID or Z_PK:</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/05/4.png"><img loading="lazy" width="512" height="283" src="http://3.88.229.156/wp-content/uploads/2019/05/4.png" alt="" class="wp-image-125" srcset="/wp-content/uploads/2019/05/4.png 512w, /wp-content/uploads/2019/05/4-300x166.png 300w" sizes="(max-width: 512px) 100vw, 512px" /></a></figure>
+
+
+
+<p>Now all that&#8217;s left is to scroll to the right&#8230;keep scrolling&#8230;. never give up scrolling&#8230;. and&#8230;.victory!</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/05/5.png"><img loading="lazy" width="406" height="165" src="http://3.88.229.156/wp-content/uploads/2019/05/5.png" alt="" class="wp-image-127" srcset="/wp-content/uploads/2019/05/5.png 406w, /wp-content/uploads/2019/05/5-300x122.png 300w" sizes="(max-width: 406px) 100vw, 406px" /></a></figure>
+
+
+
+<p><strong><em>Forensicmike</em>: Interesting&#8230; all PNG files &#8211; probably suggesting these could be screenshots if I recall from FOR585?</strong></p>
+
+
+
+<p>Shafik: Yes! They were screenshots &#8211; but that&#8217;s not the only thing you can understand from the querying we&#8217;ve done so far. Take a look at the ZDATECREATED for a UTC based creation time, and ZADDEDDATE for a &#8216;added to album time&#8217; &#8211; something that would be utterly missing from an analysis within an industry tool. And we&#8217;re barely scratching the surface here.</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/05/6.png"><img loading="lazy" width="596" height="154" src="http://3.88.229.156/wp-content/uploads/2019/05/6.png" alt="" class="wp-image-128" srcset="/wp-content/uploads/2019/05/6.png 596w, /wp-content/uploads/2019/05/6-300x78.png 300w" sizes="(max-width: 596px) 100vw, 596px" /></a></figure>
+
+
+
+<p><strong><em>Forensicmike</em>: Just confirming, you actually found these images in DCIM/104APPLE right?</strong></p>
+
+
+
+<p>Shafik: Yup &#8211; exactly where the database said they would be!</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/05/7.png"><img loading="lazy" width="323" height="343" src="http://3.88.229.156/wp-content/uploads/2019/05/7.png" alt="" class="wp-image-129" srcset="/wp-content/uploads/2019/05/7.png 323w, /wp-content/uploads/2019/05/7-283x300.png 283w" sizes="(max-width: 323px) 100vw, 323px" /></a></figure>
+
+
+
+<p> <br><strong><em>Forensicmike</em>: </strong> <strong>Awesome.. any other data points you&#8217;d like to draw attention to?</strong></p>
+
+
+
+<p><em>Shafik</em>: Of course. Here is a quick non-exhaustive list of some highlights I found. Keep in mind these are specific to iOS 12.1.2.</p>
+
+
+
+<div class="wp-block-file"><a href="http://3.88.229.156/wp-content/uploads/2019/05/DataPoints-PhotosSQLITE-iOS12_1_2.pdf">DataPoints-PhotosSQLITE-iOS12_1_2</a><a href="http://3.88.229.156/wp-content/uploads/2019/05/DataPoints-PhotosSQLITE-iOS12_1_2.pdf" class="wp-block-file__button" download>Download</a></div>
+
+
+
+<p><strong><em>Forensicmike</em>: What&#8217;s the best way for people to reach you if they have questions?</strong></p>
+
+
+
+<p>Via Twitter (<a href="https://twitter.com/qubytelogic">@qubytelogic</a>) is fine &#8211; my direct messages are open.</p>
+
+
+
+<p><strong>Thanks a lot Shafik! And thank you readers. If there is interest, perhaps we can move forward on this subject by investigating the use of fuzzy SQL querying to programmatically go&#8230;.</strong></p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/05/vendor.png"><img loading="lazy" width="800" height="600" src="http://3.88.229.156/wp-content/uploads/2019/05/vendor.png" alt="" class="wp-image-133" srcset="/wp-content/uploads/2019/05/vendor.png 800w, /wp-content/uploads/2019/05/vendor-300x225.png 300w, /wp-content/uploads/2019/05/vendor-768x576.png 768w" sizes="(max-width: 800px) 100vw, 800px" /></a></figure>
+<p>The post <a rel="nofollow" href="/2019/05/02/ios-photos-sqlite-forensics/">iOS Photos.sqlite Forensics</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/2019/05/02/ios-photos-sqlite-forensics/feed/</wfw:commentRss>
+			<slash:comments>5</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Aggregating iOS PowerLog data using C# &#8211; Part 1</title>
+		<link>/2019/04/28/aggregating-ios-powerlog-data-using-c-part-1/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=aggregating-ios-powerlog-data-using-c-part-1</link>
+					<comments>/2019/04/28/aggregating-ios-powerlog-data-using-c-part-1/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Sun, 28 Apr 2019 14:32:50 +0000</pubDate>
+				<category><![CDATA[Forensic Coding]]></category>
+		<category><![CDATA[Mobile Forensics]]></category>
+		<category><![CDATA[Uncategorized]]></category>
+		<category><![CDATA[apollo]]></category>
+		<category><![CDATA[c#]]></category>
+		<category><![CDATA[gkziplib]]></category>
+		<category><![CDATA[iOS]]></category>
+		<category><![CDATA[linqpad]]></category>
+		<category><![CDATA[powerlogs]]></category>
+		<guid isPermaLink="false">https://3.88.229.156/?p=80</guid>
+
+					<description><![CDATA[<p>Building on the work of Sarah Edwards to re-unify the PowerLog database with C# before running APOLLO.</p>
+<p>The post <a rel="nofollow" href="/2019/04/28/aggregating-ios-powerlog-data-using-c-part-1/">Aggregating iOS PowerLog data using C# &#8211; Part 1</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>If you haven&#8217;t already heard of Sarah Edwards&#8217; <a href="https://github.com/mac4n6/APOLLO">APOLLO</a> (Apple Pattern of Life Lazy Output&#8217;er), you should probably stop reading this and go check that out first. This article builds on Sarah&#8217;s work, specifically with PowerLogs. </p>
+
+
+
+<p>One of the challenges with PowerLogs is that on a daily basis, the device dumps the contents into a compressed archive. This makes sense from Apple&#8217;s perspective but makes it difficult / tedious to query en masse for forensic analysis. Our task today will be to programmatically combine data into a unified dataset upon which we can then run our APOLLO queries.</p>
+
+
+
+<p>For this work, I&#8217;m going to leverage my own <a href="https://github.com/forensicmike/gkziplib">GKZipLib</a>, which is a custom ZIP parsing module I created after becoming frustrated with the sluggish  performance of open source ZIP libraries available (including the ones native to .NET) for archives of significant size. My research iPhone filesystem is only a 15GB archive, but using GKZipLib parsing 271,361 entries to locate PowerLogs took my machine&#8217;s dated hardware a whole 0.5 seconds to complete. </p>
+
+
+
+<p>Finally, I&#8217;ll be using <a href="https://www.linqpad.net/">LINQPad</a>, Joe Albahari&#8217;s massively useful creation that has become a critical part of my day to day work. If you do any .NET coding at all, this is a wonderful tool to have in your arsenal for everything from quick and dirty analytical tasks to developing proof of concept code that can ultimately mature into a fully fledged Windows app in future.</p>
+
+
+
+<p>So let&#8217;s get started. We&#8217;ll begin with a few preparatory steps:</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="csharp" data-enlighter-theme="droide" data-enlighter-highlight="" data-enlighter-linenumbers="false" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">// Instantiate our archive
+var iphoneZip = new GKZipFile(@"D:\a769****_files.zip", false);
+
+// Pattern to find our GZipped powerlogs
+Regex rgxPowerLog = new Regex(@"powerlog_[\w\W]*?\.PLSQL\.gz");
+
+// Place to export all the things
+var outputPath = Directory.CreateDirectory(@"c:\temp\plUnity\");
+
+// Who doesn't love stats?
+var filesParsed = 0;
+var filesExtracted = 0;</pre>
+
+
+
+<p>From here, thanks to the power of LINQ and the implementation of the IEnumerable interface by GKZipFile, it&#8217;s as simple as iterating our archive like it&#8217;s a giant array with foreach.</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="csharp" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">foreach (var file in iphoneZip)
+{
+	// Check for a GZ powerlog archive.
+	if (rgxPowerLog.IsMatch(file.ShortName))
+	{
+		Console.WriteLine($"Extracting {file.Name}...");
+		file.ExtractToFolder(outputPath.FullName);
+		filesExtracted++;
+	}
+	// As well as the 'CurrentPowerLog'
+	// By using IndexOf instead of Contains, we ensure to snag any -shm and -wal files as well
+	if (file.ShortName.IndexOf("CurrentPowerLog.PLSQL", StringComparison.CurrentCultureIgnoreCase) >= 0)
+	{
+		Console.WriteLine($"Extracting {file.Name}...");
+		file.ExtractToFolder(outputPath.FullName);
+		filesExtracted++;
+	}
+	
+	// Count of files parsed
+	filesParsed++;
+}
+
+Console.WriteLine($"Finished parsing {filesParsed} files.");
+Console.WriteLine($"A total of {filesExtracted} files were extracted.");</pre>
+
+
+
+<p>Output:</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="raw" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">Extracting /private/var/containers/Shared/SystemGroup/BCBD844C-BDB8-4D6B-8246-555182B5F39A/Library/BatteryLife/Archives/powerlog_2018-10-07_7F9FC438.PLSQL.gz...
+Extracting /private/var/containers/Shared/SystemGroup/BCBD844C-BDB8-4D6B-8246-555182B5F39A/Library/BatteryLife/Archives/powerlog_2018-10-08_2162C03C.PLSQL.gz...
+Extracting /private/var/containers/Shared/SystemGroup/BCBD844C-BDB8-4D6B-8246-555182B5F39A/Library/BatteryLife/Archives/powerlog_2018-10-09_0DC64180.PLSQL.gz...
+Extracting /private/var/containers/Shared/SystemGroup/BCBD844C-BDB8-4D6B-8246-555182B5F39A/Library/BatteryLife/Archives/powerlog_2018-10-10_24F9BF01.PLSQL.gz...
+Extracting /private/var/containers/Shared/SystemGroup/BCBD844C-BDB8-4D6B-8246-555182B5F39A/Library/BatteryLife/CurrentPowerlog.PLSQL-shm...
+Extracting /private/var/containers/Shared/SystemGroup/BCBD844C-BDB8-4D6B-8246-555182B5F39A/Library/BatteryLife/CurrentPowerlog.PLSQL-wal...
+Extracting /private/var/containers/Shared/SystemGroup/BCBD844C-BDB8-4D6B-8246-555182B5F39A/Library/BatteryLife/CurrentPowerlog.PLSQL...
+Finished parsing 271361 files.
+A total of 7 files were extracted.
+
+</pre>
+
+
+
+<p>The final thing we will do in part 1 is extract our GZ files in place so that they are accessible for querying. To simplify things, I wrote a function to do this which simply removes the GZ extension to determine the output filename. This logic could certainly be flawed for a generic GZ decompression routine but in this case we can rely on the fact that our GZipped files will have the .GZ extension.</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="csharp" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">void GZExtract(string inputFile)
+{
+	using (var fs = new FileStream(inputFile, FileMode.Open, FileAccess.Read, FileShare.Read))
+	{
+		using (var gzstr = new GZipStream(fs, CompressionMode.Decompress))
+		{
+			const int buffSize = 4096;
+			byte[] buffer = new byte[buffSize];
+			using (var uncompressedData = new FileStream(inputFile.Replace(".gz", ""), FileMode.Create))
+			{
+				var bytesRead = 0;
+				do
+				{
+					bytesRead = gzstr.Read(buffer, 0, buffSize);
+					if (bytesRead > 0)
+					{
+						uncompressedData.Write(buffer, 0, bytesRead);
+					}
+				} while (bytesRead > 0);
+
+			}
+		}
+	}
+}</pre>
+
+
+
+<p>And finally, invoke the function for each of our GZ powerlogs:</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="csharp" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">// Decompress all of our gzipped archives
+foreach (var arc in outputPath.GetFiles("*.gz"))
+{
+	GZExtract(arc.FullName);
+}</pre>
+
+
+
+<p>That&#8217;s where we will end off today. Here&#8217;s what we&#8217;ve completed so far:</p>
+
+
+
+<ul><li>Iterate the iOS filesystem archive, locate files of interest including CurrentPowerLog.PLSQL and associated SQLite artifacts and any GZipped archives, and extracted them to the local machine.</li><li>Decompress all GZipped archives in place.</li></ul>
+
+
+
+<figure class="wp-block-image"><img loading="lazy" width="558" height="262" src="http://3.88.229.156/wp-content/uploads/2019/04/powerlog_output.png" alt="" class="wp-image-97" srcset="/wp-content/uploads/2019/04/powerlog_output.png 558w, /wp-content/uploads/2019/04/powerlog_output-300x141.png 300w" sizes="(max-width: 558px) 100vw, 558px" /></figure>
+
+
+
+<p>In part 2, we will look at several different options for amalgamating this data in preparation for running Sarah&#8217;s PowerLog scripts against the entire dataset instead of having to do this manually for each one.</p>
+<p>The post <a rel="nofollow" href="/2019/04/28/aggregating-ios-powerlog-data-using-c-part-1/">Aggregating iOS PowerLog data using C# &#8211; Part 1</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/2019/04/28/aggregating-ios-powerlog-data-using-c-part-1/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>MPT &#8211; LG&#8217;s incognito version of KnowledgeC</title>
+		<link>/2019/04/27/mpt-lgs-incognito-version-of-knowledgec/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=mpt-lgs-incognito-version-of-knowledgec</link>
+					<comments>/2019/04/27/mpt-lgs-incognito-version-of-knowledgec/#respond</comments>
+		
+		<dc:creator><![CDATA[Mike Williamson]]></dc:creator>
+		<pubDate>Sat, 27 Apr 2019 20:38:49 +0000</pubDate>
+				<category><![CDATA[Mobile Forensics]]></category>
+		<category><![CDATA[Uncategorized]]></category>
+		<category><![CDATA[android]]></category>
+		<category><![CDATA[artifact exchange]]></category>
+		<category><![CDATA[lg]]></category>
+		<category><![CDATA[magnet forensics]]></category>
+		<category><![CDATA[mpt]]></category>
+		<guid isPermaLink="false">http://3.87.228.100/?p=7</guid>
+
+					<description><![CDATA[<p>Learn how LG has been tracking its users for years, and how devices are not purging this data on a factory reset.</p>
+<p>The post <a rel="nofollow" href="/2019/04/27/mpt-lgs-incognito-version-of-knowledgec/">MPT &#8211; LG&#8217;s incognito version of KnowledgeC</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>My first post ought to be about a subject I spent years working on. Little did I know what I expected to be a straightforward forensic examination of a wiped LG phone would result in so much &#8212; becoming a pivotal piece of evidence that contradicted the suspect&#8217;s alibi, my first real foray into reverse engineering Android APKs, the subject of several presentations, and even getting published in a technical op-ed in the INTERPOL Digital Forensics e-Newsletter.</p>
+
+
+
+<p>In recent times, location tracking data from iOS has come to the forefront with the work of people like Sarah Edwards (<a href="http://www.twitter.com/iamevltwin">@iamevltwin</a>), Phill Moore (<a href="http://www.twitter.com/phillmoore">@phillmoore</a>) and Alexis Brignoni (<a href="http://www.twitter.com/alexisbrignoni">@alexisbrignoni</a>). Turns out, LG&#8217;s tracking us too &#8211; except they&#8217;re trying to be sneaky by obfuscating the data that&#8217;s tracked with numeric column and table names. In reality, I think it&#8217;s likely that <strong>all </strong>the mobile vendors are doing this &#8216;diagnostic&#8217; tracking and it&#8217;s just a matter of time (and forensic examinations) before that data gets uncovered.  LG does give an explicit warning that this is going to happen regardless, but most people decline to actually read this stuff. </p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter"><a href="http://3.88.229.156/wp-content/uploads/2019/04/LGScreen.png"><img loading="lazy" width="539" height="749" src="http://3.88.229.156/wp-content/uploads/2019/04/LGScreen.png" alt="" class="wp-image-50" srcset="/wp-content/uploads/2019/04/LGScreen.png 539w, /wp-content/uploads/2019/04/LGScreen-216x300.png 216w" sizes="(max-width: 539px) 100vw, 539px" /></a></figure></div>
+
+
+
+<p>Like many other forensic examiners, I get so focused on completing each examination that it often feels insurmountable to then go on to share my findings with the community, or that the work I did for a file today may be useful in countless other files out there. But with enough years of doing this, and enough opportunities to network with other seasoned forensicators across the globe, it has become clear that we are often trapped in a perpetual state of unnecessary wheel re-invention.</p>
+
+
+
+<p>Enter the <a href="https://www.magnetforensics.com/artifact-exchange/">Magnet Artifact Exchange</a>, a ridiculously needed sharing piece in the digital forensics community, which I only came to know about in the last couple of months. Since learning about it, I&#8217;ve had a strong desire to start developing custom artifacts for it, and so today I officially submitted my first of them.</p>
+
+
+
+<p>So let&#8217;s get down to business. What is LG MPT? It&#8217;s a background service that is mostly invisible to the user that runs on LG-Android devices since atleast Android 4.4.2, and as recent as Android 8. It resides on it&#8217;s own partition (cleverly named &#8216;mpt&#8217;) and is enabled by default and difficult to disable. On the tiny island of a partition there&#8217;s a database or two, the biggest being &#8216;LDB_MainData.db&#8217;, with a LOT of tables with unhelpful names like &#8216;t301&#8217; and so on. As you can see from the screenshot below, the columns aren&#8217;t much better, each one starting with &#8216;f001&#8217;, &#8216;f002&#8217;, and so on.</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/04/mptTables.png"><img loading="lazy" width="1024" height="496" src="http://3.87.228.100/wp-content/uploads/2019/04/mptTables-1024x496.png" alt="" class="wp-image-8" srcset="/wp-content/uploads/2019/04/mptTables-1024x496.png 1024w, /wp-content/uploads/2019/04/mptTables-300x145.png 300w, /wp-content/uploads/2019/04/mptTables-768x372.png 768w, /wp-content/uploads/2019/04/mptTables.png 1053w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<p>If you start browsing the data you come across some extremely data-packed tables such as t312:</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/04/mptData-1.png"><img loading="lazy" width="745" height="523" src="http://3.88.229.156/wp-content/uploads/2019/04/mptData-1.png" alt="" class="wp-image-108" srcset="/wp-content/uploads/2019/04/mptData-1.png 745w, /wp-content/uploads/2019/04/mptData-1-300x211.png 300w" sizes="(max-width: 745px) 100vw, 745px" /></a><figcaption><strong>14000 rows in t312 alone <img src="https://s.w.org/images/core/emoji/13.1.0/72x72/1f642.png" alt="🙂" class="wp-smiley" style="height: 1em; max-height: 1em;" /></strong></figcaption></figure>
+
+
+
+<p>So where do we go next? Sure, f002 looks like a timestamp. Sure, f006 and f007 looks like MCC/MNC, but are we willing to get up on the stand and point the finger based on what we THINK data might be? Of course, we need to flesh this out much further. One of the easiest things to do here is a trick Paul Sanderson (<a href="https://twitter.com/sandersonforens">@sandersonforens</a>) taught me and that is check for TRIGGERS in our database. Sure enough &#8211; descriptive words &#8211; hooray! </p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/04/tableDescriptions.png"><img loading="lazy" width="1024" height="376" src="http://3.87.228.100/wp-content/uploads/2019/04/tableDescriptions-1024x376.png" alt="" class="wp-image-10" srcset="/wp-content/uploads/2019/04/tableDescriptions-1024x376.png 1024w, /wp-content/uploads/2019/04/tableDescriptions-300x110.png 300w, /wp-content/uploads/2019/04/tableDescriptions-768x282.png 768w, /wp-content/uploads/2019/04/tableDescriptions.png 1096w" sizes="(max-width: 1024px) 100vw, 1024px" /></a><figcaption><strong>Note &#8211; the &#8216;limit&#8217; in the wording here is describing the trigger, it&#8217;s not part of the table description</strong><br></figcaption></figure>
+
+
+
+<p>Keep in mind, the word &#8216;limit&#8217; on the end of each of these is describing the <strong>trigger</strong> whose purpose is to hard-cap the amount of rows in each table. But the former pertains to the table as well.  You can&#8217;t see t312 in the above list, but it&#8217;s <em>gsm_cell_info</em>.  Even with size limits, these are obviously data intensive logs. This trigger ensures that it automatically purges content once it hits a certain size. But let&#8217;s be honest, it still tracks A LOT. And does not get wiped when you wipe your phone. Makes you think twice about selling an old LG phone doesn&#8217;t it?</p>
+
+
+
+<p>To determine the purpose of each field, one must do some reverse engineering work. You can use the tool of your choice, and this post isn&#8217;t going to go so in depth as to explain the entire spectrum of APK decompilers, but I will say this from experience &#8212; don&#8217;t think that APKTOOL / learning SMALI (think of it as an Android equivalent of ASM) is the only way to do this. There are some incredible APK -&gt; Java tools out there that make it so much easier that I wish I had known about way back when.</p>
+
+
+
+<p>Instead, I am going to link my research paper which details the process I went through to discover the purpose of each table. Keep in mind, my research was for MPT as it existed back in Android 4.4.2. It&#8217;s changed since then &#8212; mostly in the sense of adding more tables. A LOT more tables in fact. But the premise is the same if you&#8217;re looking to prove what certain data is.</p>
+
+
+
+<p>One golden rule when dealing with MPT is that F001 is always ROWID, and F002 is always a Unix MS timestamp, no matter what. After that, things diverge for each table. Some of them are very self explanatory (like the ones that show the current Android version and fingerprint, etc) while others are as subtle as saying a single number which is representative of an enum that you can generally lookup on the Android Developer Documentation.</p>
+
+
+
+<p>Anyhow, here is the research paper, I hope you find it useful. The most helpful information is in the first few pages, after that I get into a table-by-table look at what each means. I&#8217;ve submitted one artifact for t312 (mappable cell tower data), to Magnet Artifact Exchange as of today, and I&#8217;ll be adding more as time permits.</p>
+
+
+
+<div class="wp-block-file"><a href="http://3.87.228.100/wp-content/uploads/2019/04/MLT_Paper.pdf">MLT Research Paper</a><a href="http://3.87.228.100/wp-content/uploads/2019/04/MLT_Paper.pdf" class="wp-block-file__button" download>Download</a></div>
+
+
+
+<p>Finally, a sneak peek at the result &#8212; reviewing MPT logs directly in-app with <a href="https://www.magnetforensics.com/products/magnet-axiom/">Magnet AXIOM</a>. Coming to an app near you!</p>
+
+
+
+<figure class="wp-block-image"><a href="http://3.88.229.156/wp-content/uploads/2019/04/axiom.png"><img loading="lazy" width="1024" height="775" src="http://3.88.229.156/wp-content/uploads/2019/04/axiom-1024x775.png" alt="" class="wp-image-41" srcset="/wp-content/uploads/2019/04/axiom-1024x775.png 1024w, /wp-content/uploads/2019/04/axiom-300x227.png 300w, /wp-content/uploads/2019/04/axiom-768x581.png 768w, /wp-content/uploads/2019/04/axiom.png 1285w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+<p>The post <a rel="nofollow" href="/2019/04/27/mpt-lgs-incognito-version-of-knowledgec/">MPT &#8211; LG&#8217;s incognito version of KnowledgeC</a> appeared first on <a rel="nofollow" href="/">forensicmike1</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/2019/04/27/mpt-lgs-incognito-version-of-knowledgec/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>
